@@ -1,0 +1,6252 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass extarticle
+\begin_preamble
+\input{klmacros}
+\end_preamble
+\use_default_options true
+\begin_modules
+KL-theorems
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "palatino" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 1
+\bibtex_command default
+\index_command default
+\float_placement h
+\paperfontsize 12
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style siam
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\branch answers
+\selected 1
+\filename_suffix 0
+\color #afe6e6
+\end_branch
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+A Crash Course in Linear Algebra for Differential Equations
+\begin_inset Newline newline
+\end_inset
+
+Part II: Eigensystems
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset VSpace vfill
+\end_inset
+
+
+\size larger
+Katharine Long
+\begin_inset Newline newline
+\end_inset
+
+
+\size large
+Department of Mathematics and Statistics
+\begin_inset Newline newline
+\end_inset
+
+Texas Tech University
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+The matrix eigenvalue problem
+\end_layout
+
+\begin_layout Standard
+Here's the problem that motivates this whole document: solve the system
+ of differential equations
+\begin_inset Formula 
+\[
+\od{\mathbf{u}}{t}=A\mathbf{u}.
+\]
+
+\end_inset
+
+In this equation, 
+\begin_inset Formula $\mathbf{u}\left(t\right)$
+\end_inset
+
+ is a vector-valued function, 
+\begin_inset Formula $\mathbf{u}\left(t\right)=\left[\begin{array}{cccc}
+u_{1}\left(t\right) & u_{2}\left(t\right) & \cdots & u_{n}\left(t\right)\end{array}\right]$
+\end_inset
+
+ and 
+\begin_inset Formula $A$
+\end_inset
+
+ is a square matrix.
+ We are going to build a general solution to this equation as a linear combinati
+on of simpler solutions.
+ The 
+\begin_inset Quotes eld
+\end_inset
+
+simple
+\begin_inset Quotes erd
+\end_inset
+
+ solutions we will look for are 
+\emph on
+exponential in time,
+\begin_inset Formula 
+\[
+\mathbf{u}\left(t\right)=\mathbf{v}e^{\lambda t}
+\]
+
+\end_inset
+
+
+\emph default
+where 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ is a scalar constant and 
+\begin_inset Formula $\mathbf{v}$
+\end_inset
+
+ a constant (
+\emph on
+i.e.
+\emph default
+, independent of time) vector, both 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{v}$
+\end_inset
+
+ to be determined.
+ 
+\end_layout
+
+\begin_layout Standard
+Let's plug that trial solution 
+\begin_inset Formula $\mathbf{v}e^{\lambda t}$
+\end_inset
+
+ into the equation.
+ On the RHS, we have 
+\begin_inset Formula $A\mathbf{v}e^{\lambda t}=e^{\lambda t}A\mathbf{v}$
+\end_inset
+
+.
+ On the LHS, we have 
+\begin_inset Formula $\lambda\mathbf{v}e^{\lambda t}$
+\end_inset
+
+.
+ Set them equal, and find the equation
+\begin_inset Formula 
+\[
+e^{\lambda t}\lambda\mathbf{v}=e^{\lambda t}A\mathbf{v}
+\]
+
+\end_inset
+
+or
+\begin_inset Formula 
+\[
+A\mathbf{v}=\lambda\mathbf{v}.
+\]
+
+\end_inset
+
+This is a new kind of problem, to be solved for 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{v}$
+\end_inset
+
+.
+ It is called an 
+\series bold
+\emph on
+eigenvalue problem
+\series default
+\emph default
+ or 
+\series bold
+\emph on
+eigenproblem
+\series default
+\emph default
+ or 
+\series bold
+\emph on
+eigensystem
+\series default
+\emph default
+.
+ The scalars 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ are called eigenvalues
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+eigenvalues
+\end_layout
+
+\end_inset
+
+, and the vectors 
+\begin_inset Formula $\mathbf{v}$
+\end_inset
+
+ are called eigenvectors
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+eigenvectors
+\end_layout
+
+\end_inset
+
+.
+ It will help if we rewrite the equation as
+\begin_inset Formula 
+\begin{equation}
+\left(A-\lambda I\right)\mathbf{v=0}.
+\end{equation}
+
+\end_inset
+
+Clearly 
+\begin_inset Formula $\mathbf{v}=0$
+\end_inset
+
+ is always a solution, but isn't interesting or useful for anything; we'll
+ ignore that trivial solution.
+ From the Big Matrix Theorem, we'll have nontrivial solutions 
+\begin_inset Formula $\mathbf{v}\ne0$
+\end_inset
+
+ if and only if 
+\begin_inset Formula $A-\lambda I$
+\end_inset
+
+ is singular, and in turn, if and only if 
+\begin_inset Formula $\det\left(A-\lambda I\right)=0$
+\end_inset
+
+.
+ Our first job, then, is to solve the equation
+\begin_inset Formula 
+\begin{equation}
+\det\left(A-\lambda I\right)=0
+\end{equation}
+
+\end_inset
+
+for the eigenvalue 
+\begin_inset Formula $\lambda$
+\end_inset
+
+.
+ It might not be obvious to you what sort of equation this will be in general,
+ so let's start with an example.
+\end_layout
+
+\begin_layout BoxedExample
+Find the eigenvalues of the matrix 
+\begin_inset Formula $A=\left(\begin{array}{cc}
+2 & -1\\
+-1 & 2
+\end{array}\right).$
+\end_inset
+
+ We need to solve the equation 
+\begin_inset Formula $\det\left(A-\lambda I\right)=0$
+\end_inset
+
+ for 
+\begin_inset Formula $\lambda$
+\end_inset
+
+.
+ Compute 
+\begin_inset Formula 
+\[
+\det\left(A-\lambda I\right)=\det\left(\begin{array}{cc}
+2-\lambda & -1\\
+-1 & 2-\lambda
+\end{array}\right)=\left(2-\lambda\right)^{2}-1
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=\lambda^{2}-4\lambda+3
+\]
+
+\end_inset
+
+and set to zero,
+\begin_inset Formula 
+\[
+\lambda^{2}-4\lambda+3=0.
+\]
+
+\end_inset
+
+The quadratic factors easily to 
+\begin_inset Formula $\left(\lambda-1\right)\left(\lambda-3\right)$
+\end_inset
+
+ so the solutions are 
+\begin_inset Formula $\lambda=1$
+\end_inset
+
+ and 
+\begin_inset Formula $\lambda=3$
+\end_inset
+
+.
+ These are the eigenvalues.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator parbreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Eigenvalues and the characteristic polynomial
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Eigenvalues-and-the"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So for our two-by-two example the scary looking equation 
+\begin_inset Formula $\det\left(A-\lambda I\right)=0$
+\end_inset
+
+ turned out to be something quite familiar: a quadratic equation.
+ This will be the case for 
+\emph on
+any
+\emph default
+ two-by-two matrix, since
+\begin_inset Formula 
+\begin{equation}
+\det\left(\begin{array}{cc}
+A_{11}-\lambda & A_{12}\\
+A_{21} & A_{22}-\lambda
+\end{array}\right)=\left(A_{11}-\lambda\right)\left(A_{22}-\lambda\right)-A_{12}A_{21}
+\end{equation}
+
+\end_inset
+
+is always a quadratic polynomial in 
+\begin_inset Formula $\lambda$
+\end_inset
+
+.
+ What about a three-by-three matrix? Compute 
+\begin_inset Formula $\det\left(A-\lambda I\right)$
+\end_inset
+
+ by expansion in minors,
+\begin_inset Formula 
+\begin{multline}
+\det\left(\begin{array}{ccc}
+A_{11}-\lambda & A_{12} & A_{13}\\
+A_{21} & A_{22}-\lambda & A_{23}\\
+A_{31} & A_{32} & A_{33}-\lambda
+\end{array}\right)=\\
+=\left(A_{11}-\lambda\right)\det\left(\begin{array}{cc}
+A_{22}-\lambda & A_{23}\\
+A_{32} & A_{33}-\lambda
+\end{array}\right)-A_{12}\det\left(\begin{array}{cc}
+A_{21} & A_{23}\\
+A_{31} & A_{33}-\lambda
+\end{array}\right)+\\
++A_{13}\det\left(\begin{array}{cc}
+A_{21} & A_{22}-\lambda\\
+A_{31} & A_{32}
+\end{array}\right).
+\end{multline}
+
+\end_inset
+
+We've already shown that the first minor determinant is a quadratic, and
+ it's multiplied by a first degree polynomial.
+ The other minor determinants are first degree polynomials, and they're
+ multiplied by constants.
+ Therefore 
+\begin_inset Formula $\det\left(A-\lambda I\right)$
+\end_inset
+
+ is cubic in 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ for any three by three matrix 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Repeat the same argument to show that 
+\begin_inset Formula $\det\left(A-\lambda I\right)$
+\end_inset
+
+ is quartic for four by four 
+\begin_inset Formula $A$
+\end_inset
+
+, quintic for five by five 
+\begin_inset Formula $A$
+\end_inset
+
+, and so on.
+ We've found the following important result:
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:char-poly-order"
+
+\end_inset
+
+If 
+\begin_inset Formula $A$
+\end_inset
+
+ is an 
+\begin_inset Formula $N\times N$
+\end_inset
+
+ matrix, then 
+\begin_inset Formula $\det\left(A-\lambda I\right)$
+\end_inset
+
+ is a polynomial of degree 
+\begin_inset Formula $N$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator parbreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This polynomial is called the 
+\series bold
+\emph on
+characteristic polynomial
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+characteristic polynomial
+\end_layout
+
+\end_inset
+
+
+\series default
+\emph default
+ of 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ The eigenvalues are the roots of the characteristic polynomial.
+ From theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:char-poly-order"
+
+\end_inset
+
+ and the Fundamental Theorem of Algebra we have the important corollary:
+\end_layout
+
+\begin_layout Corollary
+An 
+\begin_inset Formula $N\times N$
+\end_inset
+
+ matrix 
+\begin_inset Formula $A$
+\end_inset
+
+ has exactly 
+\begin_inset Formula $N$
+\end_inset
+
+ eigenvalues (counting multiplicity in the case of multiple roots).
+ The eigenvalues may be complex numbers; if the elements of 
+\begin_inset Formula $A$
+\end_inset
+
+ are real then any complex eigenvalues must appear as conjugate pairs.
+ 
+\end_layout
+
+\begin_layout BoxedExample
+Find the eigenvalues of 
+\begin_inset Formula $A=\left(\begin{array}{ccc}
+4 & -1 & 0\\
+-1 & 4 & 0\\
+0 & 0 & 7
+\end{array}\right).$
+\end_inset
+
+ The characteristic polynomial is 
+\begin_inset Formula $p\left(\lambda\right)=\left(7-\lambda\right)\left(\lambda^{2}-4\lambda+3\right)$
+\end_inset
+
+ so the eigenvalues are 
+\begin_inset Formula $\lambda=1$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda=3$
+\end_inset
+
+, and 
+\begin_inset Formula $\lambda=7$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator parbreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout BoxedExample
+Find the eigenvalues of 
+\begin_inset Formula $A=\left(\begin{array}{cc}
+0 & -1\\
+1 & 0
+\end{array}\right)$
+\end_inset
+
+.
+ The characteristic polynomial is 
+\begin_inset Formula $p\left(\lambda\right)=\lambda^{2}+1$
+\end_inset
+
+ so the eigenvalues are 
+\begin_inset Formula $\lambda=\pm i$
+\end_inset
+
+.
+ The matrix is real, but the eigenvalues are complex.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator parbreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The next example illustrates a nice shortcut for finding the eigenvalues
+ of diagonal matrices.
+\end_layout
+
+\begin_layout BoxedExample
+Find the eigenvalues of 
+\begin_inset Formula $A=\left(\begin{array}{cc}
+5 & 0\\
+0 & 20
+\end{array}\right)$
+\end_inset
+
+.
+ The characteristic polynomial is 
+\begin_inset Formula $p\left(\lambda\right)=\left(5-\lambda\right)\left(20-\lambda\right)$
+\end_inset
+
+ so the eigenvalues are the diagonal elements 
+\begin_inset Formula $\lambda=5$
+\end_inset
+
+ and 
+\begin_inset Formula $\lambda=20$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator parbreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If you think about how the characteristic polynomial is computed for a general
+ triangular matrix you'll quickly find the following useful theorem:
+\end_layout
+
+\begin_layout Theorem
+The eigenvalues of a triangular matrix are the diagonal entries.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator parbreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since a diagonal matrix is a special case of a triangular matrix, the eigenvalue
+s of any diagonal matrix are just the diagonal entries.
+ 
+\end_layout
+
+\begin_layout Subsection
+Finding eigenspaces and eigenvectors
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Finding-eigenspaces"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We now know a procedure for finding the eigenvalues of a matrix: form the
+ characteristic polynomial and then find its roots.
+ We've thereby solved the first part of the eigenvalue problem, finding
+ 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ such that
+\begin_inset Formula 
+\begin{equation}
+\left(A-\lambda I\right)\mathbf{v}=0\label{eq:eqn-for-evs}
+\end{equation}
+
+\end_inset
+
+has nontrivial solutions.
+ The second part of the problem is to find the allowed vectors 
+\begin_inset Formula $\mathbf{v}$
+\end_inset
+
+.
+ We already know how to do this: all vectors that solve 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:eqn-for-evs"
+
+\end_inset
+
+ are in the null space of 
+\begin_inset Formula $A-\lambda I$
+\end_inset
+
+, and we know how to find the null space of a matrix.
+ Be sure to understand that for each 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ we're not finding just one single 
+\begin_inset Formula $\mathbf{v}$
+\end_inset
+
+, but rather an entire space of vectors, which we'll call the 
+\series bold
+\emph on
+
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+eigenspace
+\end_layout
+
+\end_inset
+
+eigenspace
+\series default
+\emph default
+ associated with 
+\begin_inset Formula $\lambda$
+\end_inset
+
+.
+ An 
+\series bold
+\emph on
+eigenvector
+\series default
+\emph default
+ will be any vector in the eigenspace.
+ If the eigenspace is one dimensional, we can pick any one representative
+ vector in the eigenspace and use it as a basis for that space.
+ In cases where the eigenspace associated with eigenvalue 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ has dimension 
+\begin_inset Formula $d>1$
+\end_inset
+
+, we'll choose any 
+\begin_inset Formula $d$
+\end_inset
+
+ linearly independent vectors from the eigenspace and use them as a basis.
+ What we really mean by 
+\begin_inset Quotes eld
+\end_inset
+
+find the eigenvectors associated with the eigenvalue 
+\begin_inset Formula $\lambda$
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+ is to find a basis for the null space of 
+\begin_inset Formula $A-\lambda I$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Keep in mind that eigenvectors are never uniquely determined.
+ Even when an eigenspace is one dimensional, any vector in that space is
+ an eigenvector: if 
+\begin_inset Formula $\mathbf{v}$
+\end_inset
+
+is an eigenvector, then so would be 
+\begin_inset Formula $-\mathbf{v}$
+\end_inset
+
+, 
+\begin_inset Formula $2\mathbf{v}$
+\end_inset
+
+, 
+\begin_inset Formula $\sqrt{7}\mathbf{v}$
+\end_inset
+
+, and so on.
+ So saying we've found 
+\begin_inset Quotes eld
+\end_inset
+
+the eigenvector
+\begin_inset Quotes erd
+\end_inset
+
+ for an eigenvalue is a little misleading; we've really found an eigenspace
+ and chosen a set of basis vectors for it.
+ We're free to choose any member of the space as 
+\begin_inset Quotes eld
+\end_inset
+
+the
+\begin_inset Quotes erd
+\end_inset
+
+ eigenvector at our convenience.
+ When the eigenspace has more than one dimension, we can take any basis
+ vectors for that space and call them 
+\begin_inset Quotes eld
+\end_inset
+
+the
+\begin_inset Quotes erd
+\end_inset
+
+ eigenvectors.
+ 
+\end_layout
+
+\begin_layout Standard
+With those preliminaries out of the way, let's work some examples.
+ 
+\end_layout
+
+\begin_layout BoxedExample
+Find the eigenvalues and eigenvectors of
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{cc}
+-2 & 1\\
+1 & -2
+\end{array}\right].
+\]
+
+\end_inset
+
+The characteristic polynomial is 
+\begin_inset Formula $p\left(\lambda\right)=\lambda^{2}+4\lambda+3$
+\end_inset
+
+ so the eigenvalues are 
+\begin_inset Formula $\lambda_{1}=-1$
+\end_inset
+
+ and 
+\begin_inset Formula $\lambda_{2}=-3$
+\end_inset
+
+.
+ First consider 
+\begin_inset Formula $\lambda_{1}=-1$
+\end_inset
+
+: its eigenspace is the null space of 
+\begin_inset Formula 
+\[
+A+I=\left[\begin{array}{cc}
+-1 & 1\\
+1 & -1
+\end{array}\right].
+\]
+
+\end_inset
+
+A basis vector for that space is the 
+\begin_inset Formula $\mathbf{v}_{1}=\left[\begin{array}{cc}
+1 & 1\end{array}\right]^{T}$
+\end_inset
+
+ .
+ Next consider 
+\begin_inset Formula $\lambda_{2}=-3$
+\end_inset
+
+: its eigenspace is the null space of 
+\begin_inset Formula 
+\[
+A+3I=\left[\begin{array}{cc}
+1 & 1\\
+1 & 1
+\end{array}\right].
+\]
+
+\end_inset
+
+A basis vector for that space is 
+\begin_inset Formula $\mathbf{v}_{2}=\left[\begin{array}{cc}
+1 & -1\end{array}\right]^{T}.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator parbreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout BoxedExample
+Find the eigenvectors and eigenvalues of
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{cc}
+3 & 2\\
+1 & 2
+\end{array}\right].
+\]
+
+\end_inset
+
+The characteristic polynomial is 
+\begin_inset Formula $p\left(\lambda\right)=\lambda^{2}-5\lambda+4$
+\end_inset
+
+ so the eigenvalues are 
+\begin_inset Formula $\lambda_{1}=1$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{2}=4$
+\end_inset
+
+.
+ The eigenspace for 
+\begin_inset Formula $\lambda_{1}$
+\end_inset
+
+ is the null space of
+\begin_inset Formula 
+\[
+A-I=\left[\begin{array}{cc}
+2 & 2\\
+1 & 1
+\end{array}\right]
+\]
+
+\end_inset
+
+for which a basis vector is 
+\begin_inset Formula $\mathbf{v}_{1}=\left[\begin{array}{cc}
+1 & -1\end{array}\right]^{T}$
+\end_inset
+
+.
+ The eigenspace for 
+\begin_inset Formula $\lambda_{2}$
+\end_inset
+
+ is the null space of 
+\begin_inset Formula 
+\[
+A-4I=\left[\begin{array}{cc}
+-1 & 2\\
+1 & -2
+\end{array}\right]
+\]
+
+\end_inset
+
+for which a basis vector is 
+\begin_inset Formula $\mathbf{v}_{2}=\left[\begin{array}{cc}
+2 & 1\end{array}\right]^{T}.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So far, we've seen matrices whose eigenvalues are distinct.
+ Since polynomials can have repeated roots, it's possible to see the same
+ eigenvalue twice.
+ It is in these cases where we really need to keep in mind the idea that
+ eigenvectors are basis vectors for an eigenspace.
+\end_layout
+
+\begin_layout BoxedExample
+\begin_inset CommandInset label
+LatexCommand label
+name "exa:repeated-nondefective"
+
+\end_inset
+
+Find eigenvectors and eigenvalues of
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{ccc}
+2 & 3 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{array}\right].
+\]
+
+\end_inset
+
+This is a triangular matrix so we can read the eigenvalues off the diagonal.
+ We have 
+\begin_inset Formula $\lambda_{1}=2$
+\end_inset
+
+ and 
+\begin_inset Formula $\lambda_{2},\lambda_{3}=1$
+\end_inset
+
+ with multiplicity two.
+ What are the eigenspaces? For 
+\begin_inset Formula $\lambda_{1}$
+\end_inset
+
+ the eigenspace is the null space of
+\begin_inset Formula 
+\[
+A-2I=\left[\begin{array}{ccc}
+0 & 3 & 0\\
+0 & -1 & 0\\
+0 & 0 & -1
+\end{array}\right].
+\]
+
+\end_inset
+
+That eigenspace contains all vectors that are multiples of 
+\begin_inset Formula $\mathbf{v}_{1}=\left[\begin{array}{ccc}
+1 & 0 & 0\end{array}\right]^{T}$
+\end_inset
+
+.
+ The case 
+\begin_inset Formula $\lambda_{2}=\lambda_{3}=1$
+\end_inset
+
+ is more interesting: the eigenspace is the null space of
+\begin_inset Formula 
+\[
+A-I=\left[\begin{array}{ccc}
+1 & 3 & 0\\
+0 & 0 & 0\\
+0 & 0 & 0
+\end{array}\right]
+\]
+
+\end_inset
+
+which is two dimensional.
+ An obvious choice of basis vectors is 
+\begin_inset Formula $\mathbf{v}_{2}=\left[\begin{array}{ccc}
+0 & 0 & 1\end{array}\right]^{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{v}_{3}=\left[\begin{array}{ccc}
+3 & -1 & 0\end{array}\right]^{T}$
+\end_inset
+
+ .
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator parbreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In example 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "exa:repeated-nondefective"
+
+\end_inset
+
+eigenvalue of multiplicity two is associated with a two-dimensional eigenspace
+ and so has two eigenvectors.
+ Does an eigenvalue of multiplicity 
+\begin_inset Formula $r$
+\end_inset
+
+ always have an eigenspace of dimension 
+\begin_inset Formula $r$
+\end_inset
+
+ and therefore 
+\begin_inset Formula $r$
+\end_inset
+
+ eigenvectors? No, as we see in the next example.
+\end_layout
+
+\begin_layout BoxedExample
+\begin_inset CommandInset label
+LatexCommand label
+name "ex:defective-ew"
+
+\end_inset
+
+Find eigenvectors and eigenvalues of 
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{ccc}
+2 & 3 & 0\\
+0 & 1 & 1\\
+0 & 0 & 1
+\end{array}\right].
+\]
+
+\end_inset
+
+As in example 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "exa:repeated-nondefective"
+
+\end_inset
+
+ the eigenvalues are 
+\begin_inset Formula $\lambda_{1}=2$
+\end_inset
+
+ and 
+\begin_inset Formula $\lambda_{2}=\lambda_{3}=1$
+\end_inset
+
+.
+ You can check that an eigenvector for 
+\begin_inset Formula $\lambda_{1}$
+\end_inset
+
+ is once again 
+\begin_inset Formula $\mathbf{v}_{1}=\left[\begin{array}{ccc}
+1 & 0 & 0\end{array}\right]^{T}.$
+\end_inset
+
+ The eigenspace for 
+\begin_inset Formula $\lambda_{2}=\lambda_{3}=1$
+\end_inset
+
+ is the null space of
+\begin_inset Formula 
+\[
+A-I=\left[\begin{array}{ccc}
+1 & 3 & 0\\
+0 & 0 & 1\\
+0 & 0 & 0
+\end{array}\right].
+\]
+
+\end_inset
+
+The null space is one dimensional with basis 
+\begin_inset Formula $\mathbf{v}_{2}=\left[\begin{array}{ccc}
+3 & -1 & 0\end{array}\right]^{T}$
+\end_inset
+
+.
+ The eigenvalue 
+\begin_inset Formula $\lambda=1$
+\end_inset
+
+ has multiplicity two but has a one-dimensional null space and only one
+ eigenvector.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Evidently it's possible to have an eigenspace with dimension smaller than
+ the multiplicity of its associated eigenvalue.
+ 
+\end_layout
+
+\begin_layout Definition
+The 
+\emph on
+
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+algebraic multiplicity
+\end_layout
+
+\end_inset
+
+algebraic multiplicity
+\emph default
+ of an eigenvalue is its multiplicity as a root of the characteristic polynomial.
+ The 
+\emph on
+
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+geometric multiplicity
+\end_layout
+
+\end_inset
+
+geometric multiplicity
+\emph default
+ of an eigenvalue is the dimension of its eigenspace, and hence the number
+ of linearly independent eigenvectors you can find for it.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator parbreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+An eigenvalue whose geometric multiplicity is less than its algebraic multiplici
+ty is called 
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+defective
+\end_layout
+
+\end_inset
+
+
+\emph on
+defective
+\emph default
+.
+ A matrix with at least one defective eigenvalue is called a 
+\emph on
+defective matrix
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Defective matrices are somewhat tricker to work with than non-defective
+ matrices, for reasons that will become clear in the next section.
+\end_layout
+
+\begin_layout Subsection
+Eigenvectors of a non-defective matrix are linearly independent
+\end_layout
+
+\begin_layout Subsubsection
+Simplest case: distinct eigenvalues
+\end_layout
+
+\begin_layout Standard
+Suppose 
+\begin_inset Formula $A\in\RR^{m\times m}$
+\end_inset
+
+ has 
+\begin_inset Formula $m$
+\end_inset
+
+ distinct eigenvalues.
+ Let's try to find a nontrivial LC of the eigenvectors that sums to zero:
+ assume there are scalar constants 
+\begin_inset Formula $c_{1},\cdots,c_{m}$
+\end_inset
+
+, not all zero, such that 
+\begin_inset Formula 
+\[
+c_{1}\mathbf{v}_{1}+c_{2}\mathbf{v}_{2}+\cdots+c_{m}\mathbf{v}_{m}=0.
+\]
+
+\end_inset
+
+If we can find such a LC with at least one nonzero coefficient, then the
+ eigenvectors are LD; otherwise they are LI.
+ We'll use a simple (though hardly obvious) trick: assume some nontrivial
+ LC
+\begin_inset Formula 
+\[
+c_{1}\mathbf{v}_{1}+c_{2}\mathbf{v}_{2}+\cdots+c_{m}\mathbf{v}_{m}=0
+\]
+
+\end_inset
+
+and operate from the left with 
+\begin_inset Formula $\left(A-\lambda_{2}I\right)\left(A-\lambda_{3}I\right)\cdots\left(A-\lambda_{m}I\right)$
+\end_inset
+
+, finding
+\begin_inset Formula 
+\[
+\left(A-\lambda_{2}I\right)\left(A-\lambda_{3}I\right)\cdots\left(A-\lambda_{m}I\right)\left(c_{1}\mathbf{v}_{1}+c_{2}\mathbf{v}_{2}+\cdots+c_{m}\mathbf{v}_{m}\right)=0.
+\]
+
+\end_inset
+
+Notice that all eigenvalues are represented in the product of the 
+\begin_inset Formula $A-\lambda_{k}I$
+\end_inset
+
+ matrices except 
+\begin_inset Formula $\lambda_{1}$
+\end_inset
+
+.
+ Multiplication by 
+\begin_inset Formula $\left(A-\lambda_{k}I\right)$
+\end_inset
+
+ kills the term in the sum involving 
+\begin_inset Formula $\mathbf{v}_{k}$
+\end_inset
+
+, so the surviving expression is 
+\begin_inset Formula 
+\[
+\left(A-\lambda_{2}I\right)\cdots\left(A-\lambda_{m}I\right)c_{1}\mathbf{v}_{1}=0.
+\]
+
+\end_inset
+
+Now 
+\begin_inset Formula $\mathbf{v}_{1}$
+\end_inset
+
+ is an eigenvector so it's not zero.
+ It is also 
+\emph on
+not
+\emph default
+ in the null space of any 
+\begin_inset Formula $A-\lambda_{k}I$
+\end_inset
+
+ except 
+\begin_inset Formula $k=1$
+\end_inset
+
+, so the sequence of matrix-vector multiplications doesn't kill it.
+ The only possibility is 
+\begin_inset Formula $c_{1}=0$
+\end_inset
+
+.
+ Now repeat, using the operator 
+\begin_inset Formula $\left(A-\lambda_{1}I\right)\left(A-\lambda_{3}I\right)\cdots\left(A-\lambda_{m}I\right)$
+\end_inset
+
+ that leaves out the second eigenvalue, and conclude 
+\begin_inset Formula $c_{2}=0$
+\end_inset
+
+; continue through the eigenvalues to find 
+\emph on
+all
+\emph default
+ the coefficients are zero.
+ Therefore the eigenvectors are linearly independent.
+\end_layout
+
+\begin_layout Subsubsection
+Repeated but non-defective eigenvalues
+\end_layout
+
+\begin_layout Standard
+With repeated but non-defective eigenvalues, the proof of linear independence
+ of the eigenvectors requires bookkeeping on the basis vectors for the multi-dim
+ensional eigenspaces of the repeated eigenvalues.
+ I refer you to a linear algebra textbook for the ugly details; suffice
+ to say that the conclusion is that
+\end_layout
+
+\begin_layout Itemize
+If 
+\begin_inset Formula $\lambda_{i}\ne\lambda_{j}$
+\end_inset
+
+, then the vectors in the eigenspace of 
+\begin_inset Formula $\lambda_{i}$
+\end_inset
+
+ are LI of the vectors in the eigenspace of 
+\begin_inset Formula $\lambda_{j}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+If 
+\begin_inset Formula $A\in\RR^{m\times m}$
+\end_inset
+
+ is non-defective, then 
+\begin_inset Formula $A$
+\end_inset
+
+ has 
+\begin_inset Formula $m$
+\end_inset
+
+ LI eigenvectors.
+ 
+\end_layout
+
+\begin_layout Subsection
+Diagonalization
+\end_layout
+
+\begin_layout Standard
+In this section we're working with a non-defective 
+\begin_inset Formula $m\times m$
+\end_inset
+
+ matrix 
+\begin_inset Formula $A$
+\end_inset
+
+; from the previous section we know that there are 
+\begin_inset Formula $m$
+\end_inset
+
+ LI eigenvectors.
+ Take the 
+\begin_inset Formula $m$
+\end_inset
+
+ eigenvectors and glue them together as columns of a matrix 
+\begin_inset Formula $V$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+V=\left[\begin{array}{c|c|c|c}
+\mathbf{v}_{1} & \mathbf{v}_{2} & \cdots & \mathbf{v}_{m}\end{array}\right].
+\]
+
+\end_inset
+
+Now multiply 
+\begin_inset Formula $V$
+\end_inset
+
+ by 
+\begin_inset Formula $A$
+\end_inset
+
+ from the left,
+\begin_inset Formula 
+\[
+AV=\left[\begin{array}{c|c|c|c}
+A\mathbf{v}_{1} & A\mathbf{v}_{2} & \cdots & A\mathbf{v}_{m}\end{array}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=\left[\begin{array}{c|c|c|c}
+\lambda_{1}\mathbf{v}_{1} & \lambda_{2}\mathbf{v}_{2} & \cdots & \lambda_{m}\mathbf{v}_{m}\end{array}\right].
+\]
+
+\end_inset
+
+The result of operating on 
+\begin_inset Formula $V$
+\end_inset
+
+ with 
+\begin_inset Formula $A$
+\end_inset
+
+ is to multiply each column of 
+\begin_inset Formula $V$
+\end_inset
+
+ by the eigenvalue associated with the eigenvector in that column.
+ Now, to scale each column of a matrix by specified factors you multiply
+ that matrix from the 
+\emph on
+right
+\emph default
+ by the diagonal matrix with the scale factors on the diagonal (try it);
+ in this case, 
+\begin_inset Formula 
+\[
+\left[\begin{array}{c|c|c|c}
+\lambda_{1}\mathbf{v}_{1} & \lambda_{2}\mathbf{v}_{2} & \cdots & \lambda_{m}\mathbf{v}_{m}\end{array}\right]=\left[\begin{array}{c|c|c|c}
+\mathbf{v}_{1} & \mathbf{v}_{2} & \cdots & \mathbf{v}_{m}\end{array}\right]\left[\begin{array}{cccc}
+\lambda_{1}\\
+ & \lambda_{2}\\
+ &  & \ddots\\
+ &  &  & \lambda_{m}
+\end{array}\right].
+\]
+
+\end_inset
+
+If we define 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+ to be the diagonal matrix
+\begin_inset Formula 
+\[
+\Lambda=\left[\begin{array}{cccc}
+\lambda_{1}\\
+ & \lambda_{2}\\
+ &  & \ddots\\
+ &  &  & \lambda_{m}
+\end{array}\right]
+\]
+
+\end_inset
+
+then we can summarize the previous calculations by the formula
+\begin_inset Formula 
+\[
+AV=V\Lambda.
+\]
+
+\end_inset
+
+It's very important to remember the order of operations: 
+\begin_inset Formula $A$
+\end_inset
+
+ multiplies 
+\begin_inset Formula $V$
+\end_inset
+
+ from the 
+\emph on
+left
+\emph default
+, while 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+ multiplies 
+\begin_inset Formula $V$
+\end_inset
+
+ from the 
+\emph on
+right
+\emph default
+.
+ It matters, because unlike ordinary multiplication between real or complex
+ numbers, matrix multiplication is 
+\emph on
+not
+\emph default
+ 
+\emph on
+commutative
+\emph default
+: in general, 
+\begin_inset Formula $V\Lambda\ne\Lambda V$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Since we've assumed 
+\begin_inset Formula $A$
+\end_inset
+
+ is not defective it has a complete set of 
+\begin_inset Formula $m$
+\end_inset
+
+ LI eigenvectors, so the columns of 
+\begin_inset Formula $V$
+\end_inset
+
+ are LI, so 
+\begin_inset Formula $V$
+\end_inset
+
+ is nonsingular, so 
+\begin_inset Formula $V^{-1}$
+\end_inset
+
+ exists.
+ We can use 
+\begin_inset Formula $V$
+\end_inset
+
+ to transform from 
+\begin_inset Formula $A$
+\end_inset
+
+ to 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+ or back as follows:
+\begin_inset Formula 
+\[
+\Lambda=V^{-1}AV
+\]
+
+\end_inset
+
+or
+\begin_inset Formula 
+\[
+A=V\Lambda V^{-1}.
+\]
+
+\end_inset
+
+A transformation of the form
+\begin_inset Formula 
+\[
+A=SBS^{-1}
+\]
+
+\end_inset
+
+is called a 
+\series bold
+\emph on
+similarity transformation
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+similarity transformation
+\end_layout
+
+\end_inset
+
+
+\series default
+\emph default
+ between 
+\begin_inset Formula $A$
+\end_inset
+
+ and 
+\begin_inset Formula $B$
+\end_inset
+
+, and any two matrices that can be transformed into one another by means
+ of a similarity transformation are called 
+\series bold
+\emph on
+similar matrices
+\series default
+.
+
+\emph default
+ We write the similarity relation as 
+\begin_inset Formula $A\sim B$
+\end_inset
+
+, read as 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset Formula $A$
+\end_inset
+
+ is similar to 
+\begin_inset Formula $B$
+\end_inset
+
+.
+\begin_inset Quotes erd
+\end_inset
+
+ So when 
+\begin_inset Formula $V^{-1}$
+\end_inset
+
+ exists, 
+\begin_inset Formula $A$
+\end_inset
+
+ is similar to the diagonal matrix 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+, and we say that 
+\begin_inset Formula $A$
+\end_inset
+
+ is 
+\series bold
+\emph on
+diagonalizable
+\series default
+.
+
+\emph default
+ The process of transforming a matrix to diagonal form via similarity transforma
+tion is called 
+\series bold
+\emph on
+diagonalization
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+diagonalization
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The whole procedure of diagonalization depends on the linear independence
+ of the eigenvectors; otherwise, the matrix 
+\begin_inset Formula $V$
+\end_inset
+
+ isn't invertible.
+ A defective 
+\begin_inset Formula $m\times m$
+\end_inset
+
+ matrix won't have a full set of LI eigenvectors, so a defective matrix
+ can't be diagonalized, and the eigenvalue factorization
+\begin_inset Formula 
+\[
+A=V\Lambda V^{-1}
+\]
+
+\end_inset
+
+cannot exist for a defective matrix.
+ For defective matrices, there is a more complicated, harder to compute,
+ and less useful factorization known as the Jordan decomposition.
+ 
+\emph on
+Every
+\emph default
+ matrix, defective or not, has a Jordan decomposition; for non-defective
+ matrices the Jordan decomposition simply reduces to the eigenvalue decompositio
+n.
+ Unfortunately the Jordan decomposition is essentially impossible to compute
+ in the presence of roundoff error, so while it is useful in theory it generally
+ can't be used in real-world problems.
+ For that reason, in the main part of these notes we restrict ourselves
+ to non-defective matrices; the Jordan decomposition and its applications
+ are discussed in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Defective-matrices-and"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Eigenvalues and eigenvectors of 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If we know the eigenvalues and eigenvectors of 
+\begin_inset Formula $A$
+\end_inset
+
+, it's simple to work out the eigenvalues and eigenvectors of 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+.
+ Suppose 
+\begin_inset Formula $\lambda$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{v}$
+\end_inset
+
+ is an eigenpair of a nonsingular matrix 
+\begin_inset Formula $A$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+A\mathbf{v}=\lambda\mathbf{v}.
+\]
+
+\end_inset
+
+Then 
+\begin_inset Formula 
+\[
+A^{-1}A\mathbf{v}=\lambda A^{-1}\mathbf{v}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+A^{-1}\mathbf{v}=\lambda^{-1}\mathbf{v}
+\]
+
+\end_inset
+
+so 
+\begin_inset Formula $\lambda^{-1}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{v}$
+\end_inset
+
+ is an eigenpair of 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+.
+ The eigenvectors of 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+ are the same as the eigenvectors of 
+\begin_inset Formula $A$
+\end_inset
+
+, while the eigenvalues of 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+ are the reciprocals of the eigenvalues of 
+\begin_inset Formula $A$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Seen another way, suppose 
+\begin_inset Formula $A$
+\end_inset
+
+ is diagonalizable and nonsingular.
+ Then
+\begin_inset Formula 
+\[
+A^{-1}=\left(V\Lambda V^{-1}\right)^{-1}.
+\]
+
+\end_inset
+
+Use the identity 
+\begin_inset Formula $\left(AB\right)^{-1}=B^{-1}A^{-1}$
+\end_inset
+
+ to find
+\begin_inset Formula 
+\[
+A^{-1}=\left(V^{-1}\right)^{-1}\Lambda^{-1}V^{-1}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=V\Lambda^{-1}V^{-1}.
+\]
+
+\end_inset
+
+In other words, if 
+\begin_inset Formula $A$
+\end_inset
+
+ is diagonalizable with 
+\begin_inset Formula $V$
+\end_inset
+
+ and 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+, then 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+ is diagonalizable with the same 
+\begin_inset Formula $V$
+\end_inset
+
+ but with 
+\begin_inset Formula $\Lambda^{-1}$
+\end_inset
+
+ instead of 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Applications of diagonalization
+\end_layout
+
+\begin_layout Standard
+Diagonalization is useful because it lets us transform a problem to a basis
+ in which the problem is simple.
+ For a warm-up problem I'll show you how to solve
+\begin_inset Formula 
+\[
+A\mathbf{x}=\mathbf{b}
+\]
+
+\end_inset
+
+by diagonalizing 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ Solving 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+ by diagonalization is not a good method for solving equations in practice,
+ but understanding how the idea works will help us understand how to solve
+ 
+\begin_inset Formula $\mathbf{y}'=A\mathbf{y}$
+\end_inset
+
+ by diagonalization.
+ Diagonalization is a 
+\emph on
+very
+\emph default
+ useful method for that problem! 
+\end_layout
+
+\begin_layout Subsubsection
+Solving 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+ via diagonalization
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $A$
+\end_inset
+
+ be a diagonalizable matrix with no zero eigenvalues.
+ To solve the system 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+, rewrite using the diagonalization of 
+\begin_inset Formula $A$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+V\Lambda V^{-1}\mathbf{x}=\mathbf{b}
+\]
+
+\end_inset
+
+multiply from the left by 
+\begin_inset Formula $V^{-1}$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+\Lambda V^{-1}\mathbf{x}=V^{-1}\mathbf{b}
+\]
+
+\end_inset
+
+then multiply from the left by 
+\begin_inset Formula $\Lambda^{-1}$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+V^{-1}\mathbf{x}=\Lambda^{-1}V^{-1}\mathbf{b}
+\]
+
+\end_inset
+
+and finally multiply from the left by 
+\begin_inset Formula $V,$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathbf{x}=V\Lambda^{-1}V^{-1}\mathbf{b}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BoxedExample
+Solve 
+\begin_inset Formula $\left[\begin{array}{cc}
+2 & -1\\
+-1 & 2
+\end{array}\right]\mathbf{x}=\left[\begin{array}{c}
+1\\
+0
+\end{array}\right]$
+\end_inset
+
+ using diagonalization.
+ The matrix 
+\begin_inset Formula $A=\left[\begin{array}{cc}
+2 & -1\\
+-1 & 2
+\end{array}\right]$
+\end_inset
+
+ has eigenvalue-eigenvector pairs 
+\begin_inset Formula $\lambda_{1}=3,$
+\end_inset
+
+ 
+\begin_inset Formula $\mathbf{v}_{1}=\left[\begin{array}{cc}
+1 & -1\end{array}\right]^{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\lambda_{2}=1$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{v}_{2}=\left[\begin{array}{cc}
+1 & 1\end{array}\right]^{T}$
+\end_inset
+
+.
+ So 
+\begin_inset Formula 
+\[
+V=\left[\begin{array}{cc}
+1 & 1\\
+-1 & 1
+\end{array}\right]
+\]
+
+\end_inset
+
+and
+\begin_inset Formula 
+\[
+\Lambda=\left[\begin{array}{cc}
+3 & 0\\
+0 & 1
+\end{array}\right].
+\]
+
+\end_inset
+
+Compute 
+\begin_inset Formula $V^{-1}\mathbf{b}$
+\end_inset
+
+ by solving 
+\begin_inset Formula $V\mathbf{y}=\mathbf{b}$
+\end_inset
+
+ for 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\left[\begin{array}{ccc}
+1 & 1 & 1\\
+-1 & 1 & 0
+\end{array}\right]\ua{R_{2}\gets R_{2}+R_{1}}\left[\begin{array}{ccc}
+1 & 1 & 1\\
+0 & 2 & 1
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+y_{2}=\frac{1}{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+y_{1}=1-y_{2}=\frac{1}{2}
+\]
+
+\end_inset
+
+so
+\begin_inset Formula 
+\[
+\mathbf{y}=\frac{1}{2}\left[\begin{array}{c}
+1\\
+1
+\end{array}\right].
+\]
+
+\end_inset
+
+Next, compute 
+\begin_inset Formula $\Lambda^{-1}V^{-1}\mathbf{b}=\Lambda^{-1}\mathbf{y}$
+\end_inset
+
+ or
+\begin_inset Formula 
+\[
+\Lambda^{-1}V^{-1}\mathbf{b}=\frac{1}{2}\left[\begin{array}{cc}
+\frac{1}{3} & 0\\
+0 & 1
+\end{array}\right]\left[\begin{array}{c}
+1\\
+1
+\end{array}\right]=\frac{1}{6}\left[\begin{array}{c}
+1\\
+3
+\end{array}\right].
+\]
+
+\end_inset
+
+The final step is to multiply by 
+\begin_inset Formula $V$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\mathbf{x}=V\Lambda^{-1}V^{-1}\mathbf{b}=\frac{1}{6}\left[\begin{array}{cc}
+1 & 1\\
+-1 & 1
+\end{array}\right]\left[\begin{array}{c}
+1\\
+3
+\end{array}\right]=\frac{1}{6}\left[\begin{array}{c}
+4\\
+2
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=\frac{1}{3}\left[\begin{array}{c}
+2\\
+1
+\end{array}\right].
+\]
+
+\end_inset
+
+You should compare to the solution obtained by Gaussian elimination; you'll
+ find the same result, but with much less work.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator parbreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+At this point you're probably thinking that diagonalization is a completely
+ stupid way to solve 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+, and as a rule you'd be right.
+ Instead of solving one system, we need to solve an eigenvalue problem and
+ then compute 
+\begin_inset Formula $V^{-1}\mathbf{b}$
+\end_inset
+
+ which if you recall we do by solving the system 
+\begin_inset Formula $V\mathbf{y=}\mathbf{b}$
+\end_inset
+
+ for a temporary variable 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+.
+ But it's usually harder to solve 
+\begin_inset Formula $A\mathbf{v}=\lambda\mathbf{v}$
+\end_inset
+
+ than to solve 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+, and then solving 
+\begin_inset Formula $V\mathbf{y}=\mathbf{b}$
+\end_inset
+
+ is usually just as expensive as solving 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+.
+ So using diagonalization is indeed a stupid method for solving linear systems
+ of equations 
+\emph on
+unless
+\emph default
+ the eigenvalue problem is particularly simple 
+\emph on
+and
+\emph default
+ something about the eigenvectors makes solving 
+\begin_inset Formula $V\mathbf{y}=\mathbf{b}$
+\end_inset
+
+ easier than solving the original system.
+ This will almost never be the case with matrix-vector problems; however,
+ certain boundary value problems and partial differential equation will
+ reduce to an abstract problem having a similar structure, and this idea
+ 
+\emph on
+will
+\emph default
+ be a practical solution method for those problems.
+ Furthermore, we can use a very similar method to solve systems of ODEs,
+ and again, in that case using diagonalization 
+\emph on
+is
+\emph default
+ often more practical than other methods.
+\end_layout
+
+\begin_layout Standard
+Here's what's really going on with solving a system by diagonalization:
+ 
+\end_layout
+
+\begin_layout Enumerate
+Computing 
+\begin_inset Formula $V^{-1}\mathbf{b}$
+\end_inset
+
+ resolves 
+\begin_inset Formula $\mathbf{b}$
+\end_inset
+
+ into a linear combination of eigenvectors
+\end_layout
+
+\begin_layout Enumerate
+Computing 
+\begin_inset Formula $\Lambda^{-1}\left(V^{-1}\mathbf{b}\right)$
+\end_inset
+
+ solves the problem in the eigenvector basis
+\end_layout
+
+\begin_layout Enumerate
+Cmoputing 
+\begin_inset Formula $V\left(\Lambda^{-1}V^{-1}\mathbf{b}\right)$
+\end_inset
+
+ converts the result back into the original basis
+\end_layout
+
+\begin_layout Standard
+This can be summarized in the following diagram:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\highlight{\mathbf{x}=\underbrace{V\left(\underbrace{\Lambda^{-1}\left(\underbrace{V^{-1}\mathbf{b}}_{\mbox{transform \ensuremath{\mathbf{b}} to ev basis}}\right)}_{\mbox{solve uncoupled problems in ev basis}}\right)}_{\mbox{transform back to Cartesian basis}}}.\label{eq:AxbDiagSummary}
+\end{equation}
+
+\end_inset
+
+Even though this procedure is a completely impractical way to solve 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+, remember this general idea: 
+\series bold
+\emph on
+transform to a basis where the problem becomes simple, solve the simple
+ problem, then transform back to the original basis.
+
+\series default
+\emph default
+ We will use that idea throughout this course for problems much more difficult
+ than 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Powers of 
+\begin_inset Formula $A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Suppose that 
+\begin_inset Formula $A$
+\end_inset
+
+ is diagonalizable.
+ Then it's easy to integer compute powers of 
+\begin_inset Formula $A$
+\end_inset
+
+ using the eigenvalue factorization.
+ To compute 
+\begin_inset Formula $A^{p}$
+\end_inset
+
+, write 
+\begin_inset Formula $A$
+\end_inset
+
+ as 
+\begin_inset Formula $V\Lambda V^{-1}$
+\end_inset
+
+, and multiply 
+\begin_inset Formula $p$
+\end_inset
+
+ times,
+\begin_inset Formula 
+\[
+A^{p}=\underbrace{\left(V\Lambda V^{-1}\right)\left(V\Lambda V^{-1}\right)\cdots\left(V\Lambda V^{-1}\right)}_{p\;\text{times}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=V\Lambda\left(V^{-1}V\right)\Lambda\left(V^{-1}V\right)\cdots\left(V^{-1}V\right)\Lambda V^{-1}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=V\Lambda^{p}V^{-1}.
+\]
+
+\end_inset
+
+Since 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+ is diagonal, computing 
+\begin_inset Formula $\Lambda^{p}$
+\end_inset
+
+ is very simple: just take the 
+\begin_inset Formula $p$
+\end_inset
+
+-th power of each of the diagonal entries.
+ Computing 
+\begin_inset Formula $A^{p}$
+\end_inset
+
+ naively requires 
+\begin_inset Formula $p-1$
+\end_inset
+
+ matrix-matrix multiplications; computing it with the eigenvalue decomposition
+ takes just two.
+\end_layout
+
+\begin_layout Subsection
+Solving a system of differential equations by diagonalization
+\end_layout
+
+\begin_layout Standard
+Now we come to the first real application of all this eigenstuff: solving
+ a system of differential equations.
+ Again we assume that 
+\begin_inset Formula $A$
+\end_inset
+
+ is diagonalizable, and write the system 
+\begin_inset Formula 
+\[
+\mathbf{y'}=A\mathbf{y}
+\]
+
+\end_inset
+
+as
+\begin_inset Formula 
+\[
+\mathbf{y}'=V\Lambda V^{-1}\mathbf{y}.
+\]
+
+\end_inset
+
+Multiply from the left by 
+\begin_inset Formula $V^{-1}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+V^{-1}\mathbf{y'=}\Lambda V^{-1}\mathbf{y}
+\]
+
+\end_inset
+
+and introduce the temporary variable 
+\begin_inset Formula $\mathbf{z}=V^{-1}\mathbf{y}$
+\end_inset
+
+.
+ Now the system is
+\begin_inset Formula 
+\[
+\mathbf{z}'=\Lambda\mathbf{z}
+\]
+
+\end_inset
+
+or
+\begin_inset Formula 
+\begin{equation}
+\begin{gathered}z_{1}'=\lambda_{1}z_{1}\\
+z_{2}'=\lambda_{2}z_{2}\\
+\vdots\\
+z_{m}'=\lambda_{m}z_{m}
+\end{gathered}
+\end{equation}
+
+\end_inset
+
+which is an 
+\emph on
+uncoupled
+\emph default
+ system of equations! We know the solution:
+\begin_inset Formula 
+\begin{equation}
+\begin{gathered}z_{1}=e^{\lambda_{1}t}c_{1}\\
+z_{2}=e^{\lambda_{2}t}c_{2}\\
+\vdots\\
+z_{m}=e^{\lambda_{m}t}c_{m}
+\end{gathered}
+\label{eq:uncoupledSoln}
+\end{equation}
+
+\end_inset
+
+where the 
+\begin_inset Formula $c_{j}$
+\end_inset
+
+'s are constants to be determined from initial conditions.
+ At this point we introduce some notation: for a 
+\emph on
+diagonal
+\emph default
+ matrix 
+\begin_inset Formula $D$
+\end_inset
+
+, write the matrix
+\begin_inset Formula 
+\[
+e^{D}=\left[\begin{array}{cccc}
+e^{D_{11}}\\
+ & e^{D_{22}}\\
+ &  & \ddots\\
+ &  &  & e^{D_{nn}}
+\end{array}\right]
+\]
+
+\end_inset
+
+in shorthand as 
+\begin_inset Formula $e^{D}$
+\end_inset
+
+.
+ We'll do a general definition of the matrix exponential later; for now,
+ simply understand 
+\begin_inset Formula $e^{D}$
+\end_inset
+
+ as shorthand applicable to diagonal matrices only.
+ With that shorthand, the solution (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:uncoupledSoln"
+
+\end_inset
+
+) can be written compactly as 
+\begin_inset Formula 
+\[
+\mathbf{z}=e^{\Lambda t}\mathbf{c}.
+\]
+
+\end_inset
+
+Notice that 
+\begin_inset Formula $\mathbf{z}\left(0\right)=\mathbf{c}$
+\end_inset
+
+, so that the coefficients 
+\begin_inset Formula $\mathbf{c}$
+\end_inset
+
+ are determined easily from the initial conditions 
+\emph on
+as given in the eigenvector basis.
+ 
+\end_layout
+
+\begin_layout Standard
+Let's put it all together.
+ The solution to the decoupled problem is
+\begin_inset Formula 
+\[
+\mathbf{z}\left(t\right)=e^{\Lambda t}\mathbf{z}\left(0\right).
+\]
+
+\end_inset
+
+That's expressed in the eigenvector basis; to express our solution in the
+ original Cartesian basis we multiply by 
+\begin_inset Formula $V$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+\mathbf{y}\left(t\right)=V\mathbf{z}\left(t\right)=Ve^{\Lambda t}\mathbf{z}\left(0\right).
+\]
+
+\end_inset
+
+Finally, 
+\begin_inset Formula $\mathbf{y}\left(0\right)$
+\end_inset
+
+, the initial value in the original basis, is related to 
+\begin_inset Formula $\mathbf{z}\left(0\right)$
+\end_inset
+
+ by
+\begin_inset Formula 
+\[
+\mathbf{y}\left(0\right)=V\mathbf{z}\left(0\right)
+\]
+
+\end_inset
+
+or
+\begin_inset Formula 
+\[
+\mathbf{z}\left(0\right)=V^{-1}\mathbf{y}\left(0\right)
+\]
+
+\end_inset
+
+so that the solution is 
+\begin_inset Formula 
+\[
+\highlight{\mathbf{y}\left(t\right)=Ve^{\Lambda t}V^{-1}\mathbf{y}\left(0\right)}.
+\]
+
+\end_inset
+
+We can summarize the meaning of this formula as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\highlight{\mathbf{y}\left(t\right)=\underbrace{V\left(\underbrace{e^{\Lambda t}\left(\underbrace{V^{-1}\mathbf{y}\left(0\right)}_{\mbox{transform initial values to ev basis}}\right)}_{\mbox{solve uncoupled problems in ev basis}}\right)}_{\mbox{transform back to Cartesian basis}}}.
+\]
+
+\end_inset
+
+Notice the structural similarity to formula (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:AxbDiagSummary"
+
+\end_inset
+
+) for the solution to 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+ through diagonalization.
+ This is because we've used exactly the same approach to both problems:
+ 
+\series bold
+\emph on
+transform to a basis where the problem becomes simple, solve the simple
+ problem, then transform back to the original basis
+\series default
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator parbreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout BoxedExample
+Solve 
+\begin_inset Formula $\mathbf{y}'=A\mathbf{y}$
+\end_inset
+
+ by diagonalization, where 
+\begin_inset Formula $A=\left[\begin{array}{cc}
+2 & -1\\
+-1 & 2
+\end{array}\right]$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{y}\left(0\right)=\left[\begin{array}{c}
+1\\
+0
+\end{array}\right]$
+\end_inset
+
+.
+ From a previous example we know 
+\begin_inset Formula 
+\[
+V=\left[\begin{array}{cc}
+1 & 1\\
+-1 & 1
+\end{array}\right],
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\Lambda=\left[\begin{array}{cc}
+3 & 0\\
+0 & 1
+\end{array}\right],
+\]
+
+\end_inset
+
+and
+\begin_inset Formula 
+\[
+V^{-1}\mathbf{y}\left(0\right)=\frac{1}{2}\left[\begin{array}{c}
+1\\
+1
+\end{array}\right].
+\]
+
+\end_inset
+
+Then 
+\begin_inset Formula $e^{\Lambda t}V^{-1}\mathbf{y}\left(0\right)$
+\end_inset
+
+ is
+\begin_inset Formula 
+\[
+\frac{1}{2}\left[\begin{array}{cc}
+e^{3t} & 0\\
+0 & e^{t}
+\end{array}\right]\left[\begin{array}{c}
+1\\
+1
+\end{array}\right]=\frac{1}{2}\left[\begin{array}{c}
+e^{3t}\\
+e^{t}
+\end{array}\right]
+\]
+
+\end_inset
+
+and the solution is finally
+\begin_inset Formula 
+\[
+\mathbf{y}\left(t\right)=Ve^{\Lambda t}V^{-1}\mathbf{y}\left(0\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=\frac{1}{2}\left[\begin{array}{cc}
+1 & 1\\
+-1 & 1
+\end{array}\right]\left[\begin{array}{c}
+e^{3t}\\
+e^{t}
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=\frac{1}{2}\left[\begin{array}{c}
+e^{3t}+e^{t}\\
+-e^{3t}+e^{t}
+\end{array}\right].
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator parbreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We've found a simple formula expressing the solution to 
+\begin_inset Formula $\mathbf{y}'=A\mathbf{y}$
+\end_inset
+
+, at least for the case where 
+\begin_inset Formula $A$
+\end_inset
+
+ is diagonalizable.
+ Because we'll never compute 
+\begin_inset Formula $V^{-1}$
+\end_inset
+
+ explicitly it's best to think of the formula 
+\begin_inset Formula $\mathbf{y}\left(t\right)=Ve^{\Lambda t}V^{-1}\mathbf{y}\left(0\right)$
+\end_inset
+
+ not so much as a formula you plug 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+, 
+\begin_inset Formula $V$
+\end_inset
+
+, and 
+\begin_inset Formula $\mathbf{y}\left(0\right)$
+\end_inset
+
+ into, but as a shorthand notation to remind us of the steps of a procedure
+ for computing the solution 
+\begin_inset Formula $\mathbf{y}\left(t\right)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Notice that the rate constants in the solution to 
+\begin_inset Formula $\mathbf{y}'=A\mathbf{y}$
+\end_inset
+
+ are the eigenvalues of 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ So even without going through the full procedure of finding the solution,
+ we get some important information about the solution just by finding the
+ eigenvalues of 
+\begin_inset Formula $A$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+The Hermitian eigenvalue problem and orthogonal diagonalizability
+\end_layout
+
+\begin_layout Standard
+Eigenvalue problems are particularly nice for an important class of matrices
+ that arise frequently in physics and engineering: the Hermitian matrices.
+ 
+\end_layout
+
+\begin_layout Subsection
+The transpose of a matrix
+\end_layout
+
+\begin_layout Standard
+Given an 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ matrix 
+\begin_inset Formula $A$
+\end_inset
+
+, the 
+\series bold
+\emph on
+transpose
+\series default
+\emph default
+ of 
+\begin_inset Formula $A$
+\end_inset
+
+ (written 
+\begin_inset Formula $A^{T}$
+\end_inset
+
+) is the matrix obtained by exchanging rows and columns: for example,
+\begin_inset Formula 
+\[
+\left[\begin{array}{cc}
+1 & 2\\
+3 & 4
+\end{array}\right]^{T}=\left[\begin{array}{cc}
+1 & 3\\
+2 & 4
+\end{array}\right].
+\]
+
+\end_inset
+
+The first row in 
+\begin_inset Formula $A$
+\end_inset
+
+ becomes the first column in 
+\begin_inset Formula $A^{T}$
+\end_inset
+
+, and so on.
+ In terms of components, the 
+\begin_inset Formula $i,j$
+\end_inset
+
+ entry of 
+\begin_inset Formula $A$
+\end_inset
+
+ becomes entry 
+\begin_inset Formula $j,i$
+\end_inset
+
+ in 
+\begin_inset Formula $A^{T}$
+\end_inset
+
+, so that 
+\begin_inset Formula $A_{ij}=\left(A^{T}\right)_{ji}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+By considering the entries in a matrix-matrix product,
+\begin_inset Formula 
+\[
+\left(AB\right)_{ij}=\sum_{k=1}^{n}A_{ik}B_{kj},
+\]
+
+\end_inset
+
+we can see that transposing a product results in the reversed product of
+ the transposes,
+\begin_inset Formula 
+\begin{equation}
+\left(AB\right)^{T}=B^{T}A^{T}.\label{eq:transp-of-prod}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+An operation that will be important in what follows is the dot product with
+ the result of a matrix-vector operation:
+\begin_inset Formula 
+\[
+\mathbf{x}\cdot\left(A\mathbf{y}\right)=\mathbf{x}^{T}A\mathbf{y}.
+\]
+
+\end_inset
+
+The result is a real number.
+ Take the transpose, and use equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:transp-of-prod"
+
+\end_inset
+
+ to rewrite,
+\begin_inset Formula 
+\[
+\left(\mathbf{x}^{T}A\mathbf{y}\right)^{T}=\mathbf{y}^{T}A^{T}\mathbf{x}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+The conjugate transpose (adjoint) and the inner product between complex
+ vectors
+\end_layout
+
+\begin_layout Standard
+At this point we need to consider vectors and matrices with complex entries.
+ Recall the the 
+\series bold
+\emph on
+complex conjugate
+\series default
+\emph default
+ of a complex number 
+\begin_inset Formula $z=x+iy$
+\end_inset
+
+ is denoted 
+\begin_inset Formula $\overline{z}$
+\end_inset
+
+ and is computed by changing the sign of the imaginary part of 
+\begin_inset Formula $z$
+\end_inset
+
+: 
+\begin_inset Formula $\overline{z}=x-iy$
+\end_inset
+
+.
+ The 
+\series bold
+\emph on
+absolute value
+\series default
+\emph default
+ or 
+\series bold
+\emph on
+magnitude
+\series default
+\emph default
+ of 
+\begin_inset Formula $z$
+\end_inset
+
+ is 
+\begin_inset Formula 
+\[
+\left|z\right|=\sqrt{\overline{z}z}=\sqrt{x^{2}+y^{2}}
+\]
+
+\end_inset
+
+which is the length of 
+\begin_inset Formula $z$
+\end_inset
+
+ as regarded as a vector in the complex plane.
+ 
+\end_layout
+
+\begin_layout Standard
+A useful operation on complex vectors and matrices will be the 
+\series bold
+\emph on
+conjugate transpose
+\series default
+\emph default
+ or 
+\series bold
+\emph on
+adjoint
+\series default
+\emph default
+, which we define to be the complex conjugate of the transpose (or, equivalently
+, the transpose of the conjugate; the order is irrelevant).
+ If 
+\begin_inset Formula $A$
+\end_inset
+
+ is an 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ complex matrix, its adjoint is
+\begin_inset Formula 
+\[
+A^{*}=\overline{\left(A^{T}\right)}=\left(\overline{A}\right)^{T}
+\]
+
+\end_inset
+
+and the 
+\begin_inset Formula $i,j$
+\end_inset
+
+ entry in 
+\begin_inset Formula $A^{*}$
+\end_inset
+
+ is
+\begin_inset Formula 
+\[
+\left(A^{*}\right)_{ij}=\overline{A}_{ji}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Vectors with complex components add, subtract, and multiply by scalars in
+ the same way as do real vectors, except that complex addition, subtraction,
+ and multiplication is used throughout.
+ The dot product between complex vectors, however, presents a problem.
+ Here's why: Let 
+\begin_inset Formula $\mathbf{a}$
+\end_inset
+
+ be a complex vector.
+ Then the usual definition of the magnitude of 
+\begin_inset Formula $\mathbf{a}$
+\end_inset
+
+ as 
+\begin_inset Formula $\left\Vert \mathbf{a}\right\Vert =\sqrt{\mathbf{a}\cdot\mathbf{a}}$
+\end_inset
+
+ breaks down, because 
+\begin_inset Formula $\mathbf{a}\cdot\text{\textbf{a}}$
+\end_inset
+
+ can be negative when 
+\begin_inset Formula $\mathbf{a}$
+\end_inset
+
+ is complex.
+ The definition
+\begin_inset Formula 
+\[
+\left\Vert \mathbf{a}\right\Vert =\sqrt{\mathbf{a}^{*}\mathbf{a}}=\sqrt{\sum_{j=1}^{n}\left|a_{i}\right|^{2}}
+\]
+
+\end_inset
+
+does behave like a proper magnitude; it is defined for all 
+\begin_inset Formula $\mathbf{a}$
+\end_inset
+
+, and is zero iff 
+\begin_inset Formula $\mathbf{a}=0$
+\end_inset
+
+.
+ When working with complex vectors, I'll avoid the notation 
+\begin_inset Formula $\mathbf{a}\cdot\mathbf{b}$
+\end_inset
+
+ and use either 
+\begin_inset Formula $\mathbf{a}^{*}\mathbf{b}$
+\end_inset
+
+ (when conjugation is intended) or 
+\begin_inset Formula $\mathbf{a}^{T}\mathbf{b}$
+\end_inset
+
+ (when conjugation is not intended; this case is rare).
+\end_layout
+
+\begin_layout Standard
+We will say that complex vectors 
+\begin_inset Formula $\mathbf{a}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{b}$
+\end_inset
+
+ are orthogonal when 
+\begin_inset Formula $\mathbf{a}^{*}\mathbf{b}=0.$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+For complex vectors and matrices, we have the identities
+\begin_inset Formula 
+\[
+\left(AB\right)^{*}=B^{*}A^{*}
+\]
+
+\end_inset
+
+and
+\begin_inset Formula 
+\[
+\overline{\left(\mathbf{x}^{*}A\mathbf{y}\right)}=\left(\mathbf{x}^{*}A\mathbf{y}\right)^{*}=\mathbf{y}^{*}A^{*}\mathbf{x}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Hermitian and real symmetric matrices
+\end_layout
+
+\begin_layout Standard
+A matrix is called 
+\series bold
+\emph on
+Hermitian 
+\series default
+\emph default
+if it is equal to its own adjoint: 
+\begin_inset Formula $A=A^{*}$
+\end_inset
+
+.
+ For example, the matrix
+\begin_inset Formula 
+\[
+\left[\begin{array}{ccc}
+2 & -1 & 4i\\
+-1 & 3 & -1\\
+-4i & -1 & 4
+\end{array}\right]
+\]
+
+\end_inset
+
+is Hermitian.
+ In terms of matrix entries, a matrix is Hermitian if 
+\begin_inset Formula $A_{ij}=\overline{A}_{ij}$
+\end_inset
+
+ for all 
+\begin_inset Formula $i,j$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+A real Hermitian matrix is called 
+\series bold
+\emph on
+real symmetric
+\series default
+\emph default
+, and is equal to its own transpose.
+ 
+\end_layout
+
+\begin_layout Standard
+Two other complex matrix types that sometimes occur are:
+\end_layout
+
+\begin_layout Itemize
+Complex symmetric: 
+\begin_inset Formula $A=A^{T}$
+\end_inset
+
+ where 
+\begin_inset Formula $A$
+\end_inset
+
+ has a nonzero imaginary part.
+ Such a matrix is 
+\series bold
+\emph on
+not
+\series default
+\emph default
+ Hermitian.
+ 
+\end_layout
+
+\begin_layout Itemize
+Anti-Hermitian: 
+\begin_inset Formula $A=-A^{*}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Orthonormal matrices
+\end_layout
+
+\begin_layout Standard
+An
+\series bold
+\emph on
+ orthonormal
+\series default
+ 
+\emph default
+matrix is a real matrix with the property that its transpose is its inverse:
+ 
+\begin_inset Formula $Q^{-1}=Q^{T}$
+\end_inset
+
+.
+ Then it follows that 
+\begin_inset Formula $Q^{T}Q=QQ^{T}=I$
+\end_inset
+
+.
+ For this property to hold, it must be the case that the columns of 
+\begin_inset Formula $Q$
+\end_inset
+
+ are normalized and mutually orthogonal: if 
+\begin_inset Formula $\mathbf{q}_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{q}_{j}$
+\end_inset
+
+ are the 
+\begin_inset Formula $i$
+\end_inset
+
+-th and 
+\begin_inset Formula $j$
+\end_inset
+
+-th columns of 
+\begin_inset Formula $Q$
+\end_inset
+
+, then
+\begin_inset Formula 
+\[
+\mathbf{q}_{i}^{T}\mathbf{q}_{j}=\mathbf{q}_{i}\cdot\mathbf{q}_{j}=\begin{cases}
+1 & i=j\\
+0 & i\ne j
+\end{cases}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+The spectral theorem
+\end_layout
+
+\begin_layout Theorem
+(
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+spectral theorem
+\end_layout
+
+\end_inset
+
+Spectral theorem for Hermitian matrices).
+ Let 
+\begin_inset Formula $A$
+\end_inset
+
+ be a complex matrix such that 
+\begin_inset Formula $A=A^{*}$
+\end_inset
+
+.
+ Then all eigenvalues of 
+\begin_inset Formula $A$
+\end_inset
+
+ are real, and eigenvectors associated with distinct eigenvalues are orthogonal.
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $\lambda_{1},\mathbf{v}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\lambda_{2},\mathbf{v}_{2}$
+\end_inset
+
+ be two eigenvalue-eigenvector pairs for a Hermitian matrix 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ We can all agree with the statement that
+\begin_inset Formula 
+\begin{equation}
+\mathbf{v}_{1}^{*}A\mathbf{v}_{2}-\mathbf{v}_{1}^{*}A\mathbf{v}_{2}=0.\label{eq:trivial-proof-start}
+\end{equation}
+
+\end_inset
+
+Now let' s rearrange.
+ The second term is 
+\begin_inset Formula $\mathbf{v}_{1}^{*}A\mathbf{v}_{2}=\left(\mathbf{v}_{2}^{*}A^{*}\mathbf{v}_{1}\right)^{*}$
+\end_inset
+
+ which, because 
+\begin_inset Formula $A$
+\end_inset
+
+ is Hermitian, also equal to 
+\begin_inset Formula $\left(\mathbf{v}_{2}^{*}A\mathbf{v}_{1}\right)^{*}$
+\end_inset
+
+.
+ Since the term is a scalar, its adjoint is simply its conjugate, so that
+ 
+\begin_inset Formula $\mathbf{v}_{1}^{*}A\mathbf{v}_{2}=\overline{\left(\mathbf{v}_{2}^{*}A\mathbf{v}_{1}\right)}$
+\end_inset
+
+.
+ Therefore equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:trivial-proof-start"
+
+\end_inset
+
+ is
+\begin_inset Formula 
+\[
+\mathbf{v}_{1}^{*}A\mathbf{v}_{2}-\overline{\left(\mathbf{v}_{2}^{*}A\mathbf{v}_{1}\right)}=0.
+\]
+
+\end_inset
+
+Next, use the fact that 
+\begin_inset Formula $\mathbf{v}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{v}_{2}$
+\end_inset
+
+ are eigenvectors to rewrite the above as
+\begin_inset Formula 
+\[
+\mathbf{v}_{1}^{*}\lambda_{2}\mathbf{v}_{2}-\overline{\left(\mathbf{v}_{2}^{*}\lambda_{1}\mathbf{v}_{1}\right)}=0
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\lambda_{2}\left(\mathbf{v}_{1}^{*}\mathbf{v}_{2}\right)-\overline{\lambda_{1}}\overline{\left(\mathbf{v}_{2}^{*}\mathbf{v}_{1}\right)}=0
+\]
+
+\end_inset
+
+so that, finally,
+\begin_inset Formula 
+\begin{equation}
+\left(\mathbf{v}_{1}^{*}\mathbf{v}_{2}\right)\left(\lambda_{2}-\overline{\lambda_{1}}\right)=0.\label{eq:trivial-proof-finish}
+\end{equation}
+
+\end_inset
+
+We're done with calculating; it's time to think.
+ Suppose the two eigenpairs are identical: 
+\begin_inset Formula $\mathbf{v}_{1}=\mathbf{v}_{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $\lambda_{1}=\lambda_{2}$
+\end_inset
+
+, so that the equation becomes
+\begin_inset Formula 
+\[
+\left(\mathbf{v}_{1}^{*}\mathbf{v}_{1}\right)\left(\lambda_{1}-\overline{\lambda_{1}}\right)=0
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left\Vert \mathbf{v}_{1}\right\Vert ^{2}\left(\lambda_{1}-\overline{\lambda_{1}}\right)=0.
+\]
+
+\end_inset
+
+Since 
+\begin_inset Formula $\left\Vert \mathbf{v}_{1}\right\Vert $
+\end_inset
+
+ cannot be zero for an eigenvector (nonzero by definition), we must have
+ 
+\begin_inset Formula $\lambda_{1}=\overline{\lambda}_{1}$
+\end_inset
+
+.
+ Therefore 
+\begin_inset Formula $\lambda_{1}$
+\end_inset
+
+ is real.
+ Since we've chosen 
+\begin_inset Formula $\lambda_{1}$
+\end_inset
+
+ arbitrarily, this conclusion must hold for every eigenvalue of 
+\begin_inset Formula $A$
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Next, suppose that 
+\begin_inset Formula $\lambda_{1}\ne\lambda_{2}$
+\end_inset
+
+.
+ The factor 
+\begin_inset Formula $\lambda_{2}-\overline{\lambda_{1}}$
+\end_inset
+
+ is 
+\begin_inset Formula $\lambda_{2}-\lambda_{1}$
+\end_inset
+
+ in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:trivial-proof-finish"
+
+\end_inset
+
+ because all eigenvalues are real, and is nonzero by the supposition that
+ 
+\begin_inset Formula $\lambda_{1}\ne\lambda_{2}$
+\end_inset
+
+.
+ Therefore, for equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:trivial-proof-finish"
+
+\end_inset
+
+ to hold we must have 
+\begin_inset Formula $\mathbf{v}_{1}^{*}\mathbf{v}_{2}=0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Simultaneous diagonalizability and commutivity
+\end_layout
+
+\begin_layout Subsubsection
+An interlude in quantum mechanics
+\end_layout
+
+\begin_layout Section
+The exponential of a matrix
+\end_layout
+
+\begin_layout Subsection
+Series definition of 
+\begin_inset Formula $e^{A}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The matrix exponential is defined by the infinite series
+\begin_inset Formula 
+\[
+e^{A}=I+A+\frac{A^{2}}{2}+\frac{A^{3}}{6}+\cdots=\sum_{j=0}^{\infty}\frac{A^{j}}{j!}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+The derivative of 
+\begin_inset Formula $e^{At}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now consider the exponential of a matrix 
+\begin_inset Formula $A$
+\end_inset
+
+ that is multiplied by a real parameter 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ The function 
+\begin_inset Formula $e^{At}$
+\end_inset
+
+ is defined by the series
+\begin_inset Formula 
+\[
+e^{At}=I+At+\frac{A^{2}t^{2}}{2}+\frac{A^{3}t^{3}}{6}+\cdots=\sum_{j=0}^{\infty}\frac{A^{j}t^{j}}{j!}.
+\]
+
+\end_inset
+
+Differentiate by 
+\begin_inset Formula $t$
+\end_inset
+
+ term-by-term to find
+\begin_inset Formula 
+\[
+\od{}{t}\left(e^{At}\right)=\sum_{j=0}^{\infty}\frac{jA^{j}t^{j-1}}{j!}=A\sum_{j=0}^{\infty}\frac{A^{j}t^{j}}{j!}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=Ae^{At}.
+\]
+
+\end_inset
+
+Notice that it doesn't matter whether you write 
+\begin_inset Formula $Ae^{At}$
+\end_inset
+
+ or 
+\begin_inset Formula $e^{At}A$
+\end_inset
+
+: because 
+\begin_inset Formula $A$
+\end_inset
+
+ commutes with every power of 
+\begin_inset Formula $A$
+\end_inset
+
+, it also commutes with 
+\begin_inset Formula $e^{At}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Formula $e^{A}e^{B}$
+\end_inset
+
+ is not always 
+\begin_inset Formula $e^{A+B}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Warning: not every property of the ordinary real (or complex) exponential
+ carries over to the matrix exponential.
+ In particular, the identity 
+\begin_inset Formula 
+\[
+e^{a}e^{b}=e^{a+b}
+\]
+
+\end_inset
+
+does 
+\series bold
+\emph on
+NOT
+\series default
+\emph default
+ generalize to 
+\begin_inset Formula 
+\[
+e^{A}e^{B}=e^{A+B}.
+\]
+
+\end_inset
+
+To see why, compute the LHS by multiplying out the product of the two series,
+\begin_inset Formula 
+\[
+e^{A}e^{B}=\left(I+A+\frac{A^{2}}{2}+\cdots\right)\left(I+B+\frac{B^{2}}{2}+\cdots\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=\left(I+\left(A+B\right)+AB+\frac{A^{2}}{2}+\frac{B^{2}}{2}+\cdots\right)
+\]
+
+\end_inset
+
+and compute the RHS with the exponential series in 
+\begin_inset Formula $A+B$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+e^{A+B}=I+\left(A+B\right)+\frac{1}{2}\left(A^{2}+AB+BA+B^{2}\right)+\cdots.
+\]
+
+\end_inset
+
+The series are equal through first order terms, but the second order terms
+ are equal only in the case where
+\begin_inset Formula 
+\[
+AB=\frac{1}{2}\left(AB+BA\right),
+\]
+
+\end_inset
+
+that is, only when 
+\begin_inset Formula $AB=BA$
+\end_inset
+
+.
+ Since will not be true in general, we have that in general
+\begin_inset Formula 
+\[
+e^{A}e^{B}\ne e^{A+B}.
+\]
+
+\end_inset
+
+To prove the two sides were 
+\emph on
+not 
+\emph default
+equal
+\emph on
+ 
+\emph default
+I only needed to go to order 2 in the series.
+ To determine when the series 
+\emph on
+are 
+\emph default
+equal is more difficult; surprisingly, it all comes down to whether the
+ two matrices commute.
+ I will state without proof the following theorem:
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:The-matrix-exponential"
+
+\end_inset
+
+The matrix exponential 
+\begin_inset Formula $\exp\left(A+B\right)$
+\end_inset
+
+ is equal to 
+\begin_inset Formula $e^{A}e^{B}$
+\end_inset
+
+ if and only if 
+\begin_inset Formula $AB=BA$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+The inverse of a matrix exponential
+\end_layout
+
+\begin_layout Standard
+The inverse of a matrix exponential 
+\begin_inset Formula $e^{A}$
+\end_inset
+
+ is exactly what you'd expect it to be: 
+\begin_inset Formula $e^{-A}$
+\end_inset
+
+.
+ Since 
+\begin_inset Formula $A$
+\end_inset
+
+ and 
+\begin_inset Formula $-A$
+\end_inset
+
+ commute, we have
+\begin_inset Formula 
+\[
+e^{A}e^{-A}=e^{A-A}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=I.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Calculation of 
+\begin_inset Formula $e^{At}$
+\end_inset
+
+ by factorization
+\end_layout
+
+\begin_layout Standard
+When 
+\begin_inset Formula $A$
+\end_inset
+
+ is diagonalizable (
+\emph on
+i.e.
+\emph default
+, has an eigenvalue factorization) we can apply that factorization to compute
+ all powers appearing in the series, and find
+\begin_inset Formula 
+\[
+e^{A}=Ve^{\Lambda}V^{-1}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+The exponential of a defective matrix
+\end_layout
+
+\begin_layout Standard
+When 
+\begin_inset Formula $A$
+\end_inset
+
+ is defective, we must use the Jordan decomposition, in which case 
+\begin_inset Formula 
+\[
+e^{A}=Ve^{J}V^{-1}.
+\]
+
+\end_inset
+
+Warning: this formula is 
+\series bold
+\emph on
+not
+\series default
+\emph default
+ suitable for practical calculations.
+ 
+\end_layout
+
+\begin_layout Section
+The Laplace transform of 
+\begin_inset Formula $e^{At}$
+\end_inset
+
+ and applications
+\end_layout
+
+\begin_layout Standard
+Let's just plug the matrix exponential into the Laplace transform formula
+ and see what happens:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\LT{e^{At}}\left(s\right)=\int_{0}^{\infty}e^{At}e^{-st}\,dt.
+\]
+
+\end_inset
+
+The first question is what to do with 
+\begin_inset Formula $e^{At}e^{st}$
+\end_inset
+
+, a product of a matrix exponential with an ordinary scalar exponential.
+ I'll work through the steps in detail to help you get comfortable with
+ working with the matrix exponential.
+ Suppose 
+\begin_inset Formula $A$
+\end_inset
+
+ has Jordan decomposition 
+\begin_inset Formula $A=VJV^{-1}.$
+\end_inset
+
+ Then 
+\begin_inset Formula $e^{At}=Ve^{Jt}V^{-1}$
+\end_inset
+
+ and 
+\begin_inset Formula 
+\[
+e^{At}e^{st}=Ve^{Jt}V^{-1}e^{-st}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=V\left(e^{Jt}e^{-st}\right)V^{-1}\;\;\;\mbox{(since \ensuremath{e^{-st}} is just a scalar)}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=V\left(e^{Jt}e^{-Ist}\right)V^{-1}\;\;\;\;\mbox{(since }Ie^{-st}=e^{-Ist})
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=e^{(J-Is)t}.
+\]
+
+\end_inset
+
+With that done, the Laplace transform simplifies to 
+\begin_inset Formula 
+\[
+\LT{e^{At}}{\left(s\right)}=\int_{0}^{\infty}e^{\left(A-Is\right)t}\,dt.
+\]
+
+\end_inset
+
+We have to do the integral, which is easy, working backwards from the derivative
+ 
+\begin_inset Formula $\od{}{t}\left[e^{At}\right]=Ae^{At}$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\int_{0}^{\infty}e^{\left(A-Is\right)t}\,dt=\left.\left(A-Is\right)^{-1}e^{\left(A-Is\right)t}\right|_{0}^{\infty}.
+\]
+
+\end_inset
+
+Clearly we're in trouble if 
+\begin_inset Formula $\left(A-Is\right)$
+\end_inset
+
+ isn't invertible; we'll look at that question in more detail later.
+ We also have to worry about evaluation at the limits.
+ Evaluation at the lower limit is easy: the exponential of zero is just
+ the identity.
+ The upper limit takes a little more thought.
+ Intuitively, we'd say that 
+\begin_inset Formula $e^{\left(A-Is\right)t}\to0$
+\end_inset
+
+ as 
+\begin_inset Formula $t\to\infty$
+\end_inset
+
+ if 
+\begin_inset Formula $A-Is$
+\end_inset
+
+ is 
+\begin_inset Quotes eld
+\end_inset
+
+negative
+\begin_inset Quotes erd
+\end_inset
+
+, and blows up if 
+\begin_inset Formula $A-Is$
+\end_inset
+
+ is 
+\begin_inset Quotes eld
+\end_inset
+
+positive
+\begin_inset Quotes erd
+\end_inset
+
+.
+ But what does it even mean for a 
+\emph on
+matrix
+\emph default
+ to be 
+\begin_inset Quotes eld
+\end_inset
+
+positive
+\begin_inset Quotes erd
+\end_inset
+
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+negative
+\begin_inset Quotes erd
+\end_inset
+
+? So we need to be careful and work it through systematically.
+ To keep it simple, let's assume that 
+\begin_inset Formula $A$
+\end_inset
+
+ isn't defective, and compute 
+\begin_inset Formula 
+\[
+e^{\left(A-Is\right)t}=Ve^{\left(\Lambda-Is\right)t}V^{-1}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=V\left(\begin{array}{ccc}
+e^{\left(\lambda_{1}-s\right)t} & 0\\
+0 & e^{\left(\lambda_{2}-s\right)t}\\
+ &  & \ddots
+\end{array}\right)V^{-1}.
+\]
+
+\end_inset
+
+This will blow up as 
+\begin_inset Formula $t\to\infty$
+\end_inset
+
+ if 
+\emph on
+any
+\emph default
+ of the exponents 
+\begin_inset Formula $\lambda_{j}-s$
+\end_inset
+
+ is positive.
+ It will go to the zero matrix if 
+\begin_inset Formula $s>\lambda_{j}$
+\end_inset
+
+ for all 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ Since with Laplace transforms we're often working in the complex plane,
+ we have to be more precise and say that 
+\begin_inset Formula $\Re\left(s\right)>\Re\left(\lambda_{i}\right)$
+\end_inset
+
+ for all 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ I'll leave it to you to show that the same conclusion holds if 
+\begin_inset Formula $A$
+\end_inset
+
+ is defective, in which case we have to use the Jordan form 
+\begin_inset Formula $A=VJV^{-1}$
+\end_inset
+
+ instead of the simpler diagonalization 
+\begin_inset Formula $A=V\Lambda V^{-1}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+What if 
+\begin_inset Formula $s$
+\end_inset
+
+ is exactly equal to one of the eigenvalues, so that one of the diagonal
+ entries is zero? Suppose that 
+\begin_inset Formula $s$
+\end_inset
+
+ is an eigenvalue.
+ Then 
+\begin_inset Formula $\det\left(A-Is\right)=0$
+\end_inset
+
+, in which case 
+\begin_inset Formula $A-Is$
+\end_inset
+
+ is singular.
+ But remember the factor of 
+\begin_inset Formula $\left(A-Is\right)^{-1}$
+\end_inset
+
+ that appeared when we integrated? That can't exist if 
+\begin_inset Formula $A-Is$
+\end_inset
+
+ is singular, 
+\emph on
+i.e., 
+\emph default
+if 
+\begin_inset Formula $s$
+\end_inset
+
+ is an eigenvalue of 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Putting it all together, we can conclude that
+\begin_inset Formula 
+\[
+\LT{e^{At}}{\left(s\right)}=\left(Is-A\right)^{-1}
+\]
+
+\end_inset
+
+provided that
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\Re$
+\end_inset
+
+
+\begin_inset Formula $\left(s\right)$
+\end_inset
+
+ is greater than 
+\begin_inset Formula $\Re\left(\lambda\right)$
+\end_inset
+
+ for all eigenvalues 
+\begin_inset Formula $\lambda$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $s$
+\end_inset
+
+ is not an eigenvalue of 
+\begin_inset Formula $A$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+When 
+\begin_inset Formula $s$
+\end_inset
+
+ is an eigenvalue of 
+\begin_inset Formula $A$
+\end_inset
+
+, the Laplace transform 
+\begin_inset Formula $\LT{e^{At}}\left(s\right)$
+\end_inset
+
+ has a pole (repeated eigenvalues have a pole of order equal to the multiplicity
+ of the eigenvalue).
+ If you've had a course in stability theory, you'll recall that the stability
+ of a linear system can be described in terms of the locations of the poles
+ of the Laplace transform.
+ But the poles are just the eigenvalues of the system matrix 
+\begin_inset Formula $A$
+\end_inset
+
+: linear stability theory is all about eigenvalues.
+ 
+\end_layout
+
+\begin_layout Standard
+For comparison, recall the Laplace transform for the ordinary complex exponentia
+l,
+\begin_inset Formula 
+\[
+\LT{e^{at}}\left(s\right)=\frac{1}{\left(s-a\right)}
+\]
+
+\end_inset
+
+provided 
+\begin_inset Formula $\Re\left(s\right)>\Re\left(a\right)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The Laplace transforms for the matrix exponential and the ordinary exponential
+ look very similar, but keep in mind the important distinction: the Laplace
+ transform of 
+\begin_inset Formula $e^{at}$
+\end_inset
+
+ has poles where 
+\begin_inset Formula $s=a$
+\end_inset
+
+, whereas the Laplace transform of 
+\begin_inset Formula $e^{At}$
+\end_inset
+
+ has poles where 
+\begin_inset Formula $s$
+\end_inset
+
+ is an 
+\emph on
+eigenvalue
+\emph default
+ of 
+\begin_inset Formula $A$
+\end_inset
+
+, that is, where 
+\begin_inset Formula $A-Is$
+\end_inset
+
+ is singular.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+
+\series bold
+Laplace transform of a matrix exponential
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\LT{e^{At}}{s}=\left(Is-A\right)^{-1}
+\]
+
+\end_inset
+
+provided that
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\Re$
+\end_inset
+
+
+\begin_inset Formula $\left(s\right)$
+\end_inset
+
+ is greater than 
+\begin_inset Formula $\Re\left(\lambda\right)$
+\end_inset
+
+ for all eigenvalues 
+\begin_inset Formula $\lambda$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $s$
+\end_inset
+
+ is not an eigenvalue of 
+\begin_inset Formula $A$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Solving 
+\begin_inset Formula $\mathbf{y}'=A\mathbf{y}+\mathbf{f}$
+\end_inset
+
+ with Laplace transforms
+\end_layout
+
+\begin_layout Standard
+The procedure for solving systems of equations with Laplace transforms is
+ quite similar to that for solving single equations.
+ Consider
+\begin_inset Formula 
+\[
+\mathbf{y}'-A\mathbf{y}=\mathbf{f}\left(t\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathbf{y}\left(0\right)=\mathbf{y}_{0}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $A$
+\end_inset
+
+ is an 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ matrix, 
+\begin_inset Formula $\mathbf{y}\left(t\right)$
+\end_inset
+
+ an unknown vector-valued function that maps 
+\begin_inset Formula $\R\to\R^{n}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{f}\left(t\right)$
+\end_inset
+
+ a specifed vector valued function that maps 
+\begin_inset Formula $\R\to\R^{n}$
+\end_inset
+
+, and 
+\begin_inset Formula $\mathbf{y}_{0}$
+\end_inset
+
+ a speficied constant vector in 
+\begin_inset Formula $\R^{n}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The Laplace transform of 
+\begin_inset Formula $\mathbf{f}\left(t\right)$
+\end_inset
+
+ is 
+\begin_inset Formula $\mathbf{F}\left(s\right)$
+\end_inset
+
+, which is a vector-valued function mapping 
+\begin_inset Formula $\R\to\R^{n}$
+\end_inset
+
+.
+ Each component of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is simply the Laplace transform of the corresponding component of 
+\series bold
+
+\begin_inset Formula $\mathbf{f}$
+\end_inset
+
+
+\series default
+.
+ For example, the vector-valued function 
+\begin_inset Formula $\left[\begin{array}{ccc}
+e^{-2t} & t & \sin\left(3t\right)\end{array}\right]^{T}$
+\end_inset
+
+ has the Laplace transform 
+\begin_inset Formula 
+\[
+\left(\begin{array}{c}
+e^{-2t}\\
+t\\
+\sin\left(3t\right)
+\end{array}\right)\leftrightarrow\left(\begin{array}{c}
+\frac{1}{s+2}\\
+\frac{1}{s^{2}}\\
+\frac{3}{s^{2}+9}
+\end{array}\right).
+\]
+
+\end_inset
+
+Now that we know how to take the Laplace transform of a vector, let's solve
+ the equation.
+ Suppose 
+\begin_inset Formula $\mathbf{y}\left(t\right)\leftrightarrow\mathbf{Y}\left(s\right)$
+\end_inset
+
+.
+ Take Laplace transforms of both sides,
+\begin_inset Formula 
+\[
+s\mathbf{Y}\left(s\right)-\mathbf{y}_{0}-A\mathbf{Y}\left(s\right)=\mathbf{F}\left(s\right)
+\]
+
+\end_inset
+
+then solve for 
+\begin_inset Formula $\mathbf{Y}$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+\mathbf{Y}=\left(Is-A\right)^{-1}\left(\mathbf{y}_{0}+\mathbf{F}\left(s\right)\right).
+\]
+
+\end_inset
+
+That's a pretty formula, but it's maybe not clear what you actually 
+\emph on
+do
+\emph default
+ with it.
+ So let's do a specific example,
+\begin_inset Formula 
+\[
+A=\left(\begin{array}{cc}
+2 & -1\\
+-1 & 2
+\end{array}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathbf{y}_{0}=\left(\begin{array}{c}
+1\\
+2
+\end{array}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathbf{f}\left(t\right)=\left(\begin{array}{c}
+et^{-2t}\\
+t
+\end{array}\right).
+\]
+
+\end_inset
+
+Then the solution for 
+\begin_inset Formula $\mathbf{Y}\left(s\right)$
+\end_inset
+
+ is 
+\begin_inset Formula 
+\[
+Y\left(s\right)=\left(Is-A\right)^{-1}\left(\begin{array}{c}
+1+\frac{1}{s+2}\\
+2+\frac{1}{s^{2}}
+\end{array}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=\left(\begin{array}{cc}
+s-2 & 1\\
+1 & s-2
+\end{array}\right)^{-1}\left(\begin{array}{c}
+1+\frac{1}{s+2}\\
+2+\frac{1}{s^{2}}
+\end{array}\right).
+\]
+
+\end_inset
+
+We know not to form the inverse; the use of inverse notation means to solve
+ the linear system of equations using, for instance, Gaussian elimination.
+ The calculations get messy so this is almost always better done by a symbolic
+ math program.
+ 
+\end_layout
+
+\begin_layout Standard
+Notice that when 
+\begin_inset Formula $\mathbf{f}\left(t\right)=0$
+\end_inset
+
+ we just have
+\begin_inset Formula 
+\[
+\mathbf{Y}\left(s\right)=\left(Is-A\right)^{-1}\mathbf{y}_{0}.
+\]
+
+\end_inset
+
+But we know that 
+\begin_inset Formula $\left(Is-A\right)^{-1}$
+\end_inset
+
+ is the Laplace transform of 
+\begin_inset Formula $e^{At}$
+\end_inset
+
+, so the solution is
+\begin_inset Formula 
+\[
+\mathbf{y}\left(t\right)=e^{At}\mathbf{y}_{0}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Laplace transform method carries over from single equations to systems
+ of equations very cleanly.
+ The calculations get messy, but that's what computers are for.
+\end_layout
+
+\begin_layout Section
+\start_of_appendix
+Important notation
+\end_layout
+
+\begin_layout Subsection
+Abbreviations
+\end_layout
+
+\begin_layout Itemize
+ew – eigenvalue (from German 
+\emph on
+Eigenwert
+\emph default
+)
+\end_layout
+
+\begin_layout Itemize
+ev – eigenvector (from German 
+\emph on
+Eigenvektor
+\emph default
+)
+\end_layout
+
+\begin_layout Itemize
+iff – 
+\begin_inset Quotes eld
+\end_inset
+
+if and only if
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+LC – linear combination
+\end_layout
+
+\begin_layout Itemize
+LD – linearly dependent
+\end_layout
+
+\begin_layout Itemize
+LI – linearly independent
+\end_layout
+
+\begin_layout Subsection
+Mathematical notation
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\in$
+\end_inset
+
+ – Membership in a set.
+ For example, 
+\begin_inset Formula $x\in\RR$
+\end_inset
+
+ means 
+\begin_inset Formula $x$
+\end_inset
+
+ is a member of the set 
+\begin_inset Formula $\RR$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall$
+\end_inset
+
+ – For all
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\exists$
+\end_inset
+
+ – There exists
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+ – The inverse of the matrix 
+\begin_inset Formula $A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $A^{T}$
+\end_inset
+
+ – The transpose of the matrix 
+\begin_inset Formula $A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $A^{-T}$
+\end_inset
+
+ – The inverse transpose of the matrix 
+\begin_inset Formula $A$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $A^{*}$
+\end_inset
+
+ – The adjoint (conjugate transpose) of the matrix 
+\begin_inset Formula $A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $A^{-*}$
+\end_inset
+
+ – The inverse adjoint of the matrix 
+\begin_inset Formula $A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\CC$
+\end_inset
+
+ – The set of complex numbers
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\CC^{n}$
+\end_inset
+
+ – The set of complex vectors of length 
+\begin_inset Formula $n$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\CC^{m\times n}$
+\end_inset
+
+ – The set of complex 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ matrices
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\NN_{0}$
+\end_inset
+
+ – The set of natural (
+\begin_inset Quotes eld
+\end_inset
+
+counting
+\begin_inset Quotes erd
+\end_inset
+
+) numbers, starting with zero
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\NN_{1}$
+\end_inset
+
+ – The set of natural (
+\begin_inset Quotes eld
+\end_inset
+
+counting
+\begin_inset Quotes erd
+\end_inset
+
+) numbers, starting with one 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\RR$
+\end_inset
+
+ – The set of real numbers
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\RR^{n}$
+\end_inset
+
+ – The set of real vectors of length 
+\begin_inset Formula $n$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\RR^{m\times n}$
+\end_inset
+
+ – The set of real 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ matrices
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\ZZ$
+\end_inset
+
+ – The set of integers (from the German 
+\emph on
+Zahlen
+\emph default
+)
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\overline{z}$
+\end_inset
+
+ – complex conjugate of 
+\begin_inset Formula $z$
+\end_inset
+
+.
+ For 
+\begin_inset Formula $a$
+\end_inset
+
+ and 
+\begin_inset Formula $b$
+\end_inset
+
+ real, the conjugate of 
+\begin_inset Formula $z=a+ib$
+\end_inset
+
+ is 
+\begin_inset Formula $a-ib$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Summary of important facts
+\end_layout
+
+\begin_layout Subsubsection
+Eigensystems
+\end_layout
+
+\begin_layout Itemize
+The eigenvalues 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ of the 
+\begin_inset Formula $m\times m$
+\end_inset
+
+ matrix 
+\begin_inset Formula $A$
+\end_inset
+
+ are the roots of the degree 
+\begin_inset Formula $m$
+\end_inset
+
+ polynomial 
+\begin_inset Formula $\det\left(A-\lambda I\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+An 
+\begin_inset Formula $m\times m$
+\end_inset
+
+ matrix has 
+\begin_inset Formula $m$
+\end_inset
+
+ eigenvalues (counting multiplicity)
+\end_layout
+
+\begin_layout Itemize
+The eigenvalues of a real matrix will be real or complex conjugate pairs
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+The eigenvector(s) corresponding to 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ are in the null space of 
+\begin_inset Formula $\left(A-\lambda I\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Eigenvectors corresponding to distinct eigenvalues are linearly independent
+\end_layout
+
+\begin_layout Itemize
+If 
+\begin_inset Formula $A\in\CC^{m\times m}$
+\end_inset
+
+ has 
+\begin_inset Formula $m$
+\end_inset
+
+ distinct eigenvalues, then its 
+\begin_inset Formula $m$
+\end_inset
+
+ eigenvectors are linearly independent.
+ Consequently, the matrix 
+\begin_inset Formula $V$
+\end_inset
+
+ whose columns are the eigenvectors is nonsingular.
+\end_layout
+
+\begin_layout Itemize
+An eigenvalue of algebraic multiplicity 
+\begin_inset Formula $m_{a}$
+\end_inset
+
+ will have an eigenspace of dimension 
+\begin_inset Formula $m_{g}\le m_{a}$
+\end_inset
+
+.
+ If the 
+\begin_inset Quotes eld
+\end_inset
+
+geometric multiplicity
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset Formula $m_{g}$
+\end_inset
+
+ is less than the algebraic multiplicity 
+\begin_inset Formula $m_{a}$
+\end_inset
+
+, then the eigenvalue is called defective.
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+A matrix with one or more defective eigenvalues cannot be diagonalized.
+ 
+\end_layout
+
+\begin_layout Itemize
+A non-defective matrix can be diagonalized.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+The eigenvectors of an Hermitian matrix are orthogonal, and the eigenvalues
+ are real.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+An Hermitian matrix 
+\begin_inset Formula $A$
+\end_inset
+
+ is orthogonally diagonalizable: 
+\begin_inset Formula $A=Q\Lambda Q^{*}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Section
+Practical algorithms for solving eigensystems 
+\end_layout
+
+\begin_layout Standard
+It's very important to understand that the procedure shown in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Eigenvalues-and-the"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Finding-eigenspaces"
+
+\end_inset
+
+ is 
+\series bold
+not
+\series default
+ a practical algorithm for solving real-world eigenvalue problems.
+ Unless the matrix is small or has a simple structure (such as a diagonal
+ matrix) it is surprisingly expensive even to form the characteristic polynomial
+, and then finding its roots accurately can be quite difficult
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Recall that there is no exact formula for the roots of general polynomials
+ above degree four, and even the cubic and quartic formulas can be difficult
+ to use in practice.
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+So how are eigensystems really solved? It's complicated; to quote from the
+ excellent textbook 
+\emph on
+Numerical Linear Algebra
+\emph default
+ by L.
+ N.
+ Trefethen and D.
+ Bau: 
+\begin_inset Quotes eld
+\end_inset
+
+
+\emph on
+...the best algorithms for finding eigenvalues are powerful, yet particularly
+ far from obvious.
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+ The details are intricate and the methods are ingenious, but speaking generally
+ the most commonly used algorithms are of one of two types.
+ 
+\end_layout
+
+\begin_layout Itemize
+For 
+\begin_inset Quotes eld
+\end_inset
+
+small
+\begin_inset Quotes erd
+\end_inset
+
+ eigenvalue problems (
+\begin_inset Formula $N\apprle10000$
+\end_inset
+
+ or so) one constructs a sequence of similarity transformations that converge
+ to a triangular matrix.
+ Recall that similarity transformations leave the eigenvalues unchanged,
+ and the eigenvalues can then be read off as the diagonal elements of the
+ result.
+ The eigenvectors can be constructed from the composition of all the similarity
+ transformations used.
+ 
+\end_layout
+
+\begin_layout Itemize
+For very large matrices, we can project the eigenvalue problem onto a lower-dime
+nsional space and solve the projected problem (which is small enough to
+ use simpler methods).
+ The trick is to construct a lower dimensional space that nearly contains
+ the most important eigenvectors; this is done iteratively.
+\end_layout
+
+\begin_layout Standard
+You can trust that the Mathematica functions 
+\family typewriter
+Eigenvalues
+\family default
+, 
+\family typewriter
+Eigenvectors
+\family default
+, and 
+\family typewriter
+Eigensystem
+\family default
+ will solve eigenvalue problems using reliable algorithms.
+ 
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Defective-matrices-and"
+
+\end_inset
+
+Defective matrices and the Jordan decomposition
+\end_layout
+
+\begin_layout Standard
+Whether or not a matrix is defective will determine whether or not it's
+ possible to decouple fully a system of differential equations.
+ If 
+\begin_inset Formula $A$
+\end_inset
+
+ is not defective, then we'll be able to decouple 
+\begin_inset Formula $\mathbf{y}'=A\mathbf{y}$
+\end_inset
+
+.
+ If it is defective, the system can't be fully decoupled; we'll see that
+ we can 
+\emph on
+almost
+\emph default
+ decouple it, and we'll find out how to construct a solution with a little
+ more work than needed for a non-defective system.
+ 
+\end_layout
+
+\begin_layout Standard
+We will start our study of non-diagonalizable matrices with a simple but
+ extremely important example.
+ A 
+\series bold
+Jordan block
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+Jordan block
+\end_layout
+
+\end_inset
+
+
+\series default
+ is a matrix with the structure
+\begin_inset Formula 
+\[
+J_{\lambda}=\left(\begin{array}{cccccc}
+\lambda & 1\\
+ & \lambda & 1\\
+ &  & \lambda & 1\\
+ &  &  & \ddots & \ddots\\
+ &  &  &  & \lambda & 1\\
+ &  &  &  &  & \lambda
+\end{array}\right).
+\]
+
+\end_inset
+
+All entries on the main diagonal are 
+\begin_inset Formula $\lambda$
+\end_inset
+
+, all entries on the first diagonal above the main are 
+\begin_inset Formula $1$
+\end_inset
+
+, and all other entries are zero.
+\end_layout
+
+\begin_layout Standard
+All eigenvalues of 
+\begin_inset Formula $J_{\lambda}$
+\end_inset
+
+ are 
+\begin_inset Formula $\lambda$
+\end_inset
+
+, with algebraic multiplicity equal to the size of the Jordan block.
+ There is only one eigenvector: 
+\begin_inset Formula $\mathbf{v}_{1}=\left[\begin{array}{ccccc}
+1 & 0 & 0 & \cdots & 0\end{array}\right]^{T}$
+\end_inset
+
+.
+ With only one eigenvector, the eigenspace is one dimensional and the geometric
+ multiplicity of the eigenvector is one.
+ Therefore, 
+\begin_inset Formula $J_{\lambda}$
+\end_inset
+
+ is defective whenever it's larger than 
+\begin_inset Formula $1\times1$
+\end_inset
+
+, and it is not diagonalizable.
+ 
+\end_layout
+
+\begin_layout Standard
+We will see later that even when a matrix is not diagonalizable, we can
+ always find a similary transformation to a matrix built out of Jordan blocks.
+ The reason this is useful is that differential equations 
+\begin_inset Formula $\mathbf{y}'=J_{\lambda}\mathbf{y}$
+\end_inset
+
+ can be solved by a procedure similar to backsubstitution for solving algebraic
+ equations.
+ This isn't quite as nice as working with a diagonal system, but it will
+ work.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset Quotes eld
+\end_inset
+
+Almost-diagonalization
+\begin_inset Quotes erd
+\end_inset
+
+ with Jordan blocks: the Jordan decomposition
+\end_layout
+
+\begin_layout Standard
+We can compute matrix exponentials (and hence solve differential equation)
+ with Jordan blocks.
+ The next step is to see how to express a defective matrix in terms of Jordan
+ blocks.
+ 
+\end_layout
+
+\begin_layout Standard
+Suppose a matrix has non-defective eigenvalues 
+\begin_inset Formula $\lambda_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{2},\cdots,\lambda_{p-1}$
+\end_inset
+
+, and then defective eigenvalues 
+\begin_inset Formula $\lambda_{p}$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{p+1},\cdots$
+\end_inset
+
+ with multiplicities 
+\begin_inset Formula $m_{p}$
+\end_inset
+
+, 
+\begin_inset Formula $m_{p+1}$
+\end_inset
+
+, 
+\begin_inset Formula $\cdots$
+\end_inset
+
+.
+ Form the diagonal matrix 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+ with 
+\begin_inset Formula $\lambda_{1},\cdots,\lambda_{p-1}$
+\end_inset
+
+ on the diagonal.
+ For each of the defective eigenvalues 
+\begin_inset Formula $\lambda_{i}$
+\end_inset
+
+, form an 
+\begin_inset Formula $m_{i}\times m_{i}$
+\end_inset
+
+ Jordan block 
+\begin_inset Formula $J_{\lambda_{i}}$
+\end_inset
+
+.
+ Then pack them into a 
+\emph on
+block-diagonal
+\emph default
+ matrix 
+\begin_inset Formula 
+\[
+J=\left(\begin{array}{ccccc}
+\Lambda & 0 & 0\\
+0 & J_{\lambda_{p}} & 0\\
+0 & 0 & J_{\lambda_{p+1}}\\
+ &  &  & \ddots\\
+ &  &  &  & \ddots
+\end{array}\right).
+\]
+
+\end_inset
+
+This is called the Jordan matrix.
+ Alternatively, considering each non-defective eigenvalue 
+\begin_inset Formula $\lambda_{i}$
+\end_inset
+
+ to have a one-by-one Jordan block 
+\begin_inset Formula $\left[\lambda_{i}\right]$
+\end_inset
+
+, we can write the Jordan matrix as
+\begin_inset Formula 
+\[
+J=\left(\begin{array}{cccccc}
+J_{\lambda_{1}}\\
+ & J_{\lambda_{2}}\\
+ &  & \ddots\\
+ &  &  & J_{\lambda_{p}}\\
+ &  &  &  & J_{\lambda_{p+1}}\\
+ &  &  &  &  & \ddots
+\end{array}\right).
+\]
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout BoxedExample
+Suppose 
+\begin_inset Formula $A$
+\end_inset
+
+ has non-defective eigenvalues 
+\begin_inset Formula $1,2,2,3$
+\end_inset
+
+ and defective eigenvalues 
+\begin_inset Formula $4,4,5,5,5$
+\end_inset
+
+.
+ Then the Jordan matrix is
+\begin_inset Formula 
+\[
+J=\left(\begin{array}{ccccccccc}
+1\\
+ & 2\\
+ &  & 2\\
+ &  &  & 3\\
+ &  &  &  & 4 & 1\\
+ &  &  &  &  & 4\\
+ &  &  &  &  &  & 5 & 1\\
+ &  &  &  &  &  &  & 5 & 1\\
+ &  &  &  &  &  &  &  & 5
+\end{array}\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When a matrix 
+\begin_inset Formula $A$
+\end_inset
+
+ is defective, we can't find an invertible 
+\begin_inset Formula $V$
+\end_inset
+
+ such that 
+\begin_inset Formula $A=V\Lambda V^{-1}.$
+\end_inset
+
+ But we can find the next best thing: an invertible 
+\begin_inset Formula $V$
+\end_inset
+
+ such that 
+\begin_inset Formula $A=VJV^{-1}$
+\end_inset
+
+.
+ This is called the Jordan decomposition, Jordan form, or Jordan canonical
+ form.
+ A proof of the existence of the Jordan decomposition is beyond the scope
+ of this course.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Computing the Jordan decomposition 
+\end_layout
+
+\begin_layout Standard
+The matrix 
+\begin_inset Formula $V$
+\end_inset
+
+ in a Jordan form will satisfy the equation
+\begin_inset Formula 
+\[
+AV=VJ.
+\]
+
+\end_inset
+
+We can always form 
+\begin_inset Formula $J$
+\end_inset
+
+ once we've found the eigenvalues and the geometric and algebraic multiplicities.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Numerical calculation of the Jordan form
+\end_layout
+
+\begin_layout Standard
+The Jordan form is theoretically very useful.
+ Unfortunately, it's difficult to compute except with 
+\emph on
+exact
+\emph default
+ arithmetic, so in any calculation done with floating point numbers on a
+ computer it's effectively impossible to use.
+ Here's why: the system
+\begin_inset Formula 
+\[
+\left(A-\lambda I\right)\mathbf{v}_{i}=\mathbf{v}_{j}
+\]
+
+\end_inset
+
+involves a singular matrix (since 
+\begin_inset Formula $\det\left(A-\lambda I\right)=0$
+\end_inset
+
+ when 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ is an eigenvalue).
+ The 
+\emph on
+slightest
+\emph default
+ error during the solution of this system – such as the inevitable rounding-off
+ in a computer calculation – can ruin the result.
+\end_layout
+
+\begin_layout Subsection
+Differential equations involving Jordan blocks
+\end_layout
+
+\begin_layout Standard
+Consider the system of differential equations
+\begin_inset Formula 
+\[
+\mathbf{y}'=J_{\lambda}\mathbf{y}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $J_{\lambda}$
+\end_inset
+
+ is an 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ Jordan block.
+ Because 
+\begin_inset Formula $J_{\lambda}$
+\end_inset
+
+ is upper triangular, we can solve the system first for 
+\begin_inset Formula $y_{n}\left(t\right)$
+\end_inset
+
+, then 
+\begin_inset Formula $y_{n-1}\left(t\right)$
+\end_inset
+
+, and so on, analogous to using backsubstitution for solving an upper triangular
+ algebraic system.
+ 
+\end_layout
+
+\begin_layout Standard
+Consider the 
+\begin_inset Formula $3\times3$
+\end_inset
+
+ case
+\begin_inset Formula 
+\[
+\left(\begin{array}{c}
+y_{1}'\\
+y_{2}'\\
+y_{3}'
+\end{array}\right)=\left(\begin{array}{ccc}
+\lambda & 1 & 0\\
+0 & \lambda & 1\\
+0 & 0 & \lambda
+\end{array}\right)\left(\begin{array}{c}
+y_{1}\\
+y_{2}\\
+y_{3}
+\end{array}\right).
+\]
+
+\end_inset
+
+We work from bottom up, each step requiring the solution of a single ODE.
+ The equation for 
+\begin_inset Formula $y_{3}$
+\end_inset
+
+ is 
+\begin_inset Formula 
+\[
+y_{3}'=\lambda y_{3}
+\]
+
+\end_inset
+
+and has solution 
+\begin_inset Formula 
+\[
+y_{3}\left(t\right)=c_{3}e^{\lambda t}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $c_{3}$
+\end_inset
+
+ is to be determined from the initial conditions.
+ 
+\end_layout
+
+\begin_layout Standard
+On to the next row: The equation for 
+\begin_inset Formula $y_{2}$
+\end_inset
+
+ is
+\begin_inset Formula 
+\[
+y_{2}'=\lambda y_{2}+y_{3}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=\lambda y_{2}+c_{3}e^{\lambda t}.
+\]
+
+\end_inset
+
+This is now an inhomogeneous equation, but notice that the rate constant
+ in the exponential in the inhomogeneous term is the same as the coefficient
+ of the unknown.
+ Physically, this corresponds to a resonance condition.
+ Recall from basic differential equations that in such cases you need to
+ use a particular solution of the form
+\begin_inset Formula 
+\[
+y_{p}=Ate^{\lambda t}
+\]
+
+\end_inset
+
+so that 
+\begin_inset Formula $y_{2}$
+\end_inset
+
+ will not be linearly dependent on 
+\begin_inset Formula $y_{3}$
+\end_inset
+
+.
+ Plug this particular solution into the equation to determine 
+\begin_inset Formula $A$
+\end_inset
+
+ (method of undetermined coefficients),
+\begin_inset Formula 
+\[
+\underbrace{Ae^{\lambda t}+At\lambda e^{\lambda t}}_{y_{p}'}=\underbrace{At\lambda e^{\lambda t}+c_{3}e^{\lambda t}}_{\lambda y_{p}+c_{3}e^{\lambda t}}
+\]
+
+\end_inset
+
+with the result that 
+\begin_inset Formula $A=c_{3}$
+\end_inset
+
+ and 
+\begin_inset Formula $y_{p}=c_{3}te^{\lambda t}$
+\end_inset
+
+.
+ Now we can always add to 
+\begin_inset Formula $y_{p}$
+\end_inset
+
+ any solution to the homogeneous equation, so the general solution for 
+\begin_inset Formula $y_{2}$
+\end_inset
+
+ is
+\begin_inset Formula 
+\[
+y_{2}\left(t\right)=c_{2}e^{\lambda t}+c_{3}te^{\lambda t}.
+\]
+
+\end_inset
+
+The constant 
+\begin_inset Formula $c_{2}$
+\end_inset
+
+ is to be determined from initial conditions.
+ The constant 
+\begin_inset Formula $c_{3}$
+\end_inset
+
+ is the same constant that appears in 
+\begin_inset Formula $y_{3}$
+\end_inset
+
+ (since it came from 
+\begin_inset Formula $y_{3}$
+\end_inset
+
+'s appearance as an inhomogeneous term in the equation for 
+\begin_inset Formula $y_{2}$
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+Keep going.
+ The equation for 
+\begin_inset Formula $y_{1}$
+\end_inset
+
+ is
+\begin_inset Formula 
+\[
+y_{1}'=\lambda y_{1}+c_{3}te^{\lambda t}+c_{2}e^{\lambda t}.
+\]
+
+\end_inset
+
+The particular solution has the form
+\begin_inset Formula 
+\[
+y_{p}=At^{2}e^{\lambda t}+Bte^{\lambda t}.
+\]
+
+\end_inset
+
+Use the method of undetermined coefficients to find 
+\begin_inset Formula $A$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\underbrace{2Ate^{\lambda t}+A\lambda t^{2}e^{\lambda t}+Be^{\lambda t}+B\lambda te^{\lambda t}}_{y_{p}'}=\underbrace{A\lambda t^{2}e^{\lambda t}+B\lambda te^{\lambda t}+c_{3}te^{\lambda t}+c_{2}e^{\lambda t}}_{\lambda y_{p}+y_{2}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\begin{cases}
+2A+\lambda B & =B\lambda+c_{3}\\
+B & =c_{2}
+\end{cases}
+\]
+
+\end_inset
+
+so
+\begin_inset Formula 
+\[
+y_{p}=\left(\frac{1}{2}c_{3}t^{2}+c_{2}t\right)e^{\lambda t}
+\]
+
+\end_inset
+
+and after adding a solution to the homogeneous equation,
+\begin_inset Formula 
+\[
+y_{1}\left(t\right)=\left(c_{1}+c_{2}t+\frac{1}{2}c_{3}t^{3}\right)e^{\lambda t}.
+\]
+
+\end_inset
+
+Collect together the solutions for 
+\begin_inset Formula $y_{1},y_{2},y_{3}$
+\end_inset
+
+ in vector form:
+\begin_inset Formula 
+\[
+\left(\begin{array}{c}
+y_{1}\\
+y_{2}\\
+y_{3}
+\end{array}\right)=\left(\begin{array}{c}
+c_{1}+c_{2}t+\frac{1}{2}c_{3}t^{2}\\
+c_{2}+c_{3}t\\
+c_{3}
+\end{array}\right)e^{\lambda t}.
+\]
+
+\end_inset
+
+It's worth noticing that if we form the matrix
+\begin_inset Formula 
+\[
+\left(\begin{array}{ccc}
+1 & t & \frac{1}{2}t^{2}\\
+0 & 1 & t\\
+0 & 0 & 1
+\end{array}\right)
+\]
+
+\end_inset
+
+then the solution can be written even more cleanly as
+\begin_inset Formula 
+\[
+\left(\begin{array}{c}
+y_{1}\\
+y_{2}\\
+y_{3}
+\end{array}\right)=e^{\lambda t}\left(\begin{array}{ccc}
+1 & t & \frac{1}{2}t^{2}\\
+0 & 1 & t\\
+0 & 0 & 1
+\end{array}\right)\left(\begin{array}{c}
+c_{1}\\
+c_{2}\\
+c_{3}
+\end{array}\right).
+\]
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsection
+The general solution to 
+\begin_inset Formula $\mathbf{y}'=J_{\lambda}\mathbf{y}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When 
+\begin_inset Formula $J_{\lambda}$
+\end_inset
+
+ is a Jordan block of size 
+\begin_inset Formula $m\times m$
+\end_inset
+
+, you can find the solution by carrying out more steps of the backsubstitution
+ procedure used in the 
+\begin_inset Formula $3\times3$
+\end_inset
+
+ case: Solve the homogeneous equation 
+\begin_inset Formula 
+\[
+y_{m}'=\lambda y_{m}
+\]
+
+\end_inset
+
+to find
+\begin_inset Formula 
+\[
+y_{m}\left(t\right)=c_{m}e^{\lambda t}.
+\]
+
+\end_inset
+
+Thereafter, for 
+\begin_inset Formula $i=m-1,m-2,\cdots,1$
+\end_inset
+
+, solve the inhomogeneous system
+\begin_inset Formula 
+\[
+y_{i}'=\lambda y_{i}+y_{i-1},
+\]
+
+\end_inset
+
+taking care to use the correct form for the particular solution at each
+ stage.
+ What you will find is that the general solution is
+\begin_inset Formula 
+\[
+\left(\begin{array}{c}
+y_{1}\\
+y_{2}\\
+y_{3}\\
+\vdots\\
+y_{m-1}\\
+y_{m}
+\end{array}\right)=e^{\lambda t}\left(\begin{array}{cccccc}
+1 & t & \frac{t^{2}}{2} & \cdots & \frac{t^{m-2}}{\left(m-2\right)!} & \frac{t^{m-1}}{\left(m-1\right)!}\\
+0 & 1 & t & \cdots & \frac{t^{m-3}}{\left(m-3\right)!} & \frac{t^{m-3}}{\left(m-3\right)!}\\
+\vdots &  & \ddots &  &  & \vdots\\
+\vdots &  &  & \ddots &  & \vdots\\
+0 & 0 &  &  & 1 & t\\
+0 & 0 & \cdots & \cdots & 0 & 1
+\end{array}\right)\left(\begin{array}{c}
+c_{1}\\
+c_{2}\\
+c_{3}\\
+\vdots\\
+c_{m-1}\\
+c_{m}
+\end{array}\right).
+\]
+
+\end_inset
+
+The 
+\begin_inset Formula $i,j$
+\end_inset
+
+ entry in the matrix above is 
+\begin_inset Formula $\frac{t^{j-i}}{\left(j-i\right)!}$
+\end_inset
+
+ for 
+\begin_inset Formula $j\ge i$
+\end_inset
+
+ (diagonal or above), and zero for any 
+\begin_inset Formula $j<i$
+\end_inset
+
+ (below diagonal).
+ If you understand mathematical induction, it's not hard to set up an inductive
+ proof of this general formula.
+\end_layout
+
+\begin_layout Subsection
+The matrix exponential of a Jordan block
+\end_layout
+
+\begin_layout Standard
+Suppose we evaluate 
+\begin_inset Formula $e^{J_{\lambda}t}$
+\end_inset
+
+ using the series definition of the matrix exponential
+\begin_inset Formula 
+\[
+e^{J_{\lambda}t}=I+J_{\lambda}t+\frac{1}{2}J_{\lambda}^{2}t^{2}+\frac{1}{6}J_{\lambda}^{3}t^{3}+\cdots.
+\]
+
+\end_inset
+
+I'll work out a few terms explicitly for the 
+\begin_inset Formula $3\times3$
+\end_inset
+
+ case:
+\begin_inset Formula 
+\[
+I+J_{\lambda}t=\left(\begin{array}{ccc}
+1+\lambda t & t & 0\\
+0 & 1+\lambda t & t\\
+0 & 0 & 1+\lambda t
+\end{array}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+I+J_{\lambda}t+\frac{1}{2}J_{\lambda}^{2}t^{2}=\left(\begin{array}{ccc}
+1+\lambda t+\frac{1}{2}\lambda t^{2} & t\left(1+\lambda t\right) & \frac{t^{2}}{2}\\
+0 & 1+\lambda t+\frac{1}{2}\lambda^{2}t^{2} & t\left(1+\lambda t\right)\\
+0 & 0 & 1+\lambda t+\frac{1}{2}\lambda^{2}t^{2}
+\end{array}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+I+J_{\lambda}t+\frac{1}{2}J_{\lambda}^{2}t^{2}+\frac{1}{6}J_{\lambda}^{3}t^{3}=\left(\begin{array}{ccc}
+1+\lambda t+\frac{1}{2}\lambda t^{2}+\frac{1}{6}\lambda^{3}t^{3} & t\left(1+\lambda t+\frac{1}{2}\lambda^{2}t^{2}\right) & \frac{t^{2}}{2}\left(1+\lambda t\right)\\
+0 & 1+\lambda t+\frac{1}{2}\lambda^{2}t^{2}+\frac{1}{6}\lambda^{3}t^{3} & t\left(1+\lambda t+\frac{1}{2}\lambda^{2}t^{2}\right)\\
+0 & 0 & 1+\lambda t+\frac{1}{2}\lambda^{2}t^{2}+\frac{1}{6}\lambda^{3}t^{3}
+\end{array}\right).
+\]
+
+\end_inset
+
+See the pattern? The diagonal entries are going towards the MacLaurin series
+ for 
+\begin_inset Formula $e^{\lambda t}$
+\end_inset
+
+.
+ The off-diagonals are going to 
+\begin_inset Formula $e^{\lambda t}$
+\end_inset
+
+ times 
+\begin_inset Formula $t^{j-i}$
+\end_inset
+
+ divided by 
+\begin_inset Formula $\left(j-i\right)!$
+\end_inset
+
+, precisely 
+\begin_inset Formula $e^{\lambda t}$
+\end_inset
+
+ times the funny matrix we found while solving the differential equation.
+ Again, to prove this rigorously you would use induction.
+ We can recognize that general solution to 
+\begin_inset Formula $\mathbf{y'}=J_{\lambda}\mathbf{y}$
+\end_inset
+
+ is expressed in terms of the matrix exponential,
+\begin_inset Formula 
+\[
+\mathbf{y}\left(t\right)=e^{J_{\lambda}t}\mathbf{c}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathbf{c}$
+\end_inset
+
+ is to be determined from the initial conditions.
+\end_layout
+
+\begin_layout Standard
+The matrix exponential isn't quite as simple for a Jordan block as it is
+ for a diagonal matrix; there are the odd off-diagonal terms involving powers
+ of 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ But it's still a simple, easily remembered pattern: the 
+\begin_inset Formula $i,j$
+\end_inset
+
+ entry of 
+\begin_inset Formula $e^{J_{\lambda}t}$
+\end_inset
+
+ is
+\begin_inset Formula 
+\[
+\left(e^{J_{\lambda}t}\right)_{i,j}=\begin{cases}
+\frac{t^{j-i}e^{\lambda t}}{\left(j-i\right)!} & j\ge i\;\;\;\mbox{(diagonal and above)}\\
+0 & j<i\;\;\;\mbox{(below diagonal)}
+\end{cases}.
+\]
+
+\end_inset
+
+We now know how to solve systems of ODEs where the coefficient matrix is
+ a Jordan block as well as when the coefficient is diagonalizable.
+ The next step is to see how to transform systems involving non-diagonalizable
+ matrices into systems involving Jordan blocks.
+ 
+\end_layout
+
+\begin_layout Section
+Further reading
+\end_layout
+
+\begin_layout Itemize
+There are many introductory linear algebra textbooks.
+ One of the better ones is 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Strang2006"
+literal "true"
+
+\end_inset
+
+.
+ For a concise and inexpensive introduction to linear algebra, it's hard
+ to go wrong with the Schaum's Outline, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lipschutz2017schaum"
+literal "true"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+A linear algebra textbook aimed specifically at applications to differential
+ equations is 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Strang2014"
+literal "true"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+For more information on computing with matrices, see 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Watkins2010"
+literal "true"
+
+\end_inset
+
+, or the more advanced 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Trefethen1997"
+literal "true"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+Introductory books for the more mathematically mature
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Quotes eld
+\end_inset
+
+Mathematically mature
+\begin_inset Quotes erd
+\end_inset
+
+ means 
+\begin_inset Quotes eld
+\end_inset
+
+totally comfortable working with proofs
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ student are 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lax2007"
+literal "true"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "axler1997linear"
+literal "true"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "/Users/katharine/Teaching/Notes/References/Refs"
+options "bibtotoc,plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

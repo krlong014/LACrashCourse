@@ -1,0 +1,10454 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass extarticle
+\begin_preamble
+\input{klmacros}
+\end_preamble
+\use_default_options true
+\begin_modules
+KL-theorems
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "palatino" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 1
+\bibtex_command default
+\index_command default
+\float_placement h
+\paperfontsize 12
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\pdf_quoted_options "colorlinks,allcolors=blue,urlcolor=blue"
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style siam
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\branch answers
+\selected 1
+\filename_suffix 0
+\color #afe6e6
+\end_branch
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{
+\backslash
+color{royalblue}A Crash Course in Linear Algebra for Differential Equations
+\backslash
+
+\backslash
+Part I: Matrices, Systems, and Determinants}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Katharine Long
+\begin_inset Newline newline
+\end_inset
+
+Department of Mathematics and Statistics
+\begin_inset Newline newline
+\end_inset
+
+Texas Tech University
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%%
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename DetVol.pdf
+	lyxscale 30
+	height 60theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%%
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100col%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BoxedBad
+These notes are not a substitute for a linear algebra course.
+ They're intended to be a bare minimum to get you ready to use matrix methods
+ for differential equations and related application in science and engineering.
+ There's no attempt to cover every topic in full generality or depth.
+ 
+\end_layout
+
+\begin_layout Section
+What you're assumed to know
+\end_layout
+
+\begin_layout Enumerate
+Vector algebra: addition, subtraction, multiplication by scalars, and the
+ dot product.
+ Refer to your calculus books and notes now if you need a refresher.
+\end_layout
+
+\begin_layout Enumerate
+Complex numbers, arithmetic, and conjugation.
+ You should have seen these in either calculus or in your first course in
+ differential equations.
+ Look back at your books and notes for a refresher if needed.
+\end_layout
+
+\begin_layout Enumerate
+Solving systems of linear equations by row reduction (Gaussian elimination).
+ You might not have seen elimination presented as a systematic algorithm;
+ if that's the case, then I refer you to Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Gaussian-elimination"
+
+\end_inset
+
+ for a brief introduction and for references to books and online resources.
+ You should recall the following:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+If row reduction (Gaussian elimination) on a square matrix 
+\begin_inset Formula $A$
+\end_inset
+
+ succeeds without producing a zero on the diagonal, then 
+\begin_inset Formula $A$
+\end_inset
+
+ is called 
+\series bold
+\emph on
+nonsingular
+\series default
+\emph default
+, and the solution to 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+ can be found by 
+\series bold
+\emph on
+backsubstitution
+\series default
+\emph default
+.
+ Otherwise 
+\begin_inset Formula $A$
+\end_inset
+
+ is called 
+\series bold
+\emph on
+singular
+\series default
+\emph default
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Computation of determinants by expansion in minors (also known as a Laplace
+ expansion).
+ You'll have seen Jacobians in multivariable calculus and Wronskians in
+ your first differential equations course; whether you realized it or not,
+ you were computing these using expansion of a determinant in minors.
+ Review these as needed; we'll use determinants in the hand calculation
+ of eigenvalues for small matrices.
+ 
+\end_layout
+
+\begin_layout Section
+Notation
+\end_layout
+
+\begin_layout Subsection
+Sets
+\end_layout
+
+\begin_layout Standard
+Members of a 
+\series bold
+\emph on
+set
+\series default
+\emph default
+ will be written in curly braces.
+ We can describe sets in several ways, such as
+\end_layout
+
+\begin_layout Itemize
+Listing the members explicitly: 
+\begin_inset Formula $S=\left\{ s_{1},s_{2},\cdots,s_{n}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Listing members implicitly with indexing: 
+\begin_inset Formula $S=\left\{ s_{j}\right\} _{j=1}^{n}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Giving conditions for membership in the set: 
+\begin_inset Formula $S=\left\{ s:\;\text{condition for \ensuremath{s}\;to be a member}\right\} $
+\end_inset
+
+.
+ For example:
+\begin_inset Formula 
+\[
+S=\left\{ s:s=2k,\;k=1,2,3,\cdots\right\} 
+\]
+
+\end_inset
+
+is the set of even numbers.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Vectors
+\end_layout
+
+\begin_layout Standard
+This should be familiar from working with 2D and 3D vectors; I'm writing
+ everything out to establish notation and to generalize to complex vectors.
+ The space
+\begin_inset Formula $\RR^{m}$
+\end_inset
+
+ is the 
+\begin_inset Formula $m$
+\end_inset
+
+-dimensional real space, the 
+\begin_inset Formula $m$
+\end_inset
+
+-dimensional generalization of the familiar 3D position space of classical
+ physics and everyday experience.
+ A point 
+\begin_inset Formula $\mathbf{x}\in\RR^{m}$
+\end_inset
+
+ is described with an ordered 
+\begin_inset Formula $m$
+\end_inset
+
+-tuple that we organize as a column vector
+\begin_inset Formula 
+\begin{equation}
+\mathbf{x}=\left[\begin{array}{c}
+x_{1}\\
+x_{2}\\
+\vdots\\
+x_{m}
+\end{array}\right].\label{eq:vec-exa}
+\end{equation}
+
+\end_inset
+
+The space 
+\begin_inset Formula $\CC^{m}$
+\end_inset
+
+ is an 
+\begin_inset Formula $m$
+\end_inset
+
+-dimensional space of complex numbers.
+
+\series bold
+\emph on
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\emph on
+Transposing
+\series default
+\emph default
+ a vector – denoted with a superscipt 
+\begin_inset Formula $T$
+\end_inset
+
+ – turns a column into a row or vice-versa; the vector in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:vec-exa"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ can be written 
+\begin_inset Formula 
+\[
+\mathbf{x}=\left[\begin{array}{cccc}
+x_{1} & x_{2} & \cdots & x_{m}\end{array}\right]^{T}.
+\]
+
+\end_inset
+
+To save space I'll often write vectors in this way, as transposed rows.
+ When working with complex vectors, we'll find need for the complex conjugate
+ of the transpose, the 
+\series bold
+\emph on
+conjugate transpose
+\series default
+\emph default
+.
+ This will be important enough to get its own symbol, a superscript 
+\begin_inset Formula $*$
+\end_inset
+
+: 
+\begin_inset Formula 
+\[
+\mathbf{x}^{*}=\left[\begin{array}{cccc}
+\overline{x}_{1} & \overline{x}_{2} & \cdots & \overline{x}_{m}\end{array}\right]^{T}.
+\]
+
+\end_inset
+
+Recall that if 
+\begin_inset Formula $z=a+ib$
+\end_inset
+
+, its conjugate is 
+\begin_inset Formula $\overline{z}=a-ib$
+\end_inset
+
+.
+ A superscript 
+\begin_inset Quotes eld
+\end_inset
+
+dagger
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset Formula $\dagger$
+\end_inset
+
+ is sometimes used to denote the conjugate transpose.
+ We'll use the asterisk (
+\begin_inset Quotes eld
+\end_inset
+
+star
+\begin_inset Quotes erd
+\end_inset
+
+) instead of the dagger.
+\end_layout
+
+\begin_layout Standard
+The 
+\series bold
+\emph on
+standard unit vectors
+\series default
+\emph default
+ in 
+\begin_inset Formula $\RR^{m}$
+\end_inset
+
+ or 
+\begin_inset Formula $\CC^{m}$
+\end_inset
+
+ are
+\begin_inset Formula 
+\begin{alignat*}{2}
+\ehat_{1} & = & \left[\begin{array}{cccc}
+1 & 0 & \cdots & 0\end{array}\right]^{T}\\
+\ehat_{2} & = & \left[\begin{array}{cccc}
+0 & 1 & \cdots & 0\end{array}\right]^{T}\\
+ & \vdots\\
+\ehat_{m} & = & \left[\begin{array}{cccc}
+0 & 0 & \cdots & 1\end{array}\right]^{T}.
+\end{alignat*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Vector arithmetic 
+\end_layout
+
+\begin_layout Standard
+Vectors add componentwise, 
+\begin_inset Formula $e.g.$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left[x_{1},x_{2}\right]^{T}+\left[y_{1},y_{2}\right]^{T}=\left[x_{1}+y_{1},x_{2}+y_{2}\right]^{T},
+\]
+
+\end_inset
+
+and scalars multiply into all components of a vector, 
+\begin_inset Formula $e.g.$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+\alpha\left[x_{1},x_{2}\right]^{T}=\left[\alpha x_{1},\alpha x_{2}\right]^{T}.
+\]
+
+\end_inset
+
+Vectors of different sizes can't be added, 
+\emph on
+e.g.
+\emph default
+,
+\begin_inset Formula 
+\[
+\left[x_{1},x_{2}\right]^{T}+\left[y_{1},y_{2},y_{3}\right]^{T}
+\]
+
+\end_inset
+
+is nonsense.
+\end_layout
+
+\begin_layout Subsubsection
+Dot product
+\end_layout
+
+\begin_layout Standard
+The dot product between two vectors in 
+\begin_inset Formula $\RR^{m}$
+\end_inset
+
+ is 
+\begin_inset Formula 
+\[
+\mathbf{x}\cdot\mathbf{y}=\sum_{j=1}^{m}x_{j}y_{j}.
+\]
+
+\end_inset
+
+We won't use dot product notation much; we'll usually write the same expression
+ as 
+\begin_inset Formula $\mathbf{x}^{T}\mathbf{y}$
+\end_inset
+
+.
+ With complex vectors, the 
+\emph on
+conjugate
+\emph default
+ transpose should be normally be used:
+\begin_inset Formula 
+\[
+\mathbf{x}^{*}\mathbf{y}=\sum_{j=1}^{m}\overline{x}_{j}y_{j}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Magnitude
+\end_layout
+
+\begin_layout Standard
+The 
+\series bold
+\emph on
+magnitude
+\series default
+\emph default
+ of a vector 
+\begin_inset Formula $\mathbf{x}\in\RR^{m}$
+\end_inset
+
+ is denoted 
+\begin_inset Formula $\left\Vert \mathbf{x}\right\Vert $
+\end_inset
+
+, and is computed using the Pythagorean formula
+\begin_inset Formula 
+\[
+\left\Vert \mathbf{x}\right\Vert =\sqrt{x_{1}^{2}+x_{2}^{2}+\cdots+x_{m}^{2}}=\sqrt{\mathbf{x}^{T}\mathbf{x}}.
+\]
+
+\end_inset
+
+If the vector is complex, 
+\begin_inset Formula $\mathbf{x}\in\CC^{m}$
+\end_inset
+
+, then this is slightly modified, using the conjugate transpose in place
+ of the transpose,
+\begin_inset Formula 
+\[
+\left\Vert \mathbf{x}\right\Vert =\sqrt{\left|x_{1}\right|^{2}+\left|x_{2}\right|^{2}+\cdots+\left|x_{m}\right|^{2}}=\sqrt{\mathbf{x}^{*}\mathbf{x}}.
+\]
+
+\end_inset
+
+Recall that the magnitude of a complex number 
+\begin_inset Formula $x=a+ib$
+\end_inset
+
+ is 
+\begin_inset Formula $\left|x\right|=\sqrt{a^{2}+b^{2}}=\sqrt{z\overline{z}}.$
+\end_inset
+
+ If 
+\begin_inset Formula $x_{j}=a_{j}+ib_{j}$
+\end_inset
+
+, then
+\begin_inset Formula 
+\[
+\left\Vert \mathbf{x}\right\Vert =\sqrt{a_{1}^{2}+b_{1}^{2}+a_{2}^{2}+b_{2}^{2}+\cdots+a_{m}^{2}+b_{m}^{2}}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Matrices
+\end_layout
+
+\begin_layout Standard
+Given 
+\begin_inset Formula $m$
+\end_inset
+
+ vectors 
+\begin_inset Formula $\left\{ \mathbf{a}_{1},\mathbf{a}_{2},\cdots,\mathbf{a}_{n}\right\} $
+\end_inset
+
+ each in 
+\begin_inset Formula $\CC^{m}$
+\end_inset
+
+, we can form an 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ 
+\series bold
+\emph on
+matrix
+\series default
+\emph default
+ 
+\begin_inset Formula $A$
+\end_inset
+
+ by putting the vector 
+\begin_inset Formula $\mathbf{a}_{j}$
+\end_inset
+
+ into the 
+\begin_inset Formula $j$
+\end_inset
+
+-th column:
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{c|c|c|c}
+\mathbf{a}_{1} & \mathbf{a}_{2} & \cdots & \mathbf{a}_{n}\end{array}\right].
+\]
+
+\end_inset
+
+If we denote the 
+\begin_inset Formula $i$
+\end_inset
+
+-th entry in 
+\begin_inset Formula $\mathbf{a}_{j}$
+\end_inset
+
+ by 
+\begin_inset Formula $A_{ij}$
+\end_inset
+
+, then the matrix 
+\begin_inset Formula $A$
+\end_inset
+
+ is written
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{ccc}
+A_{11} & A_{12} & \cdots\\
+A_{21} & A_{22}\\
+\vdots &  & \ddots
+\end{array}\right].
+\]
+
+\end_inset
+
+Like vectors, matrices add componentwise and a scalar multiplying into a
+ matrix multiplies all components:
+\begin_inset Formula 
+\[
+\left[\begin{array}{ccc}
+A_{11} & A_{12} & \cdots\\
+A_{21} & A_{22}\\
+\vdots &  & \ddots
+\end{array}\right]+\left[\begin{array}{ccc}
+B_{11} & B_{12} & \cdots\\
+B_{21} & B_{22}\\
+\vdots &  & \ddots
+\end{array}\right]=\left[\begin{array}{ccc}
+A_{11}+B_{11} & A_{12}+B_{12} & \cdots\\
+A_{21}+B_{21} & A_{22}+B_{22}\\
+\vdots &  & \ddots
+\end{array}\right]
+\]
+
+\end_inset
+
+and
+\begin_inset Formula 
+\[
+\alpha\left[\begin{array}{ccc}
+A_{11} & A_{12} & \cdots\\
+A_{21} & A_{22}\\
+\vdots &  & \ddots
+\end{array}\right]=\left[\begin{array}{ccc}
+\alpha A_{11} & \alpha A_{12} & \cdots\\
+\alpha A_{21} & \alpha A_{22}\\
+\vdots &  & \ddots
+\end{array}\right].
+\]
+
+\end_inset
+
+The set of all 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ real matrices is called 
+\begin_inset Formula $\RR^{m\times n}$
+\end_inset
+
+.
+ The analogue for complex matrices is 
+\begin_inset Formula $\CC^{m\times n}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Linear combinations and matrix-vector multiplication
+\end_layout
+
+\begin_layout Subsection
+Core definitions
+\end_layout
+
+\begin_layout Standard
+Now that notation has been described, we can establish some definitions
+ that will be fundamental to our study of linear algebra and differential
+ equations.
+ I'll write out all the definitions with some commentary, and only afterwards
+ give some examples.
+ 
+\end_layout
+
+\begin_layout Standard
+In the definitions that follow, 
+\begin_inset Formula $S$
+\end_inset
+
+ is the set of vectors 
+\begin_inset Formula $S=\left\{ \mathbf{a}_{j}\right\} _{j=1}^{n}$
+\end_inset
+
+ with each 
+\begin_inset Formula $\mathbf{a}_{j}\in\CC^{m}$
+\end_inset
+
+.
+ All the definitions will be stated in terms of complex spaces; to restrict
+ the definitions to real spaces, replace 
+\begin_inset Formula $\CC$
+\end_inset
+
+ by 
+\begin_inset Formula $\RR$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Linear combination
+\end_layout
+
+\begin_layout Standard
+This is a term we'll use often, so we might as well define it formally.
+\end_layout
+
+\begin_layout Definition
+A 
+\series bold
+\emph on
+linear combination
+\series default
+\emph default
+ (LC) of the members of 
+\begin_inset Formula $S$
+\end_inset
+
+ is a scalar-weighted sum such as
+\begin_inset Formula 
+\[
+\mathbf{a}_{1}x_{1}+\mathbf{a}_{2}x_{2}+\cdots+\mathbf{a}_{n}x_{n},
+\]
+
+\end_inset
+
+where the 
+\begin_inset Formula $n$
+\end_inset
+
+ coefficients 
+\begin_inset Formula $\left\{ x_{j}\right\} _{j=1}^{n}$
+\end_inset
+
+ are scalars.
+ The 
+\series bold
+\emph on
+span
+\series default
+\emph default
+ of 
+\begin_inset Formula $S$
+\end_inset
+
+, denoted 
+\begin_inset Formula $\Span\left(S\right)$
+\end_inset
+
+, is the set of all linear combinations that can be formed from the members
+ of 
+\begin_inset Formula $S$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Vector spaces and subspaces
+\end_layout
+
+\begin_layout Definition
+\begin_inset CommandInset label
+LatexCommand label
+name "def:vec-space"
+
+\end_inset
+
+A set 
+\begin_inset Formula $V$
+\end_inset
+
+ of vectors is called a 
+\series bold
+\emph on
+vector space
+\series default
+\emph default
+ if it obeys the axioms listed in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Formal-definition-of"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ We needn't go into all the axioms for this course; as long as one defines
+ addition and scalar multiplication 
+\begin_inset Quotes eld
+\end_inset
+
+reasonably,
+\begin_inset Quotes erd
+\end_inset
+
+ then it is sufficient to consider the 
+\series bold
+\emph on
+closure conditions
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $\mathbf{x}+\mathbf{y}\in U$
+\end_inset
+
+ for all 
+\begin_inset Formula $\mathbf{x},\mathbf{y}\in U$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\alpha\mathbf{x}\in U$
+\end_inset
+
+ for all 
+\begin_inset Formula $\mathbf{x}\in U$
+\end_inset
+
+ and for all scalars 
+\begin_inset Formula $\alpha$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and the 
+\series bold
+\shape italic
+zero condition
+\series default
+,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $U$
+\end_inset
+
+ contains the zero vector 
+\begin_inset Formula $\mathbf{0}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+A sub
+\emph on
+set
+\emph default
+ of 
+\begin_inset Formula $V$
+\end_inset
+
+ that is itself a vector space is called a 
+\series bold
+\emph on
+subspace
+\series default
+\emph default
+.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The closure conditions mean that if you form a LC of members of a subspace
+ 
+\begin_inset Formula $U$
+\end_inset
+
+, the result must be in 
+\begin_inset Formula $U$
+\end_inset
+
+.
+ Like they say about Las Vegas, whatever happens in a vector space stays
+ in that vector space.
+ You'd have to use some imagination to come up with a set that obeys the
+ closure and zero conditions but isn't a vector space, and such cases aren't
+ anything we'd encounter in practice.
+ 
+\end_layout
+
+\begin_layout Standard
+I will assert without proof that the sets 
+\begin_inset Formula $\RR^{n}$
+\end_inset
+
+ and 
+\begin_inset Formula $\CC^{n}$
+\end_inset
+
+ are vector spaces.
+ A useful result, also stated without proof, is the 
+\series bold
+\emph on
+subspace theorem
+\series default
+\emph default
+.
+\end_layout
+
+\begin_layout Theorem
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Subspace theorem
+\end_layout
+
+\end_inset
+
+Let 
+\begin_inset Formula $V$
+\end_inset
+
+ be a vector space, and let 
+\begin_inset Formula $U$
+\end_inset
+
+ be a subset of 
+\begin_inset Formula $V$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $U$
+\end_inset
+
+ satisfies the closure conditions from Definition 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "def:vec-space"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, then 
+\begin_inset Formula $U$
+\end_inset
+
+ is a vector space (and therefore a subspace of 
+\begin_inset Formula $V$
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For subspaces, the zero condition is implied by the closure conditions (to
+ prove this, consider the operations 
+\begin_inset Formula $\mathbf{x}-\mathbf{x}$
+\end_inset
+
+ and 
+\begin_inset Formula $0\mathbf{x}$
+\end_inset
+
+).
+ Often the easiest way to show something is 
+\emph on
+not
+\emph default
+ a subspace is to check the zero condition.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Matrix-vector multiplication
+\end_layout
+
+\begin_layout Standard
+There are several equivalent
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The equivalent definitions of matrix-vector multiplication will all produce
+ the same results.
+ We choose the one that is most useful for 
+\emph on
+understanding
+\emph default
+ how to use matrices for solving differential equations.
+ 
+\end_layout
+
+\end_inset
+
+ ways to define matrix vector multiplication (see Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:mvmult"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ For our purposes, it will be most useful to think of multiplication of
+ a matrix 
+\begin_inset Formula $A$
+\end_inset
+
+ into a vector 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ as forming a linear combination of the columns of 
+\begin_inset Formula $A$
+\end_inset
+
+, weighted by the entries in 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Definition
+Form the matrix 
+\begin_inset Formula $A\in\CC^{m\times n}$
+\end_inset
+
+ by packing the members of 
+\begin_inset Formula $S$
+\end_inset
+
+ into its columns.
+ Given a vector 
+\begin_inset Formula $\mathbf{x}\in\CC^{n}$
+\end_inset
+
+, the 
+\series bold
+\emph on
+matrix-vector
+\series default
+\emph default
+ 
+\series bold
+\emph on
+product
+\series default
+\emph default
+ 
+\begin_inset Formula $A\mathbf{x}$
+\end_inset
+
+is the linear combination of the 
+\begin_inset Formula $\mathbf{a}_{j}$
+\end_inset
+
+'s weighted by the entries in 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+A\mathbf{x}=\mathbf{a}_{1}x_{1}+\mathbf{a}_{2}x_{2}+\cdots+\mathbf{a}_{n}x_{n}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Linear dependence and independence
+\end_layout
+
+\begin_layout Definition
+The set 
+\begin_inset Formula $S$
+\end_inset
+
+ is called 
+\series bold
+\emph on
+linearly dependent
+\series default
+\emph default
+ (LD) if there is a 
+\emph on
+nonzero
+\emph default
+ vector 
+\begin_inset Formula $\mathbf{x}\in\CC^{n}$
+\end_inset
+
+ such that 
+\begin_inset Formula 
+\[
+\mathbf{a}_{1}x_{1}+\mathbf{a}_{2}x_{2}+\cdots+\mathbf{a}_{n}x_{n}=\mathbf{0}.
+\]
+
+\end_inset
+
+If no such set of nonzero scalars exists, then we call 
+\begin_inset Formula $S$
+\end_inset
+
+ 
+\series bold
+\emph on
+linearly independent
+\series default
+\emph default
+ (LI).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If you've taken DE1, you're familiar with linear independence of sets of
+ functions; this definition in terms of vectors is identical, but with vectors
+ in place of functions.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Null space and range space
+\end_layout
+
+\begin_layout Definition
+The 
+\series bold
+\emph on
+null space
+\series default
+\emph default
+ (sometimes called the 
+\series bold
+\emph on
+kernel
+\series default
+\emph default
+) of a matrix 
+\begin_inset Formula $A\in\CC^{m\times n}$
+\end_inset
+
+, denoted 
+\begin_inset Formula $\Null\left(A\right)$
+\end_inset
+
+, is the set of vectors 
+\series bold
+
+\begin_inset Formula $\mathbf{x}\in\CC^{n}$
+\end_inset
+
+ 
+\series default
+such that 
+\begin_inset Formula $A\mathbf{x=0}.$
+\end_inset
+
+ That is, 
+\begin_inset Formula $\Null\left(A\right)$
+\end_inset
+
+ is the set of all solutions to the homogeneous equation 
+\begin_inset Formula $A\mathbf{x}=\mathbf{0}$
+\end_inset
+
+.
+ Notice that 
+\begin_inset Formula $\Null\left(A\right)$
+\end_inset
+
+ always contains the zero vector.
+ If a null space contains 
+\emph on
+only
+\emph default
+ the zero vector, that null space is called 
+\series bold
+\emph on
+trivial
+\series default
+\emph default
+; otherwise, it is called 
+\series bold
+\emph on
+nontrivial
+\series default
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The use of the word 
+\begin_inset Quotes eld
+\end_inset
+
+space
+\begin_inset Quotes erd
+\end_inset
+
+ in this definition isn't casual: By working with the subspace theorem and
+ the definition of 
+\begin_inset Formula $\Null\left(A\right)$
+\end_inset
+
+, it is not hard to show that 
+\begin_inset Formula $\Null\left(A\right)$
+\end_inset
+
+ is a subspace of 
+\begin_inset Formula $\CC^{n}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Linear independence/dependence and the null space are intimately related:
+ from the definitions of LI and the null space, we see that 
+\begin_inset Formula $\Null\left(A\right)$
+\end_inset
+
+ is trivial iff the columns of 
+\begin_inset Formula $A$
+\end_inset
+
+ are LI.
+ 
+\end_layout
+
+\begin_layout Standard
+Preview: the 
+\emph on
+eigenvalue problem
+\emph default
+ will be to identify when a certain matrix has a nontrivial null space,
+ and then finding the members of that null space.
+ The eigenvalue problem will be essential in solving systems of ODEs and
+ also PDEs, so perk up your ears whenever you hear 
+\begin_inset Quotes eld
+\end_inset
+
+null space.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+The 
+\series bold
+\emph on
+range space
+\series default
+\emph default
+ or 
+\series bold
+\emph on
+column space
+\series default
+\emph default
+ of a matrix 
+\begin_inset Formula $A$
+\end_inset
+
+, denoted 
+\begin_inset Formula $\Range\left(A\right)$
+\end_inset
+
+ or 
+\begin_inset Formula $\Col\left(A\right)$
+\end_inset
+
+, is the set of all linear combinations of the columns of 
+\begin_inset Formula $A$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\Range\left(A\right)=\left\{ \mathbf{y}:\exists\mathbf{x}\;\text{such that }\mathbf{y}=A\mathbf{x}\right\} .
+\]
+
+\end_inset
+
+Notice that we can also view this as 
+\begin_inset Formula $\Range\left(A\right)=\Span\left(\text{columns of }A\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The range space of 
+\begin_inset Formula $A$
+\end_inset
+
+ is the set of vectors that can be 
+\begin_inset Quotes eld
+\end_inset
+
+reached
+\begin_inset Quotes erd
+\end_inset
+
+ by matrix-vector multiplication by 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ The theorem follows immediately from the definition.
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:solnInRange"
+
+\end_inset
+
+The problem 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+ has a solution iff 
+\begin_inset Formula $\mathbf{b}\in\Range\left(A\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As with the null space, the range space is a vector space.
+ In particular, 
+\begin_inset Formula $\Range\left(A\right)$
+\end_inset
+
+ is a subspace of 
+\begin_inset Formula $\CC^{m}$
+\end_inset
+
+.
+ Notice that 
+\begin_inset Formula $\Null\left(A\right)$
+\end_inset
+
+ is a subspace of 
+\begin_inset Formula $\CC^{n}$
+\end_inset
+
+ while 
+\begin_inset Formula $\Range\left(A\right)$
+\end_inset
+
+ is a subspace of 
+\begin_inset Formula $\CC^{m}$
+\end_inset
+
+; when 
+\begin_inset Formula $A$
+\end_inset
+
+ isn't square, 
+\begin_inset Formula $\CC^{m}$
+\end_inset
+
+ and 
+\begin_inset Formula $\CC^{n}$
+\end_inset
+
+ aren't the same spaces.
+ 
+\end_layout
+
+\begin_layout Standard
+Notice that 
+\begin_inset Formula $\mathbf{0}$
+\end_inset
+
+ is in the range of every matrix, with preimage 
+\begin_inset Formula $\mathbf{x}=\mathbf{0}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Basis
+\end_layout
+
+\begin_layout Definition
+A set 
+\begin_inset Formula $B$
+\end_inset
+
+ is a 
+\series bold
+\emph on
+basis
+\series default
+\emph default
+ for a vector space 
+\begin_inset Formula $V$
+\end_inset
+
+ if 
+\begin_inset Formula $B$
+\end_inset
+
+ is LI and 
+\begin_inset Formula $\Span\left(B\right)=V$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Examples
+\end_layout
+
+\begin_layout Subsubsection
+Span
+\end_layout
+
+\begin_layout BoxedExample
+Here are some examples set in 
+\begin_inset Formula $\RR^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+The span of 
+\begin_inset Formula $\left\{ \ehat_{1},\ehat_{2}\right\} $
+\end_inset
+
+ is all of 
+\begin_inset Formula $\RR^{2}$
+\end_inset
+
+, since every 2D vector can be written as
+\begin_inset Formula 
+\[
+\mathbf{x}=x_{1}\ehat_{1}+x_{2}\ehat_{2}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The span of the one-member set 
+\begin_inset Formula $\left\{ \ehat_{1}+2\ehat_{2}\right\} $
+\end_inset
+
+ is the line 
+\begin_inset Formula 
+\[
+\mathbf{x}=\left(\ehat_{1}+2\ehat_{2}\right)s=\left[\begin{array}{c}
+1\\
+2
+\end{array}\right]s.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The span of 
+\begin_inset Formula $\left\{ \ehat_{1},\ehat_{1}+2\ehat_{2}\right\} $
+\end_inset
+
+ is 
+\begin_inset Formula $\RR^{2}$
+\end_inset
+
+, since an arbitrary LC of the members is
+\begin_inset Formula 
+\[
+\mathbf{x}=\ehat_{1}s+\left(\ehat_{1}+2\ehat_{2}\right)t=\left[\begin{array}{c}
+s+t\\
+s
+\end{array}\right].
+\]
+
+\end_inset
+
+Any vector in 
+\begin_inset Formula $\RR^{2}$
+\end_inset
+
+ can be represented in this form: given 
+\begin_inset Formula $x_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $x_{2}$
+\end_inset
+
+, choose 
+\begin_inset Formula $s=x_{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $t=x_{1}-s$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+The span of 
+\begin_inset Formula $\left\{ \ehat_{1},\ehat_{2},\ehat_{1}+\ehat_{2}\right\} $
+\end_inset
+
+ is also 
+\begin_inset Formula $\RR^{2}$
+\end_inset
+
+.
+ An arbitrary LC of the members is
+\begin_inset Formula 
+\[
+\mathbf{x}=\ehat_{1}s+\ehat_{2}t+\left(\ehat_{1}+\ehat_{2}\right)u=\left[\begin{array}{c}
+s+u\\
+t+u
+\end{array}\right].
+\]
+
+\end_inset
+
+Given any 
+\begin_inset Formula $x_{1},$
+\end_inset
+
+
+\begin_inset Formula $x_{2}$
+\end_inset
+
+, choose 
+\begin_inset Formula $s+u=x_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $t+u=x_{2}$
+\end_inset
+
+.
+ There are infinitely many choices of 
+\begin_inset Formula $s,t,$
+\end_inset
+
+ and 
+\begin_inset Formula $u$
+\end_inset
+
+ that all represent the same vector.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout BoxedExample
+In 
+\begin_inset Formula $\RR^{3}$
+\end_inset
+
+ , the span of 
+\begin_inset Formula $\left\{ \ehat_{1}+\ehat_{2},\ehat_{3}\right\} $
+\end_inset
+
+ is the plane containing the points
+\begin_inset Formula 
+\[
+\mathbf{x}=\left[\begin{array}{c}
+s\\
+s\\
+t
+\end{array}\right].
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Matrix-vector multiplication
+\end_layout
+
+\begin_layout BoxedExample
+Let 
+\begin_inset Formula $\mathbf{a}_{1}=\left[\begin{array}{cc}
+-1 & 5\end{array}\right]^{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{a}_{2}=\left[\begin{array}{cc}
+2 & -3\end{array}\right]^{T}$
+\end_inset
+
+.
+ Form
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{c|c}
+\mathbf{a}_{1} & \mathbf{a}_{2}\end{array}\right]^{T}=\left[\begin{array}{cc}
+-1 & 2\\
+5 & -3
+\end{array}\right],
+\]
+
+\end_inset
+
+and multiply by 
+\begin_inset Formula $\mathbf{x}=\left[\begin{array}{cc}
+4 & 7\end{array}\right]^{T}$
+\end_inset
+
+.
+ Compute the matrix-vector product
+\begin_inset Formula 
+\[
+A\mathbf{x}=\left[\begin{array}{cc}
+-1 & 2\\
+5 & -3
+\end{array}\right]\left[\begin{array}{c}
+4\\
+7
+\end{array}\right]=4\left[\begin{array}{c}
+-1\\
+5
+\end{array}\right]+7\left[\begin{array}{c}
+2\\
+-3
+\end{array}\right]=\left[\begin{array}{c}
+10\\
+-1
+\end{array}\right].
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout BoxedExample
+Let 
+\begin_inset Formula $\mathbf{a}_{1}=\left[\begin{array}{ccc}
+-1 & 5 & 2\end{array}\right]^{T}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{a}_{2}=\left[\begin{array}{ccc}
+1 & 0 & 3\end{array}\right]^{T}$
+\end_inset
+
+, and 
+\begin_inset Formula $\mathbf{x}=\left[\begin{array}{cc}
+4 & 7\end{array}\right]^{T}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $A\mathbf{x}$
+\end_inset
+
+ is
+\begin_inset Formula 
+\[
+A\mathbf{x}=\left[\begin{array}{cc}
+-1 & 1\\
+5 & 0\\
+2 & 3
+\end{array}\right]\left[\begin{array}{c}
+4\\
+7
+\end{array}\right]=4\left[\begin{array}{c}
+-1\\
+5\\
+2
+\end{array}\right]+7\left[\begin{array}{c}
+1\\
+0\\
+3
+\end{array}\right]=\left[\begin{array}{c}
+3\\
+20\\
+29
+\end{array}\right].
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Linear dependence
+\backslash
+independence
+\end_layout
+
+\begin_layout BoxedExample
+\begin_inset CommandInset label
+LatexCommand label
+name "LD-check"
+
+\end_inset
+
+The vectors 
+\begin_inset Formula $\mathbf{a}_{1}=\left[\begin{array}{cc}
+1 & 2\end{array}\right]^{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{a}_{2}=\left[\begin{array}{cc}
+5 & 10\end{array}\right]^{T}$
+\end_inset
+
+ are LD, because the linear combination with the scalars 
+\begin_inset Formula $x_{1}=-5$
+\end_inset
+
+, 
+\begin_inset Formula $x_{2}=1$
+\end_inset
+
+, is zero: 
+\begin_inset Formula $-5\mathbf{a}_{1}+\mathbf{a}_{2}=\mathbf{0}$
+\end_inset
+
+.
+ Notice that there are, in fact, infinitely many such sets of scalars: any
+ pair of scalars such that 
+\begin_inset Formula $x_{1}=-5x_{2}$
+\end_inset
+
+ will work.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout BoxedExample
+\begin_inset CommandInset label
+LatexCommand label
+name "LI-check"
+
+\end_inset
+
+The vectors 
+\begin_inset Formula $\mathbf{a}_{1}=\left(\begin{array}{cc}
+1 & 2\end{array}\right)^{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{a}_{2}=\left(\begin{array}{cc}
+1 & 0\end{array}\right)^{T}$
+\end_inset
+
+ are LI.
+ To show this, suppose there were a pair of 
+\emph on
+nonzero 
+\emph default
+constants 
+\begin_inset Formula $x_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $x_{2}$
+\end_inset
+
+ such that 
+\begin_inset Formula $x_{1}\mathbf{a}_{1}+x_{2}\mathbf{a}_{2}=0.$
+\end_inset
+
+ To find them, we would write out the equation
+\begin_inset Formula 
+\[
+\left[\begin{array}{c}
+1\\
+2
+\end{array}\right]x_{1}+\left[\begin{array}{c}
+1\\
+0
+\end{array}\right]x_{2}=\left[\begin{array}{c}
+0\\
+0
+\end{array}\right]
+\]
+
+\end_inset
+
+which is equivalent to the system of equations
+\begin_inset Formula 
+\[
+x_{1}+x_{2}=0
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+2x_{1}=0.
+\]
+
+\end_inset
+
+The only solution to this system is 
+\begin_inset Formula $x_{1}=0$
+\end_inset
+
+, 
+\begin_inset Formula $x_{2}=0$
+\end_inset
+
+.
+ Therefore the vectors are LI.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Null space
+\end_layout
+
+\begin_layout Standard
+We'll revisit examples 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "LD-check"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "LI-check"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ from the point of view of the null space.
+ 
+\end_layout
+
+\begin_layout BoxedExample
+\begin_inset CommandInset label
+LatexCommand label
+name "exa:null-nontriv"
+
+\end_inset
+
+Using the vectors from example 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "LD-check"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, form the matrix 
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{cc}
+1 & 5\\
+2 & 10
+\end{array}\right].
+\]
+
+\end_inset
+
+Then 
+\begin_inset Formula $\Null\left(A\right)$
+\end_inset
+
+ consists of all vectors 
+\begin_inset Formula $\mathbf{x}=s\left[\begin{array}{cc}
+-5 & 1\end{array}\right]^{T}$
+\end_inset
+
+ where 
+\begin_inset Formula $s$
+\end_inset
+
+ is any real number.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout BoxedExample
+\begin_inset CommandInset label
+LatexCommand label
+name "exa:null-triv"
+
+\end_inset
+
+Using the vectors from example 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "LI-check"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, form the matrix 
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{cc}
+1 & 1\\
+2 & 0
+\end{array}\right].
+\]
+
+\end_inset
+
+In example 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "LI-check"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we saw that 
+\begin_inset Formula $x_{1}\mathbf{a}_{1}+x_{2}\mathbf{a}_{2}$
+\end_inset
+
+ has only the trivial solution 
+\begin_inset Formula $\mathbf{x}=\mathbf{0}$
+\end_inset
+
+.
+ Therefore 
+\begin_inset Formula $\Null\left(A\right)=\left\{ \mathbf{0}\right\} $
+\end_inset
+
+: the null space is trivial.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Range space
+\end_layout
+
+\begin_layout Standard
+We next revisit examples 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "LD-check"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "LI-check"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ from the point of view of the range space.
+ 
+\end_layout
+
+\begin_layout BoxedExample
+\begin_inset CommandInset label
+LatexCommand label
+name "exa:range-LD"
+
+\end_inset
+
+Using the vectors from example 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "LD-check"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, form the matrix 
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{cc}
+1 & 5\\
+2 & 10
+\end{array}\right].
+\]
+
+\end_inset
+
+Then 
+\begin_inset Formula $\Range\left(A\right)$
+\end_inset
+
+ consists of all vectors 
+\begin_inset Formula $\mathbf{y}$
+\end_inset
+
+ that can be formed by matrix-vector multiplication with 
+\begin_inset Formula $A$
+\end_inset
+
+; equivalently, it is 
+\begin_inset Formula $\Span\left(\left\{ \mathbf{a}_{1},\mathbf{a}_{2}\right\} \right)$
+\end_inset
+
+.
+ Choose an arbitrary vector 
+\begin_inset Formula $\mathbf{x}=\left[\begin{array}{cc}
+x_{1} & x_{2}\end{array}\right]^{T}$
+\end_inset
+
+ and multiply 
+\begin_inset Formula $A$
+\end_inset
+
+ into it,
+\begin_inset Formula 
+\[
+A\mathbf{x}=x_{1}\left[\begin{array}{c}
+1\\
+2
+\end{array}\right]+x_{2}\left[\begin{array}{c}
+5\\
+10
+\end{array}\right]=\left[\begin{array}{c}
+x_{1}+5x_{2}\\
+2x_{1}+10x_{2}
+\end{array}\right]=\left(x_{1}+5x_{2}\right)\left[\begin{array}{c}
+1\\
+2
+\end{array}\right].
+\]
+
+\end_inset
+
+Conclude that 
+\begin_inset Formula $\Range\left(A\right)$
+\end_inset
+
+ is the set of all scalar multiples of 
+\begin_inset Formula $\left[\begin{array}{cc}
+1 & 2\end{array}\right]^{T}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout BoxedExample
+\begin_inset CommandInset label
+LatexCommand label
+name "exa:range-LI"
+
+\end_inset
+
+Using the vectors from example 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "LI-check"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, form the matrix 
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{cc}
+1 & 1\\
+2 & 0
+\end{array}\right].
+\]
+
+\end_inset
+
+Let 
+\begin_inset Formula $\mathbf{x}=\left[\begin{array}{cc}
+x_{1} & x_{2}\end{array}\right]^{T}$
+\end_inset
+
+ and multiply 
+\begin_inset Formula $A$
+\end_inset
+
+ into it,
+\begin_inset Formula 
+\[
+A\mathbf{x}=x_{1}\left[\begin{array}{c}
+1\\
+2
+\end{array}\right]+x_{2}\left[\begin{array}{c}
+1\\
+0
+\end{array}\right]=\left[\begin{array}{c}
+x_{1}+x_{2}\\
+2x_{1}
+\end{array}\right].
+\]
+
+\end_inset
+
+Now pick any 
+\begin_inset Formula $\mathbf{y}=\left[\begin{array}{cc}
+y_{1} & y_{2}\end{array}\right]^{T}$
+\end_inset
+
+, and set 
+\begin_inset Formula $x_{1}=\frac{1}{2}y_{2}$
+\end_inset
+
+, 
+\begin_inset Formula $x_{2}=y_{1}-\frac{1}{2}y_{2}$
+\end_inset
+
+; we have 
+\begin_inset Formula $A\mathbf{x}=\mathbf{y}$
+\end_inset
+
+.
+ Since any 
+\begin_inset Formula $\mathbf{y}\in\RR^{2}$
+\end_inset
+
+ has a preimage 
+\begin_inset Formula $\mathbf{x}\in\RR^{2}$
+\end_inset
+
+, we have that 
+\begin_inset Formula $\Range\left(A\right)=\RR^{2}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Basis
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout BoxedExample
+We recall the vectors from example 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "LI-check"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\series bold
+
+\begin_inset Formula $\mathbf{a}_{1}=\left[\begin{array}{cc}
+1 & 2\end{array}\right]^{T}$
+\end_inset
+
+ 
+\series default
+and 
+\begin_inset Formula $\mathbf{a}_{2}=\left[\begin{array}{cc}
+1 & 0\end{array}\right]^{T}$
+\end_inset
+
+.
+
+\series bold
+ 
+\series default
+From example 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "LI-check"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we know 
+\begin_inset Formula $\mathbf{a}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{a}_{2}$
+\end_inset
+
+ are LI.
+ From example 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "exa:range-LI"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we know that 
+\begin_inset Formula $\Span\left(\left\{ \mathbf{a}_{1},\mathbf{a}_{2}\right\} \right)=\RR^{2}$
+\end_inset
+
+.
+ Therefore, these two vectors are a basis for 
+\begin_inset Formula $\RR^{2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout BoxedExample
+The standard unit vectors 
+\begin_inset Formula $\left\{ \ehat_{1},\ehat_{2},\cdots,\ehat_{m}\right\} $
+\end_inset
+
+ are a basis for 
+\begin_inset Formula $\RR^{m}$
+\end_inset
+
+.
+ You can check that they meet both conditions: they are LI and span 
+\begin_inset Formula $\RR^{m}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Systems of equations
+\end_layout
+
+\begin_layout Standard
+Central to our study of differential equations will be this: represent a
+ function (say, a solution to a DE) as a linear combination of convenient
+ functions (say, exponentials, polynomials, or trig functions).
+ We'll start with a simpler problem: representing a specified vector 
+\begin_inset Formula $\mathbf{b}\in\RR^{m}$
+\end_inset
+
+ as a LC of 
+\begin_inset Formula $m$
+\end_inset
+
+ vectors 
+\begin_inset Formula $\left\{ \mathbf{a}_{j}\right\} $
+\end_inset
+
+.
+ Not only will this be illustrative of more general problems, it will be
+ useful in its own right.
+ This problem takes the form
+\begin_inset Formula 
+\[
+\sum_{j=1}^{m}\mathbf{a}_{j}x_{j}=\mathbf{b}
+\]
+
+\end_inset
+
+which we can write compactly as
+\begin_inset Formula 
+\[
+A\mathbf{x}=\mathbf{b}.
+\]
+
+\end_inset
+
+Notice that the problem description implies that 
+\begin_inset Formula $A$
+\end_inset
+
+ is square.
+ This problem with non-square matrices is also interesting and leads to
+ least-squares problems; however, we will not discuss such problems here.
+\end_layout
+
+\begin_layout Subsection
+Homogeneous equations
+\end_layout
+
+\begin_layout Standard
+Start very simple, with the homogeneous problem 
+\begin_inset Formula $A\mathbf{x}=\mathbf{0}$
+\end_inset
+
+.
+ This looks like a stupidly useless problem.
+ It isn't, so bear with me and make sure you understand this problem.
+ You'll see it again.
+ 
+\end_layout
+
+\begin_layout Standard
+There's an obvious solution to the homogeneous problem, 
+\begin_inset Formula $\mathbf{x}=\mathbf{0}$
+\end_inset
+
+.
+ We'll call this the 
+\series bold
+\emph on
+trivial solution
+\series default
+\emph default
+.
+ The more interesting question is whether there any 
+\emph on
+nontrivial
+\emph default
+ solutions 
+\begin_inset Formula $\mathbf{x}\ne\mathbf{0}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout BoxedExample
+\begin_inset CommandInset label
+LatexCommand label
+name "exa:homog-triv"
+
+\end_inset
+
+Solve 
+\begin_inset Formula $A\mathbf{x}=\mathbf{0}$
+\end_inset
+
+ with
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{cc}
+2 & 3\\
+4 & 5
+\end{array}\right];
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BoxedExample
+this is the problem of finding a linear combination of 
+\begin_inset Formula $\mathbf{a}_{1}=\left[\begin{array}{cc}
+2 & 4\end{array}\right]^{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{a}_{2}=\left[\begin{array}{cc}
+3 & 5\end{array}\right]^{T}$
+\end_inset
+
+ that comes out zero.
+ It's also the system of simultaneous equations
+\begin_inset Formula 
+\[
+2x_{1}+3x_{2}=0
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+4x_{1}+5x=0.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BoxedExample
+Remember how to solve a system of linear equations: use row reduction on
+ an augmented matrix to eliminate everything below the diagonal.
+\begin_inset Formula 
+\[
+\left[\begin{array}{cc|c}
+2 & 3 & 0\\
+4 & 5 & 0
+\end{array}\right]\underrightarrow{R_{2}\gets R_{2}-2R_{1}}\left[\begin{array}{cc|c}
+2 & 3 & 0\\
+0 & -1 & 0
+\end{array}\right].
+\]
+
+\end_inset
+
+The bottom row encodes the equation 
+\begin_inset Formula $-x_{2}=0$
+\end_inset
+
+.
+ The first row encodes the equation 
+\begin_inset Formula $2x_{1}+3\cdot0=0$
+\end_inset
+
+, so 
+\begin_inset Formula $x_{1}=0$
+\end_inset
+
+ as well.
+ The only solution to this problem is 
+\begin_inset Formula $\mathbf{x}=\mathbf{0}$
+\end_inset
+
+, which is trivial.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Before going on to another problem, a few observations.
+ 
+\end_layout
+
+\begin_layout Itemize
+With the RHS 
+\begin_inset Formula $\mathbf{b}=\mathbf{0}$
+\end_inset
+
+, the column of zeros in the augmented matrix will remain zero regardless
+ of what row operations are performed.
+ It can be dropped from the calculation.
+ 
+\end_layout
+
+\begin_layout Itemize
+If, after row reduction of a problem
+\series bold
+ 
+\begin_inset Formula $A\mathbf{x}=\mathbf{0}$
+\end_inset
+
+
+\series default
+ all diagonal entries are nonzero, then the only solution is the trivial
+ solution 
+\begin_inset Formula $\mathbf{x}=\mathbf{0}$
+\end_inset
+
+.
+ No need to proceed with backsubstitutions; you know it will produce nothing
+ but zeros.
+\end_layout
+
+\begin_layout BoxedExample
+Solve 
+\begin_inset Formula $A\mathbf{x}=\mathbf{0}$
+\end_inset
+
+ with
+\end_layout
+
+\begin_layout BoxedExample
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{cc}
+2 & 3\\
+4 & 6
+\end{array}\right].
+\]
+
+\end_inset
+
+Do row reduction,
+\begin_inset Formula 
+\[
+\left[\begin{array}{cc|c}
+2 & 3 & 0\\
+4 & 6 & 0
+\end{array}\right]\underrightarrow{R_{2}\gets R_{2}-2R_{1}}\left[\begin{array}{cc|c}
+2 & 3 & 0\\
+0 & 0 & 0
+\end{array}\right].
+\]
+
+\end_inset
+
+The bottom row encodes the equation
+\begin_inset Formula 
+\[
+0x_{1}+0x_{2}=0;
+\]
+
+\end_inset
+
+
+\emph on
+any
+\emph default
+ vector 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ satisfies that.
+ It contains no useful information.
+ Move on to the next row, which encodes the equation
+\begin_inset Formula 
+\[
+2x_{1}+3x_{2}=0.
+\]
+
+\end_inset
+
+This is one equation in two unknowns, and has infinitely many solution:
+ any vector 
+\begin_inset Formula $\left[\begin{array}{cc}
+x_{1} & x_{2}\end{array}\right]^{T}$
+\end_inset
+
+ with 
+\begin_inset Formula $x_{1}=-\frac{3}{2}x_{2}$
+\end_inset
+
+.
+ Some possible solutions are
+\begin_inset Formula 
+\[
+\mathbf{x}=\left[\begin{array}{c}
+-\frac{3}{2}\\
+1
+\end{array}\right];\;\;\;\;\mathbf{x}=\left[\begin{array}{c}
+9\\
+-6
+\end{array}\right];\;\;\;\;\mathbf{x}=\left[\begin{array}{c}
+-360\\
+240
+\end{array}\right]
+\]
+
+\end_inset
+
+and so on.
+ Of course 
+\begin_inset Formula $\mathbf{x}=\mathbf{0}$
+\end_inset
+
+ is a solution as well.
+ All of these solutions can be represented as follows: choose 
+\emph on
+any
+\emph default
+ solution, say 
+\begin_inset Formula $x_{1}=3$
+\end_inset
+
+, 
+\begin_inset Formula $x_{2}=-2$
+\end_inset
+
+, introduce a scalar parameter 
+\begin_inset Formula $s$
+\end_inset
+
+, and write the solution to the problem as
+\begin_inset Formula 
+\[
+\mathbf{x}=s\left[\begin{array}{c}
+3\\
+-2
+\end{array}\right].
+\]
+
+\end_inset
+
+This can represent any solution simply by changing the value of 
+\begin_inset Formula $s$
+\end_inset
+
+.
+ It doesn't matter which solution you choose as the 
+\begin_inset Quotes eld
+\end_inset
+
+basis
+\begin_inset Quotes erd
+\end_inset
+
+ vector; any solution will do.
+ We could have just as well chosen 
+\begin_inset Formula $\mathbf{x}=s\left[\begin{array}{cc}
+-360 & 240\end{array}\right]^{T}$
+\end_inset
+
+.
+ The same set of possible solutions is represented.
+\end_layout
+
+\begin_layout Standard
+The word 
+\begin_inset Quotes eld
+\end_inset
+
+basis
+\begin_inset Quotes erd
+\end_inset
+
+ is in quotes because we've not shown that this vector is a basis for some
+ vector space.
+ Spoiler alert: it is.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We'll go a long way with 
+\begin_inset Formula $2\times2$
+\end_inset
+
+ problems in this class, but particularly for this type of problem it's
+ important to understand what happens for systems of any size.
+ If after row reduction of an 
+\begin_inset Formula $m\times m$
+\end_inset
+
+ matrix we find 
+\begin_inset Formula $k$
+\end_inset
+
+ zero rows, then there will be 
+\begin_inset Formula $k$
+\end_inset
+
+ free variables.
+ 
+\end_layout
+
+\begin_layout BoxedExample
+Solve 
+\begin_inset Formula $A\mathbf{x}=\mathbf{0}$
+\end_inset
+
+ with
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{ccc}
+1 & 2 & 3\\
+0 & 0 & 0\\
+0 & 0 & 0
+\end{array}\right].
+\]
+
+\end_inset
+
+No row reduction is needed.
+ Only the first row is informative; we have one equation 
+\begin_inset Formula 
+\[
+x_{1}+2x_{2}+3x_{3}=0
+\]
+
+\end_inset
+
+in three unknowns.
+ We have two free variables; set 
+\begin_inset Formula $x_{2}=s$
+\end_inset
+
+ and 
+\begin_inset Formula $x_{3}=t$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $x_{1}=-2s-3t$
+\end_inset
+
+, so any solution can be written as
+\begin_inset Formula 
+\[
+\mathbf{x}=\left[\begin{array}{c}
+-2s-3t\\
+s\\
+t
+\end{array}\right].
+\]
+
+\end_inset
+
+It is useful to write this as the sum of two vectors, each multiplied by
+ only one of the two parameters 
+\begin_inset Formula $s$
+\end_inset
+
+ and 
+\begin_inset Formula $t$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+\mathbf{x}=s\left[\begin{array}{c}
+-2\\
+1\\
+0
+\end{array}\right]+t\left[\begin{array}{c}
+-3\\
+0\\
+1
+\end{array}\right].
+\]
+
+\end_inset
+
+Any solution can be written as a linear combination of the two vectors 
+\begin_inset Formula $\mathbf{v}_{1}=\left[\begin{array}{ccc}
+-2 & 1 & 0\end{array}\right]^{T}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{v}_{2}=\left[\begin{array}{ccc}
+-3 & 0 & 1\end{array}\right]^{T}$
+\end_inset
+
+.
+ Again with the spoiler alert: these two vectors will be a basis for something.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+With some examples in hand, let's analyze the nonhomogeneous problem in
+ general.
+ 
+\end_layout
+
+\begin_layout Standard
+By looking at the definitions of 
+\begin_inset Formula $\Null\left(A\right)$
+\end_inset
+
+ and the homogeneous problem 
+\begin_inset Formula $A\mathbf{x}=\mathbf{0}$
+\end_inset
+
+, notice that the set of solutions to the homogeneous problem 
+\begin_inset Formula $A\mathbf{x}=\mathbf{0}$
+\end_inset
+
+ is 
+\emph on
+exactly
+\emph default
+ the null space of 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ If the only solution is 
+\begin_inset Formula $\mathbf{x}=\mathbf{0}$
+\end_inset
+
+ (and remember, 
+\begin_inset Formula $\mathbf{0}$
+\end_inset
+
+ will 
+\emph on
+always 
+\emph default
+solve the homogeneous problem) then the null space is trivial.
+\end_layout
+
+\begin_layout Standard
+Let's now consider the more complicated case of nontrivial solutions.
+ This will occur iff row reduction produces one or more rows of zeros.
+ With 
+\begin_inset Formula $k$
+\end_inset
+
+ nonzero rows there will be 
+\begin_inset Formula $k$
+\end_inset
+
+ free variables 
+\begin_inset Formula $\left\{ s_{j}\right\} _{j=1}^{k}$
+\end_inset
+
+, and we will find 
+\begin_inset Formula $k$
+\end_inset
+
+ nontrivial, LI vectors 
+\begin_inset Formula $\left\{ \mathbf{v}_{j}\right\} _{j=1}^{k}$
+\end_inset
+
+ such that any solution 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ can be expressed as
+\begin_inset Formula 
+\[
+\mathbf{x}=s_{1}\mathbf{v}_{1}+s_{2}\mathbf{v}_{2}+\cdots+s_{k}\mathbf{v}_{k}.
+\]
+
+\end_inset
+
+The 
+\begin_inset Formula $\mathbf{v}_{j}$
+\end_inset
+
+'s form a basis for 
+\begin_inset Formula $\Null\left(A\right)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Notice that the homogeneous equation 
+\begin_inset Formula $A\mathbf{x}=\mathbf{0}$
+\end_inset
+
+ has either exactly one solution – the trivial solution 
+\begin_inset Formula $\mathbf{x}=\mathbf{0}$
+\end_inset
+
+ – or an entire space of solutions parametrized by the free variables.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Nonhomogeneous equations
+\end_layout
+
+\begin_layout Standard
+Let's now study the nonhomogeneous equation 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+.
+ The solution procedure is row reduction by Gaussian elimination; if row
+ reduction produces no zero rows, then the solution 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ is constructed by backsubstitution.
+ If no zeros appear on the diagonal, we call the matrix 
+\series bold
+\emph on
+nonsingular
+\series default
+\emph default
+.
+ Otherwise, the matrix is called 
+\series bold
+\emph on
+singular
+\series default
+\emph default
+.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Nonsingular 
+\begin_inset Formula $A$
+\end_inset
+
+: unique solution
+\end_layout
+
+\begin_layout BoxedExample
+Solve 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+with 
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{cc}
+2 & 3\\
+4 & 5
+\end{array}\right];\;\;\;\;\mathbf{b}=\left[\begin{array}{c}
+4\\
+6
+\end{array}\right].
+\]
+
+\end_inset
+
+Do row reduction,
+\begin_inset Formula 
+\[
+\left[\begin{array}{cc|c}
+2 & 3 & 4\\
+4 & 5 & 6
+\end{array}\right]\underrightarrow{R_{2}\gets R_{2}-2R_{1}}\left[\begin{array}{cc|c}
+2 & 3 & 4\\
+0 & -1 & -2
+\end{array}\right],
+\]
+
+\end_inset
+
+there are no zeros on the diagonal so the matrix is nonsingular.
+ The first row is unchanged; the second encodes the one-variable equation
+ 
+\begin_inset Formula $x_{2}=2$
+\end_inset
+
+.
+ Substitute 
+\begin_inset Formula $x_{2}$
+\end_inset
+
+ back into the first equation,
+\begin_inset Formula 
+\[
+2x_{1}+3\cdot2=4
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+2x_{1}=-2,
+\]
+
+\end_inset
+
+so 
+\begin_inset Formula $x_{1}=-1$
+\end_inset
+
+ and the solution vector is 
+\begin_inset Formula $\mathbf{x}=\left[\begin{array}{cc}
+-1 & 2\end{array}\right]^{T}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If you think about it, if there are no zeros on the diagonal then backsubstituti
+on will always produce exactly one solution.
+ If a matrix is nonsingular, then the equation 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+ has a unique solution.
+ 
+\end_layout
+
+\begin_layout Standard
+The case where row reduction produces zeros on the diagonal takes a little
+ more work and thought.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Singular 
+\begin_inset Formula $A$
+\end_inset
+
+; no solution
+\end_layout
+
+\begin_layout BoxedExample
+\begin_inset CommandInset label
+LatexCommand label
+name "exa:no-soln"
+
+\end_inset
+
+Solve 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+ with 
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{cc}
+2 & 3\\
+4 & 6
+\end{array}\right];\;\;\;\;\mathbf{b}=\left[\begin{array}{c}
+4\\
+6
+\end{array}\right].
+\]
+
+\end_inset
+
+Do row reduction,
+\begin_inset Formula 
+\[
+\left[\begin{array}{cc|c}
+2 & 3 & 4\\
+4 & 6 & 6
+\end{array}\right]\underrightarrow{R_{2}\gets R_{2}-2R_{1}}\left[\begin{array}{cc|c}
+2 & 3 & 4\\
+0 & 0 & -2
+\end{array}\right].
+\]
+
+\end_inset
+
+The second row encodes the equation 
+\begin_inset Formula $0x_{1}+0x_{2}=-2$
+\end_inset
+
+.
+ There is no solution.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The nonhomogeneous problem 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+ must fail to have a solution any time row reduction on the 
+\emph on
+augmented 
+\emph default
+matrix produces a row of zeros to the left of the bar (
+\emph on
+i.e.
+\emph default
+, in the part corresponding to the original matrix) with a nonzero in that
+ row to the right of the bar.
+ To produce that row of zeros, 
+\begin_inset Formula $A$
+\end_inset
+
+ must be singular.
+ 
+\end_layout
+
+\begin_layout Standard
+It's important to understand why the problem 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+ in example 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "exa:no-soln"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ has no solution.
+ We can look at it in several equivalent ways.
+ 
+\end_layout
+
+\begin_layout Itemize
+Geometry of the rows, figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:fail-geom"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ left.
+ The rows in example 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "exa:no-soln"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ correspond to the equations
+\begin_inset Formula 
+\[
+2x_{1}+3x_{2}=4
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+4x_{1}+6x_{2}=6.
+\]
+
+\end_inset
+
+Those equations correspond to finding the intersection between two parallel
+ lines (they have the same slope) that don't intersect (they have different
+ 
+\begin_inset Formula $x_{2}$
+\end_inset
+
+-intercepts).
+ These lines can't intersect, so there's no solution.
+ 
+\end_layout
+
+\begin_layout Itemize
+Geometry of the columns, figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:fail-geom"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ right.
+ Seen columnwise, we're looking for a LC of the vectors 
+\begin_inset Formula $\mathbf{a}_{1}=\left[\begin{array}{cc}
+2 & 4\end{array}\right]^{T}$
+\end_inset
+
+ and 
+\series bold
+
+\begin_inset Formula $\mathbf{a}_{2}=\left[\begin{array}{cc}
+3 & 6\end{array}\right]^{T}$
+\end_inset
+
+ 
+\series default
+that will produce the vector 
+\begin_inset Formula $\mathbf{b}=\left[\begin{array}{cc}
+4 & 6\end{array}\right]^{T}$
+\end_inset
+
+.
+ But 
+\begin_inset Formula $\mathbf{a}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{a}_{2}$
+\end_inset
+
+ are parallel, and 
+\begin_inset Formula $\mathbf{b}$
+\end_inset
+
+ doesn't lie along them.
+ No LC of 
+\begin_inset Formula $\mathbf{a}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{a}_{2}$
+\end_inset
+
+, can possibly produce 
+\begin_inset Formula $\mathbf{b}$
+\end_inset
+
+, therefore, the problem has no solution.
+ 
+\end_layout
+
+\begin_layout Itemize
+Abstract: 
+\begin_inset Formula $\Range\left(A\right)$
+\end_inset
+
+ is the space of all vectors of the form 
+\begin_inset Formula $s\left[\begin{array}{cc}
+1 & 2\end{array}\right]^{T}$
+\end_inset
+
+ for 
+\begin_inset Formula $s\in\RR$
+\end_inset
+
+, but 
+\begin_inset Formula $\mathbf{b}=\left[\begin{array}{cc}
+4 & 6\end{array}\right]^{T}$
+\end_inset
+
+ is not in that space.
+ From theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:solnInRange"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ there can be no solution.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename ParallelLines.pdf
+	lyxscale 40
+	width 45text%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename ParallelVecs.pdf
+	lyxscale 40
+	width 45text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:fail-geom"
+
+\end_inset
+
+Geometry of a failure to solve 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+.
+ Left: distinct parallel lines don't intersect.
+ Right: vectors can't combine to match a vector not in their span.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Singular-;-infinitely"
+
+\end_inset
+
+Singular 
+\begin_inset Formula $A$
+\end_inset
+
+; infinitely many solutions
+\end_layout
+
+\begin_layout Standard
+What happens if 
+\begin_inset Formula $A$
+\end_inset
+
+ is singular and 
+\begin_inset Formula $\mathbf{b}\in\Range\left(A\right)$
+\end_inset
+
+.
+ Since 
+\begin_inset Formula $\mathbf{b}\in\Range\left(A\right)$
+\end_inset
+
+, there must be at least one solution.
+ 
+\end_layout
+
+\begin_layout BoxedExample
+Solve 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+ with 
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{cc}
+2 & 3\\
+4 & 6
+\end{array}\right];\;\;\;\;\mathbf{b}=\left[\begin{array}{c}
+4\\
+8
+\end{array}\right].
+\]
+
+\end_inset
+
+Do row reduction,
+\begin_inset Formula 
+\[
+\left[\begin{array}{cc|c}
+2 & 3 & 4\\
+4 & 6 & 8
+\end{array}\right]\underrightarrow{R_{2}\gets R_{2}-2R_{1}}\left[\begin{array}{cc|c}
+2 & 3 & 4\\
+0 & 0 & 0
+\end{array}\right].
+\]
+
+\end_inset
+
+In this case, the second row is all zero and therefore uninformative.
+ The first row encodes the equation
+\begin_inset Formula 
+\[
+2x_{1}+3x_{2}=4,
+\]
+
+\end_inset
+
+which is the equation of a line.
+ Choose one of the variables to be free, for example, set 
+\begin_inset Formula $x_{2}=t$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $x_{1}=2-\frac{3}{2}t$
+\end_inset
+
+, and the solutions are
+\begin_inset Formula 
+\[
+\mathbf{x}=\left[\begin{array}{c}
+2\\
+0
+\end{array}\right]+t\left[\begin{array}{c}
+-\frac{3}{2}\\
+1
+\end{array}\right].
+\]
+
+\end_inset
+
+There are infinitely many solutions, one for each value of 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+What's going on here? 
+\end_layout
+
+\begin_layout Itemize
+Geometry of the rows: the equations
+\begin_inset Formula 
+\[
+2x_{1}+3x_{2}=4
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+4x_{1}+6x_{2}=8
+\]
+
+\end_inset
+
+are two equations for the same line (divide the second equation by two).
+ All points 
+\begin_inset Formula $\mathbf{x}=\left[\begin{array}{cc}
+x_{1} & x_{2}\end{array}\right]^{T}$
+\end_inset
+
+ on that line are solutions.
+\end_layout
+
+\begin_layout Itemize
+Geometry of the columns: The vectors 
+\begin_inset Formula $\mathbf{a}_{1}=\left[\begin{array}{cc}
+2 & 4\end{array}\right]^{T}$
+\end_inset
+
+ and 
+\series bold
+
+\begin_inset Formula $\mathbf{a}_{2}=\left[\begin{array}{cc}
+3 & 6\end{array}\right]^{T}$
+\end_inset
+
+ 
+\series default
+can be combined infinitely many ways to produce the point 
+\begin_inset Formula $\mathbf{b}=\left[\begin{array}{cc}
+4 & 8\end{array}\right]^{T}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Abstract: Since 
+\begin_inset Formula $\mathbf{b}\in\Range\left(A\right)$
+\end_inset
+
+ we know there's at least one solution; call it 
+\begin_inset Formula $\mathbf{x}_{p}$
+\end_inset
+
+.
+ Add in any member of 
+\begin_inset Formula $\Null\left(A\right)$
+\end_inset
+
+, say 
+\begin_inset Formula $\mathbf{x}_{h}\in\Null\left(A\right)$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $A\left(\mathbf{x}_{p}+\mathbf{x}_{h}\right)=A\mathbf{x}_{p}=\mathbf{b}$
+\end_inset
+
+, so we find that 
+\begin_inset Formula $\mathbf{x}_{p}+\mathbf{x}_{h}$
+\end_inset
+
+ is also a solution.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout BoxedImportant
+If 
+\begin_inset Formula $A$
+\end_inset
+
+ is singular, then 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+ will have either no solution or infinitelymany solutions depending on whether
+ 
+\begin_inset Formula $\mathbf{b}\in\Range\left(A\right)$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\mathbf{b}\notin\Range\left(A\right)$
+\end_inset
+
+, then there is no solution.
+ If 
+\begin_inset Formula $A$
+\end_inset
+
+ is singular and 
+\begin_inset Formula $\mathbf{b}\in\Range\left(A\right)$
+\end_inset
+
+ then there are infinitely many solutions; this case is called 
+\series bold
+\emph on
+singular but consistent
+\series default
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The observation that we can add any 
+\begin_inset Formula $\mathbf{x}_{h}\in\Null\left(A\right)$
+\end_inset
+
+ to a solution and still have a solution, is an example of 
+\series bold
+\emph on
+superposition
+\series default
+\emph default
+.
+ Superposition is one of the most widely useful ideas in the analysis of
+ linear equations (whether linear algebraic equations or linear differential
+ equations).
+ The next section is devoted to looking at several manifestations of superpositi
+on.
+ 
+\end_layout
+
+\begin_layout Subsection
+Superposition
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:superI-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Superposition I
+\end_layout
+
+\end_inset
+
+ If 
+\begin_inset Formula $\mathbf{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{v}$
+\end_inset
+
+ are in 
+\begin_inset Formula $\Null\left(A\right)$
+\end_inset
+
+, then every linear combination 
+\begin_inset Formula $\alpha\mathbf{u}+\beta\mathbf{v}$
+\end_inset
+
+ is also in 
+\begin_inset Formula $\Null\left(A\right)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+This is an immediate consequence of distributivity of matrix-vector multiplicati
+on over addition: If 
+\begin_inset Formula $A\mathbf{u}=\mathbf{0}$
+\end_inset
+
+ and 
+\begin_inset Formula $A\mathbf{v}=\mathbf{0}$
+\end_inset
+
+, then 
+\begin_inset Formula $A\left(\mathbf{u}+\mathbf{v}\right)=A\mathbf{u}+A\mathbf{v}=\mathbf{0}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Notice that this theorem is just a statement that linear combinations of
+ members of the null space obey the closure conditions.
+ If you've taken differential equations, you'll recognize this idea in another
+ form.
+ If 
+\begin_inset Formula $y_{1}\left(x\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $y_{2}\left(x\right)$
+\end_inset
+
+ are solutions to a homogeneous linear differential equation, then so is
+ 
+\begin_inset Formula $\alpha y_{1}\left(x\right)+\beta y_{2}\left(x\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:-SuperII-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Superposition II
+\end_layout
+
+\end_inset
+
+ Suppose 
+\begin_inset Formula $\mathbf{x}_{p}$
+\end_inset
+
+ is a solution to the homogeneous problem 
+\begin_inset Formula $A\mathbf{x}=\mathbf{0}$
+\end_inset
+
+, and 
+\begin_inset Formula $\mathbf{x}_{h}$
+\end_inset
+
+ is a solution to the nonhomogeneous problem 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\mathbf{x}_{g}=\mathbf{x}_{p}+\mathbf{x}_{h}$
+\end_inset
+
+ is also a solution to the nonhomogeneous problem.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We've seen this form of superposition in action in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Singular-;-infinitely"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Once again, if you've taken differential equations you'll recognize this
+ idea in another form.
+ If 
+\begin_inset Formula $y_{p}\left(x\right)$
+\end_inset
+
+ is a particular solution to a nonhomogeneous linear differential equation,
+ and if 
+\begin_inset Formula $y_{h}\left(x\right)$
+\end_inset
+
+ is a solution to the homogeneous version of the problem, then 
+\begin_inset Formula $y_{g}\left(x\right)=y_{h}\left(x\right)+y_{p}\left(x\right)$
+\end_inset
+
+ is also a solution.
+ 
+\end_layout
+
+\begin_layout Standard
+There is one more form of superposition to introduce.
+ 
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:superposIII-1"
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Superposition III
+\end_layout
+
+\end_inset
+
+ Suppose we have solutions 
+\begin_inset Formula $\left\{ \mathbf{x}_{k}\right\} _{k=1}^{N}$
+\end_inset
+
+ to a collection of 
+\begin_inset Formula $N$
+\end_inset
+
+ nonhomogeneous problems involving the same 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ matrix 
+\begin_inset Formula $A$
+\end_inset
+
+, 
+\begin_inset Formula 
+\[
+A\mathbf{x}_{k}=\mathbf{b}_{k},\;\;k=1,2,\cdots,N.
+\]
+
+\end_inset
+
+Then the problem 
+\begin_inset Formula 
+\[
+A\mathbf{x}=\sum_{k=1}^{N}\beta_{k}\mathbf{b}_{k}
+\]
+
+\end_inset
+
+has solution
+\begin_inset Formula 
+\[
+\mathbf{x}_{g}=\mathbf{x}_{h}+\sum_{k=1}^{N}\beta_{k}\mathbf{x}_{k}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathbf{x}_{h}$
+\end_inset
+
+ is any solution to the homogeneous problem.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+You might have used this idea when solving differential equations such as
+\begin_inset Formula 
+\[
+y'+y=5x+3e^{x}.
+\]
+
+\end_inset
+
+Solve the subproblems 
+\begin_inset Formula 
+\[
+y_{1}'+y_{1}=x;\;\;\;\;y_{2}'+y_{2}=e^{x};\;\;\;\;y_{h}'+y_{h}=0,
+\]
+
+\end_inset
+
+and form the general solution
+\begin_inset Formula 
+\[
+y_{g}\left(x\right)=y_{h}\left(x\right)+5y_{1}\left(x\right)+3y_{2}\left(x\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BoxedImportant
+All three superposition theorems 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:superI-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:-SuperII-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:superposIII-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ are of the form 
+\begin_inset Quotes eld
+\end_inset
+
+vector such-and-such is a solution to this-or-that equation.
+\begin_inset Quotes erd
+\end_inset
+
+ To prove any theorem of that form, just plug vector such-and-such into
+ equation this-or-that, and verify the equation is satisfied.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Matrix-matrix multiplication and the inverse
+\end_layout
+
+\begin_layout Standard
+You've probably learned how to do matrix-matrix multiplication, but might
+ not have been told 
+\emph on
+why
+\emph default
+ it's defined in such a strange way.
+ Here's the fundamental idea: 
+\end_layout
+
+\begin_layout Itemize
+Matrix-matrix multiplication is defined so that the operations 
+\begin_inset Formula $A\left(B\mathbf{x}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\left(AB\right)\mathbf{x}$
+\end_inset
+
+ give the same result.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+First of all, notice that the output of 
+\begin_inset Formula $B\mathbf{x}$
+\end_inset
+
+ must have the same dimension as the input to 
+\begin_inset Formula $A\left(\cdot\right)$
+\end_inset
+
+, that is, if 
+\begin_inset Formula $B$
+\end_inset
+
+ is 
+\begin_inset Formula $k\times n$
+\end_inset
+
+, then 
+\begin_inset Formula $B\mathbf{x}$
+\end_inset
+
+ has dimension 
+\begin_inset Formula $k$
+\end_inset
+
+, so 
+\begin_inset Formula $A$
+\end_inset
+
+ must have 
+\begin_inset Formula $k$
+\end_inset
+
+ columns.
+ The matrix-matrix product 
+\begin_inset Formula $AB$
+\end_inset
+
+ is defined only if 
+\begin_inset Formula $A$
+\end_inset
+
+ is 
+\begin_inset Formula $m\times k$
+\end_inset
+
+ and 
+\begin_inset Formula $B$
+\end_inset
+
+ is 
+\begin_inset Formula $k\times n$
+\end_inset
+
+; the 
+\begin_inset Quotes eld
+\end_inset
+
+middle
+\begin_inset Quotes erd
+\end_inset
+
+ dimension must be the same.
+ If the matrices have the right combination of shapes for 
+\begin_inset Formula $AB$
+\end_inset
+
+ to make sense, we call them 
+\series bold
+\emph on
+compatible
+\series default
+\emph default
+.
+ Note that two square matrices of the same size are always compatible.
+\end_layout
+
+\begin_layout Subsection
+The matrix-matrix multiplication formula
+\end_layout
+
+\begin_layout Standard
+Suppose 
+\begin_inset Formula $A$
+\end_inset
+
+ and 
+\begin_inset Formula $B$
+\end_inset
+
+ are compatible.
+ We're going to 
+\emph on
+derive
+\emph default
+ the formula for the matrix-matrix product 
+\begin_inset Formula $AB$
+\end_inset
+
+ by working out 
+\begin_inset Formula $A\left(B\mathbf{x}\right)$
+\end_inset
+
+ and insisting that 
+\begin_inset Formula $\left(AB\right)\mathbf{x}$
+\end_inset
+
+ must give the same result.
+ First, use the column-wise form of matrix-vector multiplication to write
+\begin_inset Formula 
+\[
+B\mathbf{x}=\sum_{j=1}^{n}\mathbf{b}_{j}x_{j}
+\]
+
+\end_inset
+
+and then multiply through (from the left) by 
+\begin_inset Formula $A$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+A\left(B\mathbf{x}\right)=A\sum_{j=1}^{n}\mathbf{b}_{j}x_{j}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=\sum_{j=1}^{n}A\mathbf{b}_{j}x_{j}.
+\]
+
+\end_inset
+
+That's 
+\begin_inset Formula $A\left(B\mathbf{x}\right)$
+\end_inset
+
+.
+ Now let's construct 
+\begin_inset Formula $\left(AB\right)\mathbf{x}$
+\end_inset
+
+ to get the same answer.
+ We don't (yet) know what the columns of 
+\begin_inset Formula $AB$
+\end_inset
+
+ actually look like, but we do know that 
+\begin_inset Formula $\left(AB\right)\mathbf{x}$
+\end_inset
+
+ is the LC of the columns of 
+\begin_inset Formula $AB$
+\end_inset
+
+ weighted by the entries in 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\left(AB\right)\mathbf{x}=\sum_{j=1}^{n}\left[j-\text{th column of }AB\right]x_{j}.
+\]
+
+\end_inset
+
+We can now determine the unknown expression 
+\begin_inset Formula $\left[j-\text{th column of }AB\right]$
+\end_inset
+
+ by setting 
+\begin_inset Formula $\left(AB\right)\mathbf{x}$
+\end_inset
+
+ equal to 
+\begin_inset Formula $A\left(B\mathbf{x}\right)$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\underbrace{\sum_{j=1}^{n}A\mathbf{b}_{j}x_{j}}_{A\left(B\mathbf{x}\right)}=\underbrace{\sum_{j=1}^{n}\left[j-\text{th column of }AB\right]x_{j}}_{\left(AB\right)\mathbf{x}}
+\]
+
+\end_inset
+
+Comparing the vectors in each sum, we see that the 
+\begin_inset Formula $j$
+\end_inset
+
+-th column of 
+\begin_inset Formula $AB$
+\end_inset
+
+ is 
+\begin_inset Formula $A\mathbf{b}_{j}$
+\end_inset
+
+.
+ Therefore, the matrix-matrix product 
+\begin_inset Formula $AB$
+\end_inset
+
+ is the matrix written out columnwise as
+\begin_inset Formula 
+\[
+AB=\left[\begin{array}{c|c|c|c}
+A\mathbf{b}_{1} & A\mathbf{b}_{2} & \cdots & A\mathbf{b}_{n}\end{array}\right].
+\]
+
+\end_inset
+
+This is a simple formula to follow for hand calculation, and it will also
+ be important theoretically in eigenvalue analysis.
+\end_layout
+
+\begin_layout BoxedImportant
+
+\series bold
+Pro tip
+\series default
+: when computing 
+\begin_inset Formula $AB\mathbf{x}$
+\end_inset
+
+, it's usually more efficient to compute 
+\begin_inset Formula $B\mathbf{x}$
+\end_inset
+
+ first, then multiply 
+\begin_inset Formula $A$
+\end_inset
+
+ into the result, than it is to compute 
+\begin_inset Formula $AB$
+\end_inset
+
+ then multiply into 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+.
+ This is true for hand calculations and for computer calculations.
+\end_layout
+
+\begin_layout Subsubsection
+An alternate derivation
+\end_layout
+
+\begin_layout Standard
+Here's an alternate derivation of matrix-matrix multiplication using the
+ summation form of the matrix-vector product.
+ Start by computing the 
+\begin_inset Formula $\ell$
+\end_inset
+
+-th entry in 
+\begin_inset Formula $B\mathbf{x}$
+\end_inset
+
+, which we write out in summation form as
+\begin_inset Formula 
+\[
+\left(B\mathbf{x}\right)_{\ell}=\sum_{j=1}^{n}B_{\ell j}x_{j}.
+\]
+
+\end_inset
+
+Then multiply from the left by 
+\begin_inset Formula $A$
+\end_inset
+
+, writing the 
+\begin_inset Formula $i$
+\end_inset
+
+-th entry in the result as
+\begin_inset Formula 
+\[
+\left[A\left(B\mathbf{x}\right)\right]_{i}=\sum_{\ell=1}^{k}A_{i\ell}\left(\sum_{j=1}^{n}B_{\ell j}x_{j}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=\sum_{j=1}^{n}\left(\sum_{\ell=1}^{k}A_{i\ell}B_{\ell j}\right)x_{j}\;\;\;\;\left(\text{exchange order of summation}\right).
+\]
+
+\end_inset
+
+Now recognize that this is just matrix-vector multiplication of 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ by the matrix whose 
+\begin_inset Formula $i,j$
+\end_inset
+
+ element is
+\begin_inset Formula 
+\[
+\sum_{\ell=1}^{k}A_{i\ell}B_{\ell j}.
+\]
+
+\end_inset
+
+You should convince yourself that the 
+\begin_inset Formula $j-$
+\end_inset
+
+th column of this matrix is 
+\begin_inset Formula $A\mathbf{b}_{j}$
+\end_inset
+
+, as found above.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Properties of matrix multiplication
+\end_layout
+
+\begin_layout Standard
+Here are a few observations about matrix-matrix multiplication:
+\end_layout
+
+\begin_layout Itemize
+Matrix-matrix multiplication is not, in general, commutative: 
+\begin_inset Formula $AB$
+\end_inset
+
+ does not always equal 
+\begin_inset Formula $BA$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+Matrix-matrix multiplication does distribute over addition: 
+\begin_inset Formula $A\left(B+C\right)=AB+AC$
+\end_inset
+
+.
+ This follows from the fact that matrix-
+\emph on
+vector
+\emph default
+ multiplication distributes over addition, and that matrix-matrix multiplication
+ is built up from matrix-vector multiplication:
+\begin_inset Formula 
+\[
+A\left(B+C\right)=\left[\begin{array}{c|c|c|c}
+A\left(\mathbf{b}_{1}+\mathbf{c}_{1}\right) & A\left(\mathbf{b}_{2}+\mathbf{c}_{2}\right) & \cdots & A\left(\mathbf{b}_{n}+\mathbf{c}_{n}\right)\end{array}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=\left[\begin{array}{c|c|c|c}
+A\mathbf{b}_{1} & A\mathbf{b}_{2} & \cdots & A\mathbf{b}_{n}\end{array}\right]+\left[\begin{array}{c|c|c|c}
+A\mathbf{c}_{1} & A\mathbf{c}_{2} & \cdots & A\mathbf{c}_{n}\end{array}\right].
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=AB+AC.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Notice that matrix-vector multiplication 
+\begin_inset Formula $A\mathbf{x}$
+\end_inset
+
+ can be regarded as a special case of matrix-matrix multiplication, with
+ the column vector 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ regarded as an 
+\begin_inset Formula $n\times1$
+\end_inset
+
+ matrix.
+ 
+\end_layout
+
+\begin_layout Itemize
+Notice that if we transpose a column vector 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ to a row vector
+\begin_inset Formula 
+\[
+\mathbf{x}^{T}=\left(\begin{array}{cccc}
+x_{1} & x_{2} & \cdots & x_{m}\end{array}\right)
+\]
+
+\end_inset
+
+then the row-vector times matrix product 
+\begin_inset Formula $\mathbf{x}^{T}A$
+\end_inset
+
+ makes sense as a product between 
+\begin_inset Formula $1\times m$
+\end_inset
+
+ and 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ matrices.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+The identity matrix and the Kronecker delta
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Formula $m\times m$
+\end_inset
+
+ matrix
+\begin_inset Formula 
+\[
+I=\left[\begin{array}{cccc}
+1 & 0\\
+0 & 1\\
+ &  & \ddots\\
+ &  &  & 1
+\end{array}\right]
+\]
+
+\end_inset
+
+whose entries are 
+\begin_inset Formula 
+\[
+I_{ij}=\begin{cases}
+1 & i=j\\
+0 & i\ne j
+\end{cases}
+\]
+
+\end_inset
+
+is called the 
+\emph on
+
+\begin_inset Formula $m\times m$
+\end_inset
+
+
+\emph default
+ 
+\series bold
+\emph on
+identity matrix
+\series default
+\emph default
+.
+
+\series bold
+\emph on
+ 
+\series default
+\emph default
+It's easily checked that multiplication of 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ by 
+\begin_inset Formula $I$
+\end_inset
+
+ simply returns 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ unchanged.
+\end_layout
+
+\begin_layout Standard
+Related notation is the 
+\series bold
+\emph on
+Kronecker delta
+\series default
+\emph default
+, defined by
+\begin_inset Formula 
+\[
+\delta_{ij}=\begin{cases}
+1 & i=j\\
+0 & i\ne j
+\end{cases}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+The matrix inverse
+\end_layout
+
+\begin_layout Standard
+Now that we know about matrix-matrix products, we ask whether we can find
+ a matrix 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+ with which we can solve the equation 
+\begin_inset Formula 
+\[
+A\mathbf{x}=\mathbf{b}
+\]
+
+\end_inset
+
+by multiplication, similarly to how we use the reciprocal of a scalar 
+\begin_inset Formula $a$
+\end_inset
+
+ to solve 
+\begin_inset Formula $ax=b$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $I$
+\end_inset
+
+ be the identity matrix, and suppose that for a matrix 
+\begin_inset Formula $A$
+\end_inset
+
+ there exists an 
+\series bold
+\emph on
+inverse matrix
+\series default
+\emph default
+ 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+ such that
+\begin_inset Formula 
+\[
+A^{-1}A=I.
+\]
+
+\end_inset
+
+Then, solution of 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+ follows immediately: multiply through by 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+ from the left,
+\begin_inset Formula 
+\[
+A^{-1}A\mathbf{x}=A^{-1}\mathbf{b}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathbf{x}=A^{-1}\mathbf{b}.
+\]
+
+\end_inset
+
+Hooray, the equation has been solved! 
+\end_layout
+
+\begin_layout BoxedBad
+Application of a matrix inverse is 
+\series bold
+\emph on
+not
+\series default
+\emph default
+ division by a matrix, so 
+\series bold
+\emph on
+never
+\series default
+\emph default
+ write
+\begin_inset Formula 
+\[
+\mathbf{x}=\frac{\mathbf{b}}{A}.
+\]
+
+\end_inset
+
+Division by matrices and vectors is never allowed!
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There are a few pending questions:
+\end_layout
+
+\begin_layout Enumerate
+Does 
+\begin_inset Formula $A$
+\end_inset
+
+ have an inverse? (and is it unique, etc)
+\end_layout
+
+\begin_layout Enumerate
+If 
+\begin_inset Formula $A$
+\end_inset
+
+ does have an inverse, how do we find it?
+\end_layout
+
+\begin_layout Enumerate
+If 
+\begin_inset Formula $A$
+\end_inset
+
+ has an inverse and we know how to find it, is using the inverse to compute
+ 
+\begin_inset Formula $\mathbf{x}=A^{-1}\mathbf{b}$
+\end_inset
+
+ an efficient way to solve 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+? 
+\end_layout
+
+\begin_layout Standard
+Our answer to the first question will be 
+\emph on
+constructive
+\emph default
+, meaning that we will show the existence of an inverse by giving an algorithm
+ to 
+\emph on
+construct 
+\emph default
+one; thus, we will answer the second question (
+\begin_inset Quotes eld
+\end_inset
+
+how do we find it?
+\begin_inset Quotes erd
+\end_inset
+
+) along the way to answering the question of existence.
+\end_layout
+
+\begin_layout Standard
+Before embarking on construction of an inverse, let's think about when we'd
+ expect 
+\emph on
+not
+\emph default
+ to have one.
+ An inverse applied by matrix-vector multiplication 
+\begin_inset Formula $A^{-1}\mathbf{b}$
+\end_inset
+
+ should produce exactly one solution 
+\begin_inset Formula $\mathbf{x}=A^{-1}\mathbf{b}$
+\end_inset
+
+ for each 
+\begin_inset Formula $\mathbf{b}$
+\end_inset
+
+, and it should break down when the problem has no solution.
+ By the nature of matrix-vector multiplication the operation 
+\begin_inset Formula $A^{-1}\mathbf{b}$
+\end_inset
+
+ can't produce more than one result.
+ Furthermore, matrix-vector multiplication can't ever break down.
+ To avoid nonsense results we expect 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+ to fail to exists whenever 
+\begin_inset Formula $A$
+\end_inset
+
+ is singular.
+ We will see that this is the case.
+\end_layout
+
+\begin_layout Subsubsection
+Constructing the inverse 
+\end_layout
+
+\begin_layout Standard
+We are going to solve 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+ by 
+\emph on
+superposition.
+ 
+\emph default
+The basic idea is this: 
+\emph on
+build up a solution to an equation by summing simpler solutions to simpler
+ problems.
+ 
+\emph default
+The 
+\begin_inset Quotes eld
+\end_inset
+
+simpler
+\begin_inset Quotes erd
+\end_inset
+
+ problems will be 
+\begin_inset Formula $A\mathbf{x}_{j}=\ehat_{j}$
+\end_inset
+
+.
+ These aren't really any simpler, but bear with me.
+ 
+\end_layout
+
+\begin_layout Standard
+Suppose that 
+\begin_inset Formula $A$
+\end_inset
+
+ is nonsingular.
+ Let's write 
+\begin_inset Formula $\mathbf{b}$
+\end_inset
+
+ as a LC of standard Cartesian unit vectors,
+\begin_inset Formula 
+\[
+\mathbf{b}=b_{1}\ehat_{1}+b_{2}\ehat_{2}+\cdots+b_{n}\ehat_{n}.
+\]
+
+\end_inset
+
+Suppose we've solved each of the 
+\begin_inset Quotes eld
+\end_inset
+
+simple
+\begin_inset Quotes erd
+\end_inset
+
+ problems 
+\begin_inset Formula $A\mathbf{x}_{j}=\ehat_{j}$
+\end_inset
+
+ for the vectors 
+\begin_inset Formula $\mathbf{x}_{j}$
+\end_inset
+
+.
+ Then the solution 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ to the original problem is, by superposition,
+\begin_inset Formula 
+\[
+\mathbf{x}=b_{1}\mathbf{x}_{1}+b_{2}\mathbf{x}_{2}+\cdots+b_{n}\mathbf{x}_{n}.
+\]
+
+\end_inset
+
+Glue the vectors 
+\begin_inset Formula $\mathbf{x}_{j}$
+\end_inset
+
+ into the columns of a matrix 
+\begin_inset Formula $X$
+\end_inset
+
+, and observe that 
+\begin_inset Formula $\mathbf{x}=X\mathbf{b}$
+\end_inset
+
+.
+ Thus, when 
+\begin_inset Formula $A$
+\end_inset
+
+ is nonsingular there is a matrix 
+\begin_inset Formula $X$
+\end_inset
+
+ such that the solution 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ to 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+ can be written as 
+\begin_inset Formula $\mathbf{x}=X\mathbf{b}$
+\end_inset
+
+.
+ By the definition of the inverse, we have 
+\begin_inset Formula $A^{-1}=X$
+\end_inset
+
+.
+ Every nonsingular matrix has an inverse.
+ 
+\end_layout
+
+\begin_layout Standard
+Moreover, if you're paying attention, you'll see that we've actually shown
+ to to construct the inverse.
+ The 
+\begin_inset Formula $j$
+\end_inset
+
+-th column of 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+ is the vector 
+\begin_inset Formula $\mathbf{z}_{j}$
+\end_inset
+
+, formed by solving 
+\begin_inset Formula $A\mathbf{z}_{j}=\ehat_{j}$
+\end_inset
+
+.
+ Because 
+\begin_inset Formula $A$
+\end_inset
+
+ is nonsingular, each of those 
+\begin_inset Quotes eld
+\end_inset
+
+simple
+\begin_inset Quotes erd
+\end_inset
+
+ problems has a unique solution; therefore, the inverse 
+\begin_inset Formula $X$
+\end_inset
+
+ formed from those solutions is unique.
+\end_layout
+
+\begin_layout Standard
+Will this procedure work if 
+\begin_inset Formula $A$
+\end_inset
+
+ is singular? It can't.
+ 
+\end_layout
+
+\begin_layout Theorem
+\begin_inset Formula $A$
+\end_inset
+
+ has an inverse iff 
+\begin_inset Formula $A$
+\end_inset
+
+ is nonsingular.
+ That inverse is unique.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Case
+We've already shown that if 
+\begin_inset Formula $A$
+\end_inset
+
+ is nonsingular, then it has a unique inverse.
+ For the 
+\begin_inset Quotes eld
+\end_inset
+
+only if
+\begin_inset Quotes erd
+\end_inset
+
+ direction: if 
+\begin_inset Formula $A$
+\end_inset
+
+ is singular, then row reduction on 
+\begin_inset Formula $A$
+\end_inset
+
+ (possibly involving row exchanges) will produce at least one row of nonzeros.
+ For simplicity, focus on the case where there are no row exchanges, and
+ suppose that (at least) the final row 
+\begin_inset Formula $m$
+\end_inset
+
+ is entirely zero.
+ We'll need to solve 
+\begin_inset Formula $A\mathbf{x}_{m}=\ehat_{m}$
+\end_inset
+
+.
+ When we form the augmented matrix for that problem, it will look like this:
+ 
+\begin_inset Formula 
+\[
+\left[\begin{array}{cccc|c}
+u_{11} & u_{12} & \cdots & u_{1m} & 0\\
+0 & u_{22} &  &  & 0\\
+\vdots &  & \ddots & \vdots & \vdots\\
+0 & 0 & \cdots & 0 & 1
+\end{array}\right].
+\]
+
+\end_inset
+
+This is because the 
+\begin_inset Formula $m$
+\end_inset
+
+-th (bottom) row is formed as a linear combination of the original 
+\begin_inset Formula $m$
+\end_inset
+
+-th row of 
+\begin_inset Formula $A$
+\end_inset
+
+ with nonzero multiples of the rows above it.
+ But since all entries in 
+\begin_inset Formula $\ehat_{m}$
+\end_inset
+
+ save the last are zero, that process leaves 
+\begin_inset Formula $\ehat_{m}$
+\end_inset
+
+ unchanged, and as a result the equation encoded in the final row has no
+ solution.
+ Therefore, the construction of the inverse must fail for at least one of
+ the unit vectors, and the inverse cannot exist.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In a linear algebra class, you might have learned to compute the inverse
+ of 
+\begin_inset Formula $A$
+\end_inset
+
+ by setting up the augmented system
+\begin_inset Formula 
+\[
+\left[\begin{array}{c|c}
+A & I\end{array}\right]
+\]
+
+\end_inset
+
+and doing Gauss-Jordan elimination; after that process the inverse will
+ be in the second block column of the augmented system.
+ Now you can see why that works: the procedure solves the equations 
+\begin_inset Formula $A\mathbf{z}_{j}=\ehat_{j}$
+\end_inset
+
+ simultaneously in the same table, with the solution 
+\begin_inset Formula $\mathbf{z}_{j}$
+\end_inset
+
+ being written into the 
+\begin_inset Formula $j$
+\end_inset
+
+-th column of the second block column.
+ In practice, you'd not do Gauss-Jordan elimination; you'd do Gaussian eliminati
+on followed by backsubstitution to find each column of 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+.
+ If you ever need to compute an inverse – and you probably don't – do it
+ with Gaussian elimination and backsubstitution.
+\end_layout
+
+\begin_layout Subsubsection
+Don't compute an inverse
+\end_layout
+
+\begin_layout Standard
+Now that I've shown you how to compute an inverse, I'm going to tell you
+ never to do it.
+ Well, almost never.
+ It's a matter of efficiency.
+ Notice that the 
+\begin_inset Quotes eld
+\end_inset
+
+simple
+\begin_inset Quotes erd
+\end_inset
+
+ problems 
+\begin_inset Formula $A\mathbf{z}_{j}=\ehat_{j}$
+\end_inset
+
+ that arose in the computation of the inverse were, in fact, no smaller
+ or easier than the original problem 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+.
+ You might conclude from that observation that computing the inverse isn't
+ such a useful idea after all, and you'd be right.
+ As a general rule, 
+\emph on
+don't compute a matrix inverse
+\emph default
+.
+ Just solve the system 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+You might think that if you're solving 
+\emph on
+many
+\emph default
+ systems 
+\begin_inset Formula $A\mathbf{x=}\mathbf{b}$
+\end_inset
+
+ with the same 
+\begin_inset Formula $A$
+\end_inset
+
+ but different RHS vectors
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+This is very common in practice.
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $\mathbf{b}_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{b}_{2}$
+\end_inset
+
+, 
+\begin_inset Formula $\cdots,$
+\end_inset
+
+ then the up-front cost invested in computing 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+ might save time in the long run when solving the sequence of systems.
+ My undergraduate linear algebra textbook, and my teacher, claimed this;
+ they were wrong.
+ See 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Mtx-Inverses-Bad"
+
+\end_inset
+
+ for an explanation of why that is, and for the right way to solve multiple
+ systems of equations efficiently.
+\end_layout
+
+\begin_layout Standard
+So if we shouldn't compute it, what good is the inverse?
+\end_layout
+
+\begin_layout Itemize
+It is most useful as 
+\emph on
+notation
+\emph default
+.
+ When I write 
+\begin_inset Formula $\mathbf{x}=A^{-1}\mathbf{b}$
+\end_inset
+
+ I mean 
+\begin_inset Quotes eld
+\end_inset
+
+solve the equation 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+ for 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ using any efficient method you like
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Keeping in mind the Pro Tip on how to compute 
+\begin_inset Formula $ABC\mathbf{x}$
+\end_inset
+
+ (
+\series bold
+\emph on
+don't
+\series default
+\emph default
+ do the matrix-matrix multiplications to form 
+\begin_inset Formula $ABC$
+\end_inset
+
+), this lets you make sense out of what to do with expressions like 
+\begin_inset Formula $ABA^{-1}\mathbf{y}$
+\end_inset
+
+.
+ You can evaluate that with (a) no inverse computations and (b) no matrix-matrix
+ multiplications, as follows:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+First compute 
+\begin_inset Formula $\mathbf{p}=A^{-1}\mathbf{y}$
+\end_inset
+
+ by solving 
+\begin_inset Formula $A\mathbf{p}=\mathbf{y}$
+\end_inset
+
+ for 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ using, 
+\emph on
+e.g., 
+\emph default
+Gaussian elimination.
+\end_layout
+
+\begin_layout Itemize
+Compute 
+\begin_inset Formula $\mathbf{q}=B\left(A^{-1}\mathbf{y}\right)$
+\end_inset
+
+ by multiplying 
+\begin_inset Formula $B$
+\end_inset
+
+ into 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ computed in the first step
+\end_layout
+
+\begin_layout Itemize
+Compute 
+\begin_inset Formula $\mathbf{r}=A\left(B\left(A^{-1}\mathbf{y}\right)\right)$
+\end_inset
+
+ by multiplying 
+\begin_inset Formula $A$
+\end_inset
+
+ into 
+\begin_inset Formula $\mathbf{q}$
+\end_inset
+
+ computed in the second step.
+\end_layout
+
+\begin_layout Standard
+The procedure takes one run of Gaussian elimination plus two matrix-vector
+ multiplies, compared to the 
+\emph on
+much
+\emph default
+ more expensive proposition of one inverse calculation and two matrix-matrix
+ multiplies.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Sometimes the inverse can be found easily and efficiently.
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Nonsingular diagonal matrices are trivially inverted: just take the reciprocals
+ of the diagonal entries.
+ If one of the diagonal entries is zero then the matrix is singular.
+ 
+\end_layout
+
+\begin_layout Itemize
+There is a simple formula for the inverse of a two-by-two matrix.
+ The formula is:
+\begin_inset Formula 
+\[
+\left(\begin{array}{cc}
+a & b\\
+c & d
+\end{array}\right)^{-1}=\frac{1}{ad-bc}\left(\begin{array}{cc}
+d & -b\\
+-c & a
+\end{array}\right).
+\]
+
+\end_inset
+
+For a general two-by two system, using this formula is about as efficient
+ as any other method.
+\end_layout
+
+\begin_layout Itemize
+The inverses of 
+\emph on
+orthogonal 
+\emph default
+matrices and 
+\emph on
+unitary 
+\emph default
+matrices (see 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Orthogonal-and-unitary"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) can be found with no calculations at all.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Some properties of the inverse
+\end_layout
+
+\begin_layout Itemize
+The inverse of 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+, 
+\begin_inset Formula $\left(A^{-1}\right)^{-1}$
+\end_inset
+
+, is 
+\begin_inset Formula $A$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+When 
+\begin_inset Formula $A$
+\end_inset
+
+ is an invertible matrix and 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ is a scalar, then 
+\begin_inset Formula $\left(\alpha A\right)^{-1}=\frac{1}{\alpha}A^{-1}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+The inverse of a product 
+\begin_inset Formula $AB$
+\end_inset
+
+ is the product of the inverses, in reversed order: 
+\begin_inset Formula $\left(AB\right)^{-1}=B^{-1}A^{-1}$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Here's why: to solve the system 
+\begin_inset Formula 
+\[
+AB\mathbf{x}=\mathbf{b},
+\]
+
+\end_inset
+
+you would first solve 
+\begin_inset Formula $A\left(B\mathbf{x}\right)=\mathbf{b}$
+\end_inset
+
+ for the unknown 
+\begin_inset Formula $B\mathbf{x}$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+B\mathbf{x}=A^{-1}\mathbf{b},
+\]
+
+\end_inset
+
+and then solve that system for 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+\mathbf{x}=B^{-1}A^{-1}\mathbf{b}.
+\]
+
+\end_inset
+
+Since this is the solution to 
+\begin_inset Formula $\left(AB\right)\mathbf{x}=\mathbf{b}$
+\end_inset
+
+, we have
+\begin_inset Formula 
+\[
+\left(AB\right)^{-1}=B^{-1}A^{-1}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Those are some things you can do with inverses.
+ Here's something that 
+\emph on
+doesn't
+\emph default
+ work, however desperate one might be to solve a problem.
+\end_layout
+
+\begin_layout BoxedBad
+
+\end_layout
+
+\begin_layout BoxedBad
+The inverse of a sum is 
+\series bold
+\emph on
+not
+\series default
+\emph default
+ , in general, the sum of the inverses:
+\begin_inset Formula 
+\[
+\left(A+B\right)^{-1}\ne A^{-1}+B^{-1}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To prove the formula false, a single counterexample is sufficient: try 
+\begin_inset Formula $B=-A$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+There is a formula for 
+\begin_inset Formula $\left(A+B\right)^{-1}$
+\end_inset
+
+, but it is an infinite series (similar to the familiar geometric series
+ for 
+\begin_inset Formula $\left(a+b\right)^{-1}$
+\end_inset
+
+ where 
+\begin_inset Formula $a$
+\end_inset
+
+ and 
+\begin_inset Formula $b$
+\end_inset
+
+ are real).
+ I will not state it here, because the convergence conditions involve concepts
+ (matrix norms) beyond the level of these notes.
+ We will not use this formula in this course.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout BoxedExample
+The inverse of 
+\begin_inset Formula $AB^{-1}C$
+\end_inset
+
+ is
+\begin_inset Formula 
+\[
+\left(AB^{-1}C\right)=C^{-1}\left(B^{-1}\right)^{-1}A^{-1}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=C^{-1}BA^{-1}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Some special matrices
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Orthogonal-and-unitary"
+
+\end_inset
+
+Orthogonal and unitary matrices
+\end_layout
+
+\begin_layout Standard
+Suppose the columns of a real matrix 
+\begin_inset Formula $Q$
+\end_inset
+
+ are orthonormal: 
+\begin_inset Formula $\mathbf{q}_{i}^{T}\mathbf{q}_{j}=\delta_{ij}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $Q^{T}Q=I$
+\end_inset
+
+, and the matrix 
+\begin_inset Formula $Q$
+\end_inset
+
+ is called 
+\series bold
+\emph on
+column orthogonal
+\series default
+\emph default
+.
+ If 
+\begin_inset Formula $Q$
+\end_inset
+
+ is square, then 
+\begin_inset Formula $Q^{T}Q=QQ^{T}=I$
+\end_inset
+
+, and the matrix is called 
+\series bold
+\emph on
+orthogonal
+\series default
+\emph default
+.
+ Since 
+\begin_inset Formula $Q^{T}Q=I$
+\end_inset
+
+, conclude that 
+\begin_inset Formula $Q^{-1}=Q^{T}$
+\end_inset
+
+; every orthogonal matrix is invertible, and it's easy to find the inverse
+ of an orthogonal matrix: no computations needed, just transpose! Therefore,
+ you can solve a system 
+\begin_inset Formula $Q\mathbf{x}=\mathbf{b}$
+\end_inset
+
+ right away: 
+\begin_inset Formula $\mathbf{x}=Q^{T}\mathbf{b}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+If you multiply two orthogonal matrices, the result is orthogonal.
+ The proof will be left to you.
+ 
+\end_layout
+
+\begin_layout Standard
+Orthogonal matrices have one further important property: multiplication
+ of 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ by 
+\begin_inset Formula $Q$
+\end_inset
+
+ 
+\emph on
+preserves the magnitude of 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+.
+ 
+\emph default
+Here's why: compute the magnitude of 
+\begin_inset Formula $Q\mathbf{x}$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+\left\Vert Q\mathbf{x}\right\Vert =\sqrt{\left(Q\mathbf{x}\right)^{T}\left(Q\mathbf{x}\right)}=\sqrt{\mathbf{x}^{T}Q^{T}Q\mathbf{x}}=\sqrt{\mathbf{x}^{T}I\mathbf{x}}=\left\Vert \mathbf{x}\right\Vert .
+\]
+
+\end_inset
+
+This will be important for certain differential equations.
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $Q$
+\end_inset
+
+ is a 
+\emph on
+complex
+\emph default
+ matrix, then the condition for orthonormal columns is 
+\begin_inset Formula $\mathbf{q}_{i}^{*}\mathbf{q}_{j}=\delta_{ij}$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $Q$
+\end_inset
+
+ is also square, then it is called 
+\series bold
+\emph on
+unitary
+\series default
+\emph default
+.
+ All properties of orthogonal matrices carry over to unitary matrices by
+ simply replacing transposition by transposition plus conjugation.
+ Orthogonal matrices are a special case of unitary matrices.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout BoxedImportant
+Unitary matrix properties:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+The columns are orthonormal.
+\end_layout
+
+\begin_layout Itemize
+The inverse of a unitary matrix is its conjugate transpose: 
+\begin_inset Formula $Q^{-1}=Q^{*}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+If 
+\begin_inset Formula $Q_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $Q_{2}$
+\end_inset
+
+ are unitary, then 
+\begin_inset Formula $Q_{1}Q_{2}$
+\end_inset
+
+ is unitary.
+\end_layout
+
+\begin_layout Itemize
+Unitary matrices preserve magnitude: 
+\begin_inset Formula $\left\Vert Q\mathbf{x}\right\Vert =\left\Vert \mathbf{x}\right\Vert $
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We'll often use the symbol 
+\begin_inset Formula $Q$
+\end_inset
+
+ for a generic orthogonal matrix and either 
+\begin_inset Formula $Q$
+\end_inset
+
+ or 
+\begin_inset Formula $U$
+\end_inset
+
+ for a generic unitary matrix.
+ 
+\end_layout
+
+\begin_layout Subsection
+Permutation matrices
+\end_layout
+
+\begin_layout Standard
+Start with the identity matrix and swap two rows or columns, for instance,
+ swap columns 2 and 3 in the 
+\begin_inset Formula $3\times3$
+\end_inset
+
+ identity,
+\begin_inset Formula 
+\[
+\left[\begin{array}{ccc}
+1 & 0 & 0\\
+0 & 0 & 1\\
+0 & 1 & 0
+\end{array}\right].
+\]
+
+\end_inset
+
+Now multiply into a vector:
+\begin_inset Formula 
+\[
+\left[\begin{array}{ccc}
+1 & 0 & 0\\
+0 & 0 & 1\\
+0 & 1 & 0
+\end{array}\right]\left[\begin{array}{c}
+x_{1}\\
+x_{2}\\
+x_{3}
+\end{array}\right]=\left[\begin{array}{c}
+x_{1}\\
+x_{3}\\
+x_{2}
+\end{array}\right].
+\]
+
+\end_inset
+
+Multiplying from the left permutes rows 2 and 3 in the vector.
+ Any such permutated identity is called a 
+\series bold
+\emph on
+permutation matrix
+\series default
+\emph default
+; multiplication from the left does the same permutation on the 
+\emph on
+rows 
+\emph default
+of the input.
+ Multiplication from the right permutes the 
+\emph on
+columns 
+\emph default
+of the input.
+\end_layout
+
+\begin_layout BoxedExample
+Let 
+\begin_inset Formula $P$
+\end_inset
+
+ be the permutation matrix
+\begin_inset Formula 
+\[
+P=\left[\begin{array}{cccc}
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1\\
+0 & 1 & 0 & 0\\
+1 & 0 & 0 & 0
+\end{array}\right].
+\]
+
+\end_inset
+
+Then
+\begin_inset Formula 
+\[
+P\mathbf{x}=\left[\begin{array}{c}
+x_{3}\\
+x_{4}\\
+x_{2}\\
+x_{1}
+\end{array}\right]
+\]
+
+\end_inset
+
+and
+\begin_inset Formula 
+\[
+\mathbf{x}^{T}P=\left[\begin{array}{cccc}
+x_{3} & x_{4} & x_{2} & x_{1}\end{array}\right].
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Notice that the columns of any permutation matrix are orthonormal.
+ Therefore, every permutation matrix is orthogonal.
+ 
+\end_layout
+
+\begin_layout Standard
+To undo the action of a permutation matrix, apply the inverse matrix.
+ This is easy: since the permutation matrix is unitary, its inverse is its
+ transpose (no conjugation needed, since permutation matrices are real.)
+\end_layout
+
+\begin_layout BoxedImportant
+Properties of permutation matrices
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+A permutation matrix is formed by permuting the identity.
+\end_layout
+
+\begin_layout Itemize
+The product of two permutation matrices is a permutation matrix.
+\end_layout
+
+\begin_layout Itemize
+Every permutation matrix is unitary.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Triangular-matrices"
+
+\end_inset
+
+Triangular matrices
+\end_layout
+
+\begin_layout Standard
+An upper(lower) triangular matrix has all zeros below(above) the main diagonal:
+ 
+\begin_inset Formula 
+\[
+U=\left[\begin{array}{cccc}
+U_{11} & U_{12} & U_{13} & \cdots\\
+0 & U_{22} & U_{23}\\
+0 & 0 & U_{33}\\
+\vdots &  &  & \ddots
+\end{array}\right];\;\;\;\;L=\left[\begin{array}{cccc}
+L_{11} & 0 & 0 & \cdots\\
+L_{21} & L_{22} & 0\\
+L_{31} & L_{32} & L_{33}\\
+\vdots &  &  & \ddots
+\end{array}\right].
+\]
+
+\end_inset
+
+Tradition symbols are 
+\begin_inset Formula $U$
+\end_inset
+
+ for upper triangular matrices and 
+\begin_inset Formula $L$
+\end_inset
+
+ for lower triangular matrices; it will usually be clear from context whether
+ 
+\begin_inset Formula $U$
+\end_inset
+
+ denotes upper triangular or unitary.
+\end_layout
+
+\begin_layout Standard
+Solving a system 
+\begin_inset Formula $U\mathbf{x}=\mathbf{b}$
+\end_inset
+
+ is easy: solve the bottom equation for 
+\begin_inset Formula $x_{n}$
+\end_inset
+
+, then the next up for 
+\begin_inset Formula $x_{n-1}$
+\end_inset
+
+, and so on.
+ This will fail iff one of the diagonal entries is zero.
+ For a system 
+\begin_inset Formula $L\mathbf{x}=\mathbf{b},$
+\end_inset
+
+work downward from the first row.
+\end_layout
+
+\begin_layout BoxedImportant
+A triangular matrix is singular iff the main diagonal contains a zero entry.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Diagonal matrices
+\end_layout
+
+\begin_layout Standard
+A diagonal matrix has zeros everywhere but the diagonal (though some diagonal
+ entries may be zero).
+ As a special case of a triangular matrix, a diagonal matrix is singular
+ iff the main diagonal contains a zero entry.
+ The inverse of a diagonal matrix is easy.
+\end_layout
+
+\begin_layout BoxedImportant
+If 
+\begin_inset Formula $D$
+\end_inset
+
+ is a nonsingular diagonal matrix, then 
+\begin_inset Formula $D^{-1}$
+\end_inset
+
+ is the diagonal matrix whose 
+\begin_inset Formula $i,i$
+\end_inset
+
+ entry is 
+\begin_inset Formula $1/D_{ii}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+The determinant
+\end_layout
+
+\begin_layout Subsection
+The determinant as an oriented hypervolume
+\end_layout
+
+\begin_layout Standard
+You have almost certainly seen how to compute the determinant
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+determinant
+\end_layout
+
+\end_inset
+
+ of a matrix by an ugly, messy technique called expansion in minors.
+ I'm not going to write that out here; a quick search online will show you
+ the procedure.
+ Instead, I'll tell you what the determinant 
+\emph on
+means 
+\emph default
+geometrically.
+ We'll be able to deduce a surprising amount about determinants from this
+ geometric point of view.
+ 
+\end_layout
+
+\begin_layout Standard
+We start in 2 dimensions.
+ You should know from calculus that the signed area of the parallelogram
+ defined by vectors 
+\begin_inset Formula $\mathbf{a}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{b}$
+\end_inset
+
+ is given by a determinant:
+\begin_inset Formula 
+\[
+\det\left(\begin{array}{cc}
+a_{x} & b_{x}\\
+a_{y} & b_{y}
+\end{array}\right)=a_{x}b_{y}-a_{y}b_{x}.
+\]
+
+\end_inset
+
+If you don't understand why this is true, please refer to Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Area-of-a"
+
+\end_inset
+
+ for a proof using trigonometry and vector algebra.
+ The relationship between the determinant of a matrix and signed area (or
+ more generally, signed hypervolume (SHV) ) of the parallelogram defined
+ by the columns of that matrix extends to any dimension.
+ In fact, we'll 
+\emph on
+define
+\emph default
+ the determinant so that this is true.
+\end_layout
+
+\begin_layout Definition
+Let 
+\begin_inset Formula $P$
+\end_inset
+
+ be the 
+\begin_inset Formula $m$
+\end_inset
+
+-dimensional parallelepiped formed by the vectors 
+\begin_inset Formula $\mathbf{a}_{1},\mathbf{a}_{2},\cdots,\mathbf{a}_{m}$
+\end_inset
+
+.
+ Pack these vectors columnwise into a matrix 
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{c|c|c|c}
+\mathbf{a}_{1} & \mathbf{a}_{2} & \cdots & \mathbf{a}_{n}\end{array}\right].
+\]
+
+\end_inset
+
+The determinant of 
+\begin_inset Formula $A$
+\end_inset
+
+, denoted 
+\begin_inset Formula $\det\left(A\right)$
+\end_inset
+
+, is the signed hypervolume of 
+\begin_inset Formula $P$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The ugly formula for expansion by minors follows from this definition.
+ The proof is by induction on dimension.
+ For our purposes the conclusion is much more important than the proof;
+ if you're interested see, for example 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lax2007"
+literal "true"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Properties of the determinant
+\end_layout
+
+\begin_layout Subsubsection
+The determinant of the identity is one
+\end_layout
+
+\begin_layout Standard
+The columns of the 
+\begin_inset Formula $m\times m$
+\end_inset
+
+ identity matrix form the unit hypercube.
+ The signed hypervolume of the unit hypercube is one, therefore, 
+\begin_inset Formula $\det\left(I\right)=1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+The determinant of a product is the product of the determinants
+\end_layout
+
+\begin_layout Theorem
+For any 
+\begin_inset Formula $m\times m$
+\end_inset
+
+ 
+\begin_inset Formula $A$
+\end_inset
+
+ and 
+\begin_inset Formula $B$
+\end_inset
+
+, we have 
+\begin_inset Formula $\det\left(AB\right)=\det\left(A\right)\det\left(B\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+When I was a beginning student, I found this theorem to be mysterious; even
+ though the result was simple it made no intuitive sense at all to me, and
+ the proof was hideous.
+ This was because I was only taught the definition of the determinant as
+ an expansion in minors without any geometric interpretation.
+ Trying to prove 
+\begin_inset Formula $\det\left(AB\right)=\det\left(A\right)\det\left(B\right)$
+\end_inset
+
+ by algebraic calculation is horrendously messy.
+ Thinking geometrically, however, the argument is very simple.
+ 
+\end_layout
+
+\begin_layout Standard
+Start with the trivial observation that 
+\begin_inset Formula $B=BI$
+\end_inset
+
+.
+ The parallelepiped constructed from the columns of 
+\begin_inset Formula $B$
+\end_inset
+
+ is also the result of applying 
+\begin_inset Formula $B$
+\end_inset
+
+ to each of the 
+\begin_inset Formula $n$
+\end_inset
+
+ standard Cartesian unit vectors 
+\begin_inset Formula $\ehat_{1},\ehat_{2}$
+\end_inset
+
+, 
+\begin_inset Formula $\cdots$
+\end_inset
+
+, 
+\begin_inset Formula $\ehat_{n}$
+\end_inset
+
+ that define the unit hypercube.
+ Geometrically, 
+\begin_inset Formula $B$
+\end_inset
+
+ maps the unit hypercube into a parallelepiped.
+ Since transformation by 
+\begin_inset Formula $B$
+\end_inset
+
+ is linear, and since the unit hypercube has signed hypervolume one, we
+ can also think of 
+\begin_inset Formula $\det\left(B\right)$
+\end_inset
+
+ as the factor by which any signed hypervolume is scaled during transformation
+ by 
+\begin_inset Formula $B$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Now apply 
+\begin_inset Formula $A$
+\end_inset
+
+ to the columns of 
+\begin_inset Formula $B$
+\end_inset
+
+, producing a new parallelepiped.
+ We started with the unit hypercube with hypervolume 
+\begin_inset Formula $1$
+\end_inset
+
+, multiplied the unit vectors by 
+\begin_inset Formula $B$
+\end_inset
+
+ to form a new parallelepiped 
+\begin_inset Formula $BI$
+\end_inset
+
+ with hypervolume 
+\begin_inset Formula $\det\left(B\right)$
+\end_inset
+
+, and then multiplied those new vectors by 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ That second transformation scales the signed hypervolume by 
+\begin_inset Formula $\det\left(A\right)$
+\end_inset
+
+.
+ Put it together and we have
+\begin_inset Formula 
+\[
+\underbrace{\det\left(AB\right)}_{\text{SHV of the result of }AB}=\underbrace{\det\left(A\right)}_{\text{(scaling due to transf. by }A)}\underbrace{\det\left(B\right)}_{\text{(scaling due to transf. by \ensuremath{B})}}\underbrace{\det\left(I\right)}_{\text{(SHV of unit hypercube)}}
+\]
+
+\end_inset
+
+or
+\begin_inset Formula 
+\[
+\det\left(AB\right)=\det\left(A\right)\det\left(B\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+If 
+\begin_inset Formula $A$
+\end_inset
+
+ contains a zero column (or row) then 
+\begin_inset Formula $\det\left(A\right)=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If a column is of 
+\begin_inset Formula $A$
+\end_inset
+
+ zero, then one of the 
+\begin_inset Quotes eld
+\end_inset
+
+legs
+\begin_inset Quotes erd
+\end_inset
+
+ forming the parallelepiped has zero length; the hypervolume must be zero.
+ 
+\end_layout
+
+\begin_layout Standard
+If some row, say row 
+\begin_inset Formula $i$
+\end_inset
+
+, of 
+\begin_inset Formula $A$
+\end_inset
+
+ is zero, then none of the 
+\begin_inset Quotes eld
+\end_inset
+
+legs
+\begin_inset Quotes erd
+\end_inset
+
+ extends at all into the 
+\begin_inset Formula $i$
+\end_inset
+
+-th dimension.
+ The hypervolume must be zero.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:The-det-perm"
+
+\end_inset
+
+The determinant of a permutation matrix is 
+\begin_inset Formula $\pm1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A permutation matrix applied to the identity exchanges two or more of the
+ legs in the parallelepiped.
+ One exchange reverses the orientation and thus has determinant 
+\begin_inset Formula $-1$
+\end_inset
+
+.
+ Two exchanges reverses the orientation twice, and so on.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:singular-det"
+
+\end_inset
+
+
+\begin_inset Formula $\det\left(A\right)=0$
+\end_inset
+
+ iff 
+\begin_inset Formula $A$
+\end_inset
+
+ is singular
+\end_layout
+
+\begin_layout Standard
+Start with a simple case: we'll first show that if 
+\begin_inset Formula $T$
+\end_inset
+
+ is triangular, then 
+\begin_inset Formula $\det\left(T\right)=0$
+\end_inset
+
+ iff 
+\begin_inset Formula $T$
+\end_inset
+
+ is singular.
+ Start in 2D, and WLOG suppose 
+\begin_inset Formula $T$
+\end_inset
+
+ is upper triangular,
+\begin_inset Formula 
+\[
+T=\left[\begin{array}{cc}
+T_{11} & T_{12}\\
+0 & T_{22}
+\end{array}\right].
+\]
+
+\end_inset
+
+The parallelogram formed by 
+\begin_inset Formula $T$
+\end_inset
+
+ has one leg of length 
+\begin_inset Formula $T_{11}$
+\end_inset
+
+ along the 
+\begin_inset Formula $x$
+\end_inset
+
+ axis, and another along the vector 
+\begin_inset Formula $\left[\begin{array}{cc}
+T_{12} & T_{22}\end{array}\right]^{T}$
+\end_inset
+
+.
+ The parallelogram collapses to a line iff the second leg has no component
+ along the 
+\begin_inset Formula $y$
+\end_inset
+
+ axis, that is, iff 
+\begin_inset Formula $T_{22}=0$
+\end_inset
+
+.
+ But from 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Triangular-matrices"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we know that 
+\begin_inset Formula $T$
+\end_inset
+
+ is singular iff if it contains zero on the diagonal.
+ Therefore, a 
+\begin_inset Formula $2\times2$
+\end_inset
+
+ triangular matrix has zero determinant iff it is singular.
+ 
+\end_layout
+
+\begin_layout Standard
+Now consider an 
+\begin_inset Formula $m\times m$
+\end_inset
+
+ matrix
+\begin_inset Formula 
+\[
+T=\left[\begin{array}{cccc}
+T_{11} & T_{12} & T_{13}\\
+0 & T_{22} & T_{23}\\
+0 & 0 & T_{33}\\
+ &  &  & \ddots
+\end{array}\right]
+\]
+
+\end_inset
+
+and think about the volume formed by the three columns.
+ If 
+\begin_inset Formula $T_{11}$
+\end_inset
+
+ is zero, then we have a zero leg and the volume collapses to zero.
+ If 
+\begin_inset Formula $T_{22}$
+\end_inset
+
+ is zero, then the first two legs are parallel and the volume collapses
+ to zero.
+ If 
+\begin_inset Formula $T_{33}=0$
+\end_inset
+
+, then leg 3 is coplanar with legs 1 and 2, and the volume collapses to
+ zero.
+ And so on.
+ If any diagonal entry is zero, then the volume is zero.
+ If no diagonal entries are zero, then each successive column extends into
+ a dimension not yet 
+\begin_inset Quotes eld
+\end_inset
+
+explored
+\begin_inset Quotes erd
+\end_inset
+
+ by the others, so the volume is nonzero.
+ If 
+\begin_inset Formula $T$
+\end_inset
+
+ is lower triangular, make the same argument starting with the last column.
+ Therefore: if 
+\begin_inset Formula $T$
+\end_inset
+
+ is triangular, then 
+\begin_inset Formula $\det\left(T\right)=0$
+\end_inset
+
+ iff 
+\begin_inset Formula $T$
+\end_inset
+
+ is singular.
+ 
+\end_layout
+
+\begin_layout Standard
+Why spend so much time on triangular matrices? Because the operations of
+ row reduction (other than row exchanges) can be represented as multiplication
+ by lower triangular matrices.
+\end_layout
+
+\begin_layout Standard
+Ignoring row exchanges, row reduction of an 
+\begin_inset Formula $m\times m$
+\end_inset
+
+ matrix 
+\begin_inset Formula $A$
+\end_inset
+
+ to an upper triangular matrix 
+\begin_inset Formula $U$
+\end_inset
+
+ can be written as 
+\begin_inset Formula 
+\[
+L_{1}L_{2}\cdots L_{m-1}A=U,
+\]
+
+\end_inset
+
+where each 
+\begin_inset Formula $L_{i}$
+\end_inset
+
+ is lower triangular with ones on the diagonal.
+ Given that restriction on 
+\begin_inset Formula $L_{i}$
+\end_inset
+
+, we have 
+\begin_inset Formula $\det\left(L_{i}\right)\ne0$
+\end_inset
+
+.
+ Using the determinant product formula, we have
+\begin_inset Formula 
+\[
+\det\left(L_{1}\right)\det\left(L_{2}\right)\cdots\det\left(L_{m-1}\right)\det\left(A\right)=\det\left(U\right).
+\]
+
+\end_inset
+
+Since none of the 
+\begin_inset Formula $L$
+\end_inset
+
+'s have zero determinants, we find that 
+\begin_inset Formula $\det\left(A\right)=0$
+\end_inset
+
+ iff 
+\begin_inset Formula $\det\left(U\right)=0$
+\end_inset
+
+.
+ But 
+\begin_inset Formula $U$
+\end_inset
+
+ will have a zero on the diagonal, and therefore a zero determinant, iff
+ 
+\begin_inset Formula $A$
+\end_inset
+
+ is singular.
+ 
+\end_layout
+
+\begin_layout Standard
+We're almost there.
+ What about row exchanges? Row exchanges are represented by permutation
+ matrices.
+ Row reduction becomes
+\begin_inset Formula 
+\[
+P_{1}L_{1}P_{2}L_{2}\cdots P_{m-1}L_{m-1}A=U.
+\]
+
+\end_inset
+
+But from 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:The-det-perm"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ we know 
+\begin_inset Formula $\det\left(P_{i}\right)\ne0$
+\end_inset
+
+, so we reach the same conclusion.
+\end_layout
+
+\begin_layout BoxedImportant
+\begin_inset Formula $\det\left(A\right)=0$
+\end_inset
+
+ iff 
+\begin_inset Formula $A$
+\end_inset
+
+ is singular.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this course, this will be the most important property of the determinant.
+\end_layout
+
+\begin_layout Subsubsection
+The determinant of an inverse
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $A$
+\end_inset
+
+ is invertible, then 
+\begin_inset Formula $A^{-1}A=I$
+\end_inset
+
+.
+ From the product formula, find
+\begin_inset Formula 
+\[
+\det\left(A^{-1}\right)\det\left(A\right)=\det\left(I\right),
+\]
+
+\end_inset
+
+and then conclude 
+\end_layout
+
+\begin_layout BoxedImportant
+\begin_inset Formula 
+\[
+\det\left(A^{-1}\right)=\frac{1}{\det\left(A\right)}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Notice that 
+\begin_inset Formula $\det\left(A^{-1}\right)$
+\end_inset
+
+ is undefined iff 
+\begin_inset Formula $\det\left(A\right)=0$
+\end_inset
+
+, which is to be expected since 
+\begin_inset Formula $\det\left(A\right)=0$
+\end_inset
+
+ iff 
+\begin_inset Formula $A$
+\end_inset
+
+ is singular: a singular matrix has no inverse!
+\end_layout
+
+\begin_layout Subsubsection
+Summary of determinants
+\end_layout
+
+\begin_layout BoxedImportant
+To summarize:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $\det\left(A\right)$
+\end_inset
+
+ is the signed hypervolume of the parallelepiped formed by the columns of
+ 
+\begin_inset Formula $A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\det\left(I\right)=1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\det\left(AB\right)=\det\left(A\right)\det\left(B\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\det\left(A\right)=0$
+\end_inset
+
+ iff 
+\begin_inset Formula $A$
+\end_inset
+
+ is singular
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\det\left(A^{-1}\right)=\frac{1}{\det\left(A\right)}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We figured all of that out without touching expansions in minors.
+ 
+\end_layout
+
+\begin_layout Standard
+Unfortunately, determinants are a subject (eigenvalue problems will be another)
+ where the simplest methods for hand calculation turn out to be 
+\emph on
+terrible
+\emph default
+ methods for real-world numerical calculations.
+ In hand calculations, it's easy to do expansion in minors to compute determinan
+ts of 
+\begin_inset Formula $2\times2$
+\end_inset
+
+ or 
+\begin_inset Formula $3\times3$
+\end_inset
+
+ matrices; we'll do many such calculations when solving eigenvalue problems.
+ However, when doing numerical calculations, never use an expansion in minors
+ for any matrix bigger than 
+\begin_inset Formula $2\times2$
+\end_inset
+
+.
+ If you're interested in computing, see 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:How-to-wait"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for why.
+ 
+\end_layout
+
+\begin_layout Subsection
+Why you should 
+\emph on
+never
+\emph default
+ use a floating point determinant calculation to check for singularity of
+ a matrix
+\end_layout
+
+\begin_layout Standard
+Since I'm a computational mathematician, I'm morally obligated to warn you
+ about ways to screw up when using a computer.
+ 
+\end_layout
+
+\begin_layout Standard
+Probably the most important property of the determinant is that 
+\begin_inset Formula $\det\left(A\right)=0$
+\end_inset
+
+ iff 
+\begin_inset Formula $A$
+\end_inset
+
+ is singular.
+ This is useful and we'll use this often when working with eigenvalues.
+ But beware: 
+\series bold
+\emph on
+never
+\series default
+\emph default
+ use this as a test for singularity when working in floating point arithmetic.
+ 
+\end_layout
+
+\begin_layout Standard
+Suppose you have two matrices, 
+\begin_inset Formula $A$
+\end_inset
+
+ and 
+\begin_inset Formula $B$
+\end_inset
+
+ , and find after floating point calculation that
+\begin_inset Formula 
+\[
+\det\left(A\right)\approx10^{-18}
+\]
+
+\end_inset
+
+and
+\begin_inset Formula 
+\[
+\det\left(B\right)\approx10.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since 
+\begin_inset Formula $10^{-18}$
+\end_inset
+
+ is smaller than machine precision and 
+\begin_inset Formula $10$
+\end_inset
+
+ is bigger, it's tempting to conclude that 
+\begin_inset Formula $A$
+\end_inset
+
+ is singular and 
+\begin_inset Formula $B$
+\end_inset
+
+ is not.
+ But you would be wrong.
+ 
+\end_layout
+
+\begin_layout Standard
+It has to do with scaling.
+ Remember: 
+\begin_inset Formula $\det\left(A\right)$
+\end_inset
+
+ is a hypervolume.
+ Scaling an 
+\begin_inset Formula $m\times m$
+\end_inset
+
+ matrix 
+\begin_inset Formula $A$
+\end_inset
+
+ by 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ scales 
+\begin_inset Formula $\det\left(A\right)$
+\end_inset
+
+ by 
+\begin_inset Formula $\alpha^{m}$
+\end_inset
+
+.
+ The hypervolume of a six-dimensional hypercube, one meter on a side, is
+ 
+\begin_inset Formula $1\,\text{m}^{6}$
+\end_inset
+
+.
+ Now find the volume of that same box, but working in kilometers.
+ Each side is 
+\begin_inset Formula $10^{-3}$
+\end_inset
+
+ km in length, for a hypervolume of 
+\begin_inset Formula $10^{-18}\,\text{km}^{6}$
+\end_inset
+
+.
+ The value of the determinant depends on the units you choose, and the problem
+ gets worse the higher the dimension of the problem.
+ 
+\end_layout
+
+\begin_layout BoxedImportant
+In floating point calculations, a very small determinant does 
+\series bold
+\emph on
+not
+\series default
+\emph default
+ imply a singular matrix.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So, we can't trust very small determinants to indicate singular matrices.
+ But can we at least trust a moderate size determinant to indicate a nonsingular
+ matrix? Alas, no.
+ The problem is accumulation of roundoff error.
+ 
+\end_layout
+
+\begin_layout Subsection
+Cramer's Rule
+\end_layout
+
+\begin_layout Standard
+Don't use it.
+ Use Gaussian elimination instead.
+ If your problem too large for Gaussian elimination (in which case it will
+ be 
+\emph on
+much
+\emph default
+ too large to use Cramer's Rule) use an iterative method such as conjugate
+ gradients, GMRES, or multilevel.
+ 
+\end_layout
+
+\begin_layout Standard
+Why avoid Cramer's Rule? 
+\end_layout
+
+\begin_layout Standard
+If you compute all the determinants the smart, efficient, and robust way,
+ doing LU factorizations instead of expansions in minors, it will take you
+ 
+\begin_inset Formula $m+1$
+\end_inset
+
+ LU factorizations.
+ Gaussian elimination requires one LU factorization.
+ Cramer's Rule takes 
+\begin_inset Formula $m$
+\end_inset
+
+ times the work of Gaussian elimination, and that's if you do it the smart
+ way.
+ See 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:How-to-wait"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for what you can expect if you do it the dumb way.
+ 
+\end_layout
+
+\begin_layout Section
+Putting it all together: the Big Matrix Theorem
+\end_layout
+
+\begin_layout Standard
+You've now learned a bunch of facts regarding solution of 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+, involving inverses, determinants, null spaces, range spaces, and more.
+ All of this can be put together into a single theorem.
+ A version of this theorem appears in every linear algebra textbook, but
+ is rarely given a name.
+ So you can remember it when I refer to it, let's call it 
+\series bold
+\emph on
+The
+\series default
+\emph default
+ 
+\series bold
+\emph on
+Big Matrix Theorem
+\series default
+\emph default
+.
+ 
+\end_layout
+
+\begin_layout Theorem
+(The Big Matrix Theorem)
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Suppose 
+\begin_inset Formula $A$
+\end_inset
+
+ is an 
+\begin_inset Formula $m\times m$
+\end_inset
+
+ complex matrix.
+ The following statements are equivalent (meaning that if any one is true,
+ then all are true; if any one is false, then all are false.) A matrix for
+ which these are true is called 
+\series bold
+nonsingular
+\series default
+\emph default
+ (or 
+\series bold
+\emph on
+invertible
+\series default
+\emph default
+).
+
+\emph on
+ A matrix for which they are false is called 
+\series bold
+singular 
+\series default
+\emph default
+(or 
+\series bold
+\emph on
+non-invertible
+\series default
+\emph default
+).
+\end_layout
+
+\begin_layout Enumerate
+The null space, 
+\begin_inset Formula $\mbox{null}\left(A\right)$
+\end_inset
+
+, is trivial (
+\emph on
+i.e., 
+\emph default
+it contains only the zero vector)
+\end_layout
+
+\begin_layout Enumerate
+The equation 
+\begin_inset Formula $A\mathbf{x=0}$
+\end_inset
+
+ has only the trivial solution 
+\begin_inset Formula $\mathbf{x=0}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+The equation 
+\begin_inset Formula $A\mathbf{x=b}$
+\end_inset
+
+ has a unique solution
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $A$
+\end_inset
+
+ has a unique inverse, 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+, such that 
+\begin_inset Formula $A^{-1}A=I$
+\end_inset
+
+ and 
+\begin_inset Formula $AA^{-1}=I$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Enumerate
+The columns of 
+\begin_inset Formula $A$
+\end_inset
+
+ are linearly independent and are a basis for 
+\begin_inset Formula $\CC^{n}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+The rows of 
+\begin_inset Formula $A$
+\end_inset
+
+ are linearly independent and are a basis for 
+\begin_inset Formula $\CC^{n}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Enumerate
+The determinant of 
+\begin_inset Formula $A$
+\end_inset
+
+ is nonzero
+\end_layout
+
+\begin_layout Enumerate
+Zero is not an eigenvalue of 
+\begin_inset Formula $A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+The Gaussian elimination algorithm (perhaps with row exchanges) can reduce
+ 
+\begin_inset Formula $A$
+\end_inset
+
+ to upper triangular form (zeros below the diagonal) with no zeros on the
+ diagonal.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+While I've shown how some of these statements are connected, I've not carefully
+ proved the equivalence of all these statements and we don't have the time
+ (or the need) to do so in this course.
+ To see a complete proof of equivalence, consult a good linear algebra textbook.
+ 
+\end_layout
+
+\begin_layout Section
+\start_of_appendix
+Important notation
+\end_layout
+
+\begin_layout Subsection
+Abbreviations
+\end_layout
+
+\begin_layout Itemize
+ew – eigenvalue (from German 
+\emph on
+Eigenwert
+\emph default
+)
+\end_layout
+
+\begin_layout Itemize
+ev – eigenvector (from German 
+\emph on
+Eigenvektor
+\emph default
+)
+\end_layout
+
+\begin_layout Itemize
+iff – 
+\begin_inset Quotes eld
+\end_inset
+
+if and only if
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+LC – linear combination
+\end_layout
+
+\begin_layout Itemize
+LD – linearly dependent
+\end_layout
+
+\begin_layout Itemize
+LI – linearly independent
+\end_layout
+
+\begin_layout Subsection
+Mathematical notation
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\in$
+\end_inset
+
+ – Membership in a set.
+ For example, 
+\begin_inset Formula $x\in\RR$
+\end_inset
+
+ means 
+\begin_inset Formula $x$
+\end_inset
+
+ is a member of the set 
+\begin_inset Formula $\RR$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\forall$
+\end_inset
+
+ – For all
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\exists$
+\end_inset
+
+ – There exists
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\mathbf{x}^{T}$
+\end_inset
+
+ – The transpose of a vector 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\mathbf{x}^{*}$
+\end_inset
+
+ – The conjugate transpose of a vector 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\left\Vert \mathbf{x}\right\Vert $
+\end_inset
+
+ – the magnitude of a vector 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+ – The inverse of the matrix 
+\begin_inset Formula $A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $A^{T}$
+\end_inset
+
+ – The transpose of the matrix 
+\begin_inset Formula $A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $A^{-T}$
+\end_inset
+
+ – The inverse transpose of the matrix 
+\begin_inset Formula $A$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $A^{*}$
+\end_inset
+
+ – The adjoint (conjugate transpose) of the matrix 
+\begin_inset Formula $A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $A^{-*}$
+\end_inset
+
+ – The inverse adjoint of the matrix 
+\begin_inset Formula $A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\CC$
+\end_inset
+
+ – The set of complex numbers
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\CC^{n}$
+\end_inset
+
+ – The set of complex vectors of length 
+\begin_inset Formula $n$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\CC^{m\times n}$
+\end_inset
+
+ – The set of complex 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ matrices
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\NN_{0}$
+\end_inset
+
+ – The set of natural (
+\begin_inset Quotes eld
+\end_inset
+
+counting
+\begin_inset Quotes erd
+\end_inset
+
+) numbers, starting with zero
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\NN_{1}$
+\end_inset
+
+ – The set of natural (
+\begin_inset Quotes eld
+\end_inset
+
+counting
+\begin_inset Quotes erd
+\end_inset
+
+) numbers, starting with one 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\RR$
+\end_inset
+
+ – The set of real numbers
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\RR^{n}$
+\end_inset
+
+ – The set of real vectors of length 
+\begin_inset Formula $n$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\RR^{m\times n}$
+\end_inset
+
+ – The set of real 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ matrices
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\ZZ$
+\end_inset
+
+ – The set of integers (from the German 
+\emph on
+Zahlen
+\emph default
+)
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\overline{z}$
+\end_inset
+
+ – complex conjugate of 
+\begin_inset Formula $z$
+\end_inset
+
+.
+ For 
+\begin_inset Formula $a$
+\end_inset
+
+ and 
+\begin_inset Formula $b$
+\end_inset
+
+ real, the conjugate of 
+\begin_inset Formula $z=a+ib$
+\end_inset
+
+ is 
+\begin_inset Formula $a-ib$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Formal-definition-of"
+
+\end_inset
+
+Formal definition of a vector space
+\end_layout
+
+\begin_layout Definition
+A set 
+\begin_inset Formula $V$
+\end_inset
+
+ is called a 
+\series bold
+\emph on
+vector space
+\series default
+\emph default
+ if the following properties hold:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+There is a binary operation between vectors, called
+\emph on
+ addition
+\emph default
+, denoted 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset Formula $+$
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+, such that 
+\begin_inset Formula $u+v\in V$
+\end_inset
+
+ for all 
+\begin_inset Formula $u,v\in V$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Addition is 
+\emph on
+commutative
+\emph default
+: 
+\begin_inset Formula $u+v=v+u$
+\end_inset
+
+ for every 
+\begin_inset Formula $u,v\in V$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Addition is 
+\emph on
+associative
+\emph default
+: 
+\begin_inset Formula $u+\left(v+w\right)=\left(u+v\right)+w$
+\end_inset
+
+ for every 
+\begin_inset Formula $u,v,w\in V$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $V$
+\end_inset
+
+ contains an 
+\emph on
+additive identity
+\emph default
+, called 
+\begin_inset Formula $\mathbf{0}$
+\end_inset
+
+, such that 
+\begin_inset Formula $v+\mathbf{0}=v$
+\end_inset
+
+ for all 
+\begin_inset Formula $v\in V$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+For every 
+\begin_inset Formula $v\in V$
+\end_inset
+
+, there is an 
+\emph on
+additive inverse
+\emph default
+, called 
+\begin_inset Formula $-v$
+\end_inset
+
+, such that 
+\begin_inset Formula $v+\left(-v\right)=\mathbf{0}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+There is a binary operation between a scalar and a vector, called 
+\emph on
+scalar multiplication
+\emph default
+, such that 
+\begin_inset Formula $\alpha v\in V$
+\end_inset
+
+ for all 
+\begin_inset Formula $\alpha\in\CC$
+\end_inset
+
+, 
+\begin_inset Formula $v\in V$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Scalar multiplication is associative: 
+\begin_inset Formula $\alpha\left(\beta v\right)=\left(\alpha\beta\right)v$
+\end_inset
+
+ for all 
+\begin_inset Formula $\alpha,\beta\in\CC$
+\end_inset
+
+ and for all 
+\begin_inset Formula $v\in V$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Scalar multiplication distributes over addition: 
+\begin_inset Formula $\alpha\left(u+v\right)=\alpha u+\alpha v$
+\end_inset
+
+ for all 
+\begin_inset Formula $\alpha\in\CC$
+\end_inset
+
+, 
+\begin_inset Formula $u,v\in V$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+The scalar zero times any vector 
+\begin_inset Formula $v$
+\end_inset
+
+ produces the zero vector: 
+\begin_inset Formula $0v=\mathbf{0}$
+\end_inset
+
+ for all 
+\begin_inset Formula $v\in V$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+The scalar one times any vector 
+\begin_inset Formula $v$
+\end_inset
+
+ produces 
+\begin_inset Formula $v$
+\end_inset
+
+: 
+\begin_inset Formula $1v=v$
+\end_inset
+
+ for all 
+\begin_inset Formula $v\in V$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The property that 
+\begin_inset Formula $u+v\in V$
+\end_inset
+
+ is called 
+\series bold
+\emph on
+closure under addition
+\series default
+.
+ 
+\emph default
+The property that 
+\begin_inset Formula $\alpha v\in V$
+\end_inset
+
+ is called 
+\series bold
+\emph on
+closure under scalar multiplication
+\series default
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+Pick any two linear algebra textbooks and the precise statements of these
+ properties will differ, but all will have logically equivalent sets of
+ properties.
+ 
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:mvmult"
+
+\end_inset
+
+Three ways of looking at matrix-vector multiplication
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $A$
+\end_inset
+
+ be an 
+\begin_inset Formula $m\times n$
+\end_inset
+
+ matrix and 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ a vector of dimension 
+\begin_inset Formula $n$
+\end_inset
+
+ .
+ Then the matrix vector product 
+\begin_inset Formula $A\mathbf{x}$
+\end_inset
+
+ can be defined in the three equivalent ways:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $A\mathbf{x}$
+\end_inset
+
+ is the vector formed by the LC of 
+\begin_inset Formula $\text{cols}\left(A\right)$
+\end_inset
+
+ weighted by the entries of 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+A\mathbf{x}=\mathbf{a}_{1}x_{1}+\mathbf{a}_{2}x_{2}+\cdots+\mathbf{a}_{n}x_{n}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $A\mathbf{x}$
+\end_inset
+
+ is the vector whose 
+\begin_inset Formula $i$
+\end_inset
+
+-th entry is
+\begin_inset Formula 
+\[
+\left(A\mathbf{x}\right)_{i}=\sum_{j=1}^{n}A_{ij}x_{j}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $A\mathbf{x}$
+\end_inset
+
+ is the vector whose 
+\begin_inset Formula $i$
+\end_inset
+
+-th entry is the dot product between 
+\begin_inset Formula $\mathbf{x}$
+\end_inset
+
+ and the 
+\begin_inset Formula $i$
+\end_inset
+
+-th row of 
+\begin_inset Formula $A.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+You should convince yourself that the three ways of doing matrix-vector
+ multiplication are equivalent.
+ The order matters: 
+\begin_inset Formula $A\mathbf{x}$
+\end_inset
+
+ is defined as above; 
+\begin_inset Formula $\mathbf{x}A$
+\end_inset
+
+ is nonsense.
+\end_layout
+
+\begin_layout Standard
+When calculating 
+\begin_inset Formula $A\mathbf{x}$
+\end_inset
+
+ by hand, most of us use the 
+\begin_inset Quotes eld
+\end_inset
+
+dot product
+\begin_inset Quotes erd
+\end_inset
+
+ method (#3 in the list); it's more convenient.
+ However, for understanding the applications of matrices, the summation
+ (#2) or the LC method (#1) will be more useful.
+ 
+\end_layout
+
+\begin_layout Standard
+You should also convince yourself of the following: 
+\end_layout
+
+\begin_layout Itemize
+Matrix-vector multiplication distributes over linear combinations: 
+\begin_inset Formula $A\left(\alpha\mathbf{x}+\beta\mathbf{y}\right)=\alpha A\mathbf{x}+\beta A\mathbf{y}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Matrix-vector multiplication and matrix-matrix addition are defined consistently
+, meaning that 
+\begin_inset Formula 
+\[
+\left(A+B\right)\mathbf{x}=A\mathbf{x}+B\mathbf{x}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Area-of-a"
+
+\end_inset
+
+Refresher: The area of a parallelogram
+\end_layout
+
+\begin_layout Standard
+Here I will show that the oriented area of a 
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+parallelogram
+\end_layout
+
+\end_inset
+
+parallelogram 
+\begin_inset Formula $P$
+\end_inset
+
+ defined by vectors 
+\begin_inset Formula $\mathbf{a}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{b}$
+\end_inset
+
+.
+ From the construction in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:The-area-of"
+
+\end_inset
+
+, the area of 
+\begin_inset Formula $P$
+\end_inset
+
+ is identical to the area of the rectangle outlined in blue dashed lines.
+ The rectangle has sides of length 
+\begin_inset Formula $\left\Vert \mathbf{a}\right\Vert $
+\end_inset
+
+ and 
+\begin_inset Formula $\left\Vert \mathbf{b}\right\Vert \sin\theta_{ba}$
+\end_inset
+
+, so the area of 
+\begin_inset Formula $P$
+\end_inset
+
+ is
+\begin_inset Formula 
+\begin{equation}
+\text{Area}\left(P\right)=\left\Vert \mathbf{a}\right\Vert \left\Vert \mathbf{b}\right\Vert \sin\theta_{ba}.\label{eq:ParallelogramArea}
+\end{equation}
+
+\end_inset
+
+We compute 
+\begin_inset Formula $\sin\theta_{ba}$
+\end_inset
+
+ with angle addition:
+\begin_inset Formula 
+\[
+\sin\theta_{ba}=\sin\left(\theta_{b}-\theta_{a}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=\cos\theta_{a}\sin\theta_{b}-\cos\theta_{b}\sin\theta_{a}
+\]
+
+\end_inset
+
+which we can express in terms of the Cartesian components of 
+\begin_inset Formula $\mathbf{a}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{b}$
+\end_inset
+
+, 
+\begin_inset Formula 
+\[
+\sin\theta_{ba}=\frac{a_{x}}{\left\Vert \mathbf{a}\right\Vert }\frac{b_{y}}{\left\Vert \mathbf{b}\right\Vert }-\frac{a_{y}}{\left\Vert \mathbf{a}\right\Vert }\frac{b_{x}}{\left\Vert \mathbf{b}\right\Vert }.
+\]
+
+\end_inset
+
+Then compute the area using equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:ParallelogramArea"
+
+\end_inset
+
+ and the expansion of 
+\begin_inset Formula $\sin\theta_{ba}$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+\text{Area}\left(P\right)=\left\Vert \mathbf{a}\right\Vert \left\Vert \mathbf{b}\right\Vert \sin\theta_{ba}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=a_{x}b_{y}-a_{y}b_{x}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=\det\left(\begin{array}{cc}
+a_{x} & b_{x}\\
+a_{y} & b_{y}
+\end{array}\right).
+\]
+
+\end_inset
+
+Most multivariate calculus books (
+\emph on
+e.g.
+ 
+\emph default
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "SmithStraussToda"
+literal "true"
+
+\end_inset
+
+) will show how to extend this construction to 3D.
+ Inductive extension to arbitrary dimension 
+\begin_inset Formula $n$
+\end_inset
+
+ is shown in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lax2007"
+literal "true"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename ParallelogramArea.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:The-area-of"
+
+\end_inset
+
+The area of the parallelogram defined by 
+\begin_inset Formula $\mathbf{a}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{b}$
+\end_inset
+
+ is equal to the area of the rectangle outlined in blue.
+ That rectangle has sides of length 
+\begin_inset Formula $\left\Vert \mathbf{a}\right\Vert $
+\end_inset
+
+ and 
+\begin_inset Formula $\left\Vert \mathbf{b}\right\Vert \sin\theta_{ba}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Gaussian-elimination"
+
+\end_inset
+
+Refresher: Gaussian elimination
+\end_layout
+
+\begin_layout Standard
+You've very likely seen row reduction
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+row reduction
+\end_layout
+
+\end_inset
+
+ and Gaussian elimination
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+Gaussian elimination
+\end_layout
+
+\end_inset
+
+ before.
+ Recall that we solve 
+\begin_inset Formula $Ax=b$
+\end_inset
+
+ by constructing an augmented matrix 
+\begin_inset Formula $\left[\begin{array}{c|c}
+A & b\end{array}\right]$
+\end_inset
+
+, then doing row operations to put the augmented matrix in row echelon form.
+ The solution can then by computed by backsubstitution.
+ 
+\end_layout
+
+\begin_layout Standard
+In addition to my presentation here, you might look at the very good MIT
+ OpenCourseWare video at 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.youtube.com/watch?v=xCIXkm3-ocQ
+\end_layout
+
+\end_inset
+
+ in which an example is worked out in detail.
+ 
+\end_layout
+
+\begin_layout Subsection
+Simplest case: no row exchanges
+\end_layout
+
+\begin_layout Standard
+Let's solve 
+\begin_inset Formula 
+\[
+\left[\begin{array}{ccc}
+1 & 0 & 2\\
+2 & 1 & 3\\
+1 & 1 & 5
+\end{array}\right]\left[\begin{array}{c}
+c_{1}\\
+c_{2}\\
+c_{3}
+\end{array}\right]=\left[\begin{array}{c}
+1\\
+0\\
+2
+\end{array}\right]
+\]
+
+\end_inset
+
+in this way.
+ Form the augmented matrix.
+ The element to be eliminated is circled; the row operation that eliminates
+ it is indicated above the arrow.
+ Start by eliminating the 2,1 element: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left[\begin{array}{cccc}
+1 & 0 & 2 & 1\\
+\circled{2} & 1 & 3 & 0\\
+1 & 1 & 5 & 2
+\end{array}\right]\ua{R_{2}\gets R_{2}-2R_{1}}\left[\begin{array}{cccc}
+1 & 0 & 2 & 1\\
+0 & 1 & -1 & -2\\
+1 & 1 & 5 & 2
+\end{array}\right].
+\]
+
+\end_inset
+
+Then the 3,1 element
+\begin_inset Formula 
+\[
+\left[\begin{array}{cccc}
+1 & 0 & 2 & 1\\
+0 & 1 & -1 & -2\\
+\circled{1} & 1 & 5 & 2
+\end{array}\right]\ua{R_{3}\gets R_{3}-R_{1}}\left[\begin{array}{cccc}
+1 & 0 & 2 & 1\\
+0 & 1 & -1 & -2\\
+0 & 1 & 3 & 1
+\end{array}\right]
+\]
+
+\end_inset
+
+and the 3,2 element
+\begin_inset Formula 
+\[
+\left[\begin{array}{cccc}
+1 & 0 & 2 & 1\\
+0 & 1 & -1 & -2\\
+0 & \circled{1} & 3 & 1
+\end{array}\right]\ua{R_{3}\gets R_{3}-R_{2}}\left[\begin{array}{cccc}
+1 & 0 & 2 & 1\\
+0 & 1 & -1 & -2\\
+0 & 0 & 4 & 3
+\end{array}\right].
+\]
+
+\end_inset
+
+The system is now in row echelon form so we're ready to do backsubsitution.
+ Work up from the bottom: the third row encodes an equation for 
+\begin_inset Formula $c_{3}$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\begin{aligned}\left[\begin{array}{cccc}
+0 & 0 & 4 & 3\end{array}\right] & \mbox{\;\;\;means} & 4c_{3}=3 & \mbox{\;\;so} & c_{3}=\frac{3}{4}\end{aligned}
+.
+\]
+
+\end_inset
+
+Then use the second row to solve for 
+\begin_inset Formula $c_{2}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\begin{aligned}\left[\begin{array}{cccc}
+0 & 1 & -1 & -2\end{array}\right] & \mbox{\;\;\;means} & c_{2}-c_{3}=-2 & \mbox{\;\;so} & c_{2}=-2+\frac{3}{4}=-\frac{5}{4}\end{aligned}
+\]
+
+\end_inset
+
+and the first row to solve for 
+\begin_inset Formula $c_{1}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\begin{aligned}\left[\begin{array}{cccc}
+1 & 0 & 2 & 1\end{array}\right] & \mbox{\;\;\;means} & c_{1}+0c_{2}+2c_{3}=1 & \mbox{\;\;so} & c_{1}=1-\frac{3}{2}=-\frac{1}{2}.\end{aligned}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Elimination with row exchanges
+\end_layout
+
+\begin_layout Standard
+Sometimes you'll encounter a zero on the diagonal.
+ That's a problem, because you can't use it to eliminate entries below it
+ and ultimately because you'll need to divide by the diagonal entries..
+ When you hit a zero on the diagonal, swap rows until you find a nonzero.
+ Here we solve the system
+\begin_inset Formula 
+\[
+\left[\begin{array}{ccc}
+1 & 1 & 2\\
+2 & 2 & 3\\
+1 & 2 & 5
+\end{array}\right]\left[\begin{array}{c}
+c_{1}\\
+c_{2}\\
+c_{3}
+\end{array}\right]=\left[\begin{array}{c}
+1\\
+0\\
+2
+\end{array}\right].
+\]
+
+\end_inset
+
+The first step introduces a zero on the diagonal:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left[\begin{array}{cccc}
+1 & 1 & 2 & 1\\
+\circled{2} & 2 & 3 & 0\\
+1 & 2 & 5 & 2
+\end{array}\right]\ua{R_{2}\gets R_{2}-2R_{1}}\left[\begin{array}{cccc}
+1 & 1 & 2 & 1\\
+0 & {\color{red}0} & -1 & -2\\
+1 & 2 & 5 & 2
+\end{array}\right]
+\]
+
+\end_inset
+
+which causes no problems with the next step
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left[\begin{array}{cccc}
+1 & 1 & 2 & 1\\
+0 & 0 & -1 & -2\\
+\circled{1} & 2 & 5 & 2
+\end{array}\right]\ua{R_{3}\gets R_{3}-R_{1}}\left[\begin{array}{cccc}
+1 & 1 & 2 & 1\\
+0 & {\color{red}0} & -1 & -2\\
+0 & 1 & 3 & 1
+\end{array}\right]
+\]
+
+\end_inset
+
+but at this point, we can't use rows 2 and 3 to eliminate the 3,2 entry
+ because the 2,2 entry is zero.
+ (Why can't we just use row 1 to eliminate 3,2? Think about it: what would
+ go wrong if we did that?) So swap rows 2 and 3, moving the zero away from
+ the diagonal.
+ 
+\begin_inset Formula 
+\[
+\left[\begin{array}{cccc}
+1 & 1 & 2 & 1\\
+0 & 0 & -1 & -2\\
+0 & 1 & 3 & 1
+\end{array}\right]\ua{R_{2}\leftrightarrows R_{3}}\left[\begin{array}{cccc}
+1 & 1 & 2 & 1\\
+0 & 1 & 3 & 1\\
+0 & 0 & -1 & -2
+\end{array}\right].
+\]
+
+\end_inset
+
+Now the matrix is in row echelon form (in a large system we might have additiona
+l rows to reduce, but with only 3 rows we're done).
+ Do backsubstitution: 
+\begin_inset Formula 
+\[
+c_{3}=2
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+c_{2}=1-3c_{3}=-5
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+c_{1}=1-c_{2}-2c_{3}=2.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+When Gaussian elimination fails
+\end_layout
+
+\begin_layout Standard
+Unfortunately, in some cases we may be unable to clear all zeros from the
+ diagonal.
+ Here's such a case: try to solve
+\begin_inset Formula 
+\[
+\left[\begin{array}{ccc}
+1 & 1 & 2\\
+1 & 2 & 3\\
+0 & 1 & 1
+\end{array}\right]\left[\begin{array}{c}
+c_{1}\\
+c_{2}\\
+c_{3}
+\end{array}\right]=\left[\begin{array}{c}
+1\\
+0\\
+2
+\end{array}\right].
+\]
+
+\end_inset
+
+Eliminate the 2,1 entry
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left[\begin{array}{cccc}
+1 & 1 & 2 & 1\\
+\circled{1} & 2 & 3 & 0\\
+0 & 1 & 1 & 2
+\end{array}\right]\ua{R_{2}\gets R_{2}-R_{1}}\left[\begin{array}{cccc}
+1 & 1 & 2 & 1\\
+0 & 1 & 1 & -1\\
+0 & 1 & 1 & 2
+\end{array}\right]
+\]
+
+\end_inset
+
+The 3,1 entry happened to be zero so we can skip that step.
+ Move on to eliminate the 3,2 entry: 
+\begin_inset Formula 
+\[
+\left[\begin{array}{cccc}
+1 & 1 & 2 & 1\\
+0 & 1 & 1 & -1\\
+0 & \circled{1} & 1 & 2
+\end{array}\right]\ua{R_{3}\gets R_{3}-R_{2}}\left[\begin{array}{cccc}
+1 & 1 & 2 & 1\\
+0 & 1 & 1 & -1\\
+0 & 0 & 0 & 3
+\end{array}\right].
+\]
+
+\end_inset
+
+Oops.
+ We could eliminate 3,2 but in doing so we also killed 3,3.
+ There are no more rows to swap, so we're stuck with a zero diagonal.
+ Now the row
+\begin_inset Formula 
+\[
+\left[\begin{array}{cccc}
+0 & 0 & 0 & 3\end{array}\right]
+\]
+
+\end_inset
+
+is shorthand for the equation
+\begin_inset Formula 
+\[
+0c_{1}+0c_{2}+0c_{3}=3
+\]
+
+\end_inset
+
+which has no solution for any 
+\begin_inset Formula $c_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $c_{2}$
+\end_inset
+
+, 
+\begin_inset Formula $c_{3}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+A system where after row reduction we have one or more zeros on the diagonal
+ is called 
+\emph on
+singular.
+ 
+\emph default
+A case such as this one, where no solution was found, is called 
+\emph on
+singular and inconsistent
+\emph default
+.
+\end_layout
+
+\begin_layout Subsubsection
+Consistent versus inconsistent singular systems
+\end_layout
+
+\begin_layout Standard
+In the previous example we had no solution.
+ That's not always the case.
+ Consider the slightly different problem
+\begin_inset Formula 
+\[
+\left[\begin{array}{ccc}
+1 & 1 & 2\\
+1 & 2 & 3\\
+0 & 1 & 1
+\end{array}\right]\left[\begin{array}{c}
+c_{1}\\
+c_{2}\\
+c_{3}
+\end{array}\right]=\left[\begin{array}{c}
+1\\
+0\\
+-1
+\end{array}\right].
+\]
+
+\end_inset
+
+Notice that the matrix is the same, but the right hand side differs in the
+ 3rd entry.
+ 
+\end_layout
+
+\begin_layout Standard
+Proceed with Gaussian elimination: eliminate the 2,1 entry
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left[\begin{array}{cccc}
+1 & 1 & 2 & 1\\
+\circled{1} & 2 & 3 & 0\\
+0 & 1 & 1 & 1
+\end{array}\right]\ua{R_{2}\gets R_{2}-R_{1}}\left[\begin{array}{cccc}
+1 & 1 & 2 & 1\\
+0 & 1 & 1 & -1\\
+0 & 1 & 1 & -1
+\end{array}\right],
+\]
+
+\end_inset
+
+skip the 3,3 entry (which is already zero) and eliminate the 3,2 entry:
+\begin_inset Formula 
+\[
+\left[\begin{array}{cccc}
+1 & 1 & 2 & 1\\
+0 & 1 & 1 & -1\\
+0 & \circled{1} & 1 & -1
+\end{array}\right]\ua{R_{3}\gets R_{3}-R_{2}}\left[\begin{array}{cccc}
+1 & 1 & 2 & 1\\
+0 & 1 & 1 & -1\\
+0 & 0 & 0 & 0
+\end{array}\right].
+\]
+
+\end_inset
+
+Once again, we killed the diagonal 3,3, but the final row is now
+\begin_inset Formula 
+\[
+\left[\begin{array}{cccc}
+0 & 0 & 0 & 0\end{array}\right]
+\]
+
+\end_inset
+
+is shorthand for the equation
+\begin_inset Formula 
+\[
+0c_{1}+0c_{2}+0c_{3}=0.
+\]
+
+\end_inset
+
+This equation can be solved by 
+\emph on
+any
+\emph default
+ 
+\begin_inset Formula $c_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $c_{2}$
+\end_inset
+
+, 
+\begin_inset Formula $c_{3}$
+\end_inset
+
+.
+ Ordinarily, we'd use the final row to solve for 
+\begin_inset Formula $c_{3}$
+\end_inset
+
+, but in this case, we can't determine 
+\begin_inset Formula $c_{3}$
+\end_inset
+
+ since any 
+\begin_inset Formula $c_{3}$
+\end_inset
+
+ will do.
+ So let's pick 
+\begin_inset Formula $c_{3}$
+\end_inset
+
+ to be an arbitrary parameter, say, 
+\begin_inset Formula $\alpha$
+\end_inset
+
+.
+ Then proceed back to the second row,
+\begin_inset Formula 
+\[
+0c_{1}+c_{2}+c_{3}=-1
+\]
+
+\end_inset
+
+or
+\begin_inset Formula 
+\[
+c_{2}=-1-\alpha.
+\]
+
+\end_inset
+
+Use the first row to solve for 
+\begin_inset Formula $c_{1}$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+c_{1}+c_{2}+2c_{3}=1
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+c_{1}=1-c_{2}-2c_{3}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=1+\left(1+\alpha\right)-2\alpha
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=2-\alpha.
+\]
+
+\end_inset
+
+The solution vector is
+\begin_inset Formula 
+\[
+\left[\begin{array}{c}
+c_{1}\\
+c_{2}\\
+c_{3}
+\end{array}\right]=\left[\begin{array}{c}
+2-\alpha\\
+-1-\alpha\\
+\alpha
+\end{array}\right]
+\]
+
+\end_inset
+
+or
+\begin_inset Formula 
+\[
+\left[\begin{array}{c}
+c_{1}\\
+c_{2}\\
+c_{3}
+\end{array}\right]=\left[\begin{array}{c}
+2\\
+-1\\
+0
+\end{array}\right]+\left[\begin{array}{c}
+-1\\
+-1\\
+1
+\end{array}\right]\alpha.
+\]
+
+\end_inset
+
+This is the parametric equation for a line in 3D, with parameter 
+\begin_inset Formula $\alpha$
+\end_inset
+
+.
+ There are infinitely many points on the line, one for each 
+\begin_inset Formula $\alpha$
+\end_inset
+
+, so we have infinitely many solutions.
+ 
+\end_layout
+
+\begin_layout Standard
+This system is still singular; we encountered a zero diagonal we couldn't
+ remove.
+ But unlike the previous example having no solutions, here we had infinitely
+ many solutions.
+ We call such a system 
+\series bold
+\emph on
+singular and consistent
+\series default
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+Notice that these last two examples both had the same matrix 
+\begin_inset Formula 
+\[
+A=\left[\begin{array}{ccc}
+1 & 1 & 2\\
+1 & 2 & 3\\
+0 & 1 & 1
+\end{array}\right]
+\]
+
+\end_inset
+
+but different vectors on the right hand sides.
+ Whether a system is singular depends on the matrix, not the right hand
+ side, so it's appropriate to describe a 
+\emph on
+matrix
+\emph default
+ as singular or not.
+ Whether a system is consistent depends on both the matrix and the right
+ hand side.
+ 
+\end_layout
+
+\begin_layout Section
+Practical algorithms for solving systems of equations
+\end_layout
+
+\begin_layout Standard
+In real world problems with large matrices and floating-point arithmetic,
+ solving 
+\begin_inset Formula $A\mathbf{x}=\mathbf{b}$
+\end_inset
+
+ is a challenge.
+ Simple variants of Gaussian elimination can be used for problems up to
+ a few tens of thousands of unknowns, and if the matrix is 
+\series bold
+\emph on
+
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+sparse
+\end_layout
+
+\end_inset
+
+sparse
+\series default
+\emph default
+ (meaning most entries are zero; this happens quite often in engineering
+ problems) more complicated variants of Gaussian elimination that arrange
+ the calculation to ignore any zero entries can solve problems up to a few
+ hundred thousand unknowns.
+ For large problems, 
+\series bold
+\emph on
+iterative
+\series default
+\emph default
+ methods
+\series bold
+\emph on
+
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+iterative methods
+\end_layout
+
+\end_inset
+
+
+\series default
+\emph default
+ must be used; these construct an approximate solution through a sequence
+ of matrix-vector multiplications.
+ 
+\end_layout
+
+\begin_layout Subsection
+Row pivoting
+\end_layout
+
+\begin_layout Standard
+In the examples above we exchanged rows only when forced to do so by the
+ presence of a zero on a diagonal.
+ In exact calculations that is sufficient.
+ However, when rounded-off arithmetic is used, straightforward Gaussian
+ elimination is highly susceptible to roundoff error.
+ The solution is simple: when starting down a new column, examine the values
+ in that column on the diagonal or below, and then exchange rows so that
+ the largest (in absolute value) entry goes on the diagonal.
+ This is called 
+\series bold
+\emph on
+Gaussian elimination with row pivoting
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+row pivoting
+\end_layout
+
+\end_inset
+
+
+\series default
+\emph default
+ (GERP) and it is seen in practice to be very robust.
+ The worst-case behavior of GERP is very poor (meaning that in the worst
+ case, roundoff errors can be amplified exponentially) but, interestingly
+ and fortunately, that worst-case behavior almost never happens except in
+ contrived examples.
+ For reasons that are still not fully understood, in real-world problems
+ GERP is observed to be much more stable than its theoretical worst-case
+ roundoff error growth rate would suggest.
+ For all practical purposes you can consider it to be robust and reliable
+ on any problem you're likely to encounter in the real world.
+ It's theoretically 
+\emph on
+possible
+\emph default
+ for it to go horribly wrong, but it almost certainly won't.
+ Or, as Jim Wilkinson – the man who first derived the very pessimistic error
+ bounds back in 1961 – put it,
+\end_layout
+
+\begin_layout Quote
+
+\emph on
+\begin_inset Quotes eld
+\end_inset
+
+Anyone that unlucky will have already been run over by a bus.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A more stable variant of GE is to exchange 
+\emph on
+both
+\emph default
+ rows and columns to put the largest element on the diagonal at each step;
+ this is called 
+\series bold
+\emph on
+Gaussian elimination with full pivoting
+\series default
+\emph default
+.
+ However, this is more expensive and is rarely used.
+ GERP is reliable enough in practice that full pivoting is not needed.
+ 
+\end_layout
+
+\begin_layout Subsection
+The 
+\begin_inset Index idx
+status open
+
+\begin_layout Plain Layout
+LU factorization
+\end_layout
+
+\end_inset
+
+LU factorization
+\end_layout
+
+\begin_layout Standard
+Suppose you need to solve two systems having the same matrix but different
+ right-hand sides: 
+\begin_inset Formula $A\mathbf{x}_{1}=\mathbf{b}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $A\mathbf{x}_{2}=\mathbf{b}_{2}$
+\end_inset
+
+.
+ You could go through Gaussian elimination twice, but if you think about
+ it when you do row reduction on the two different augmented matrices you're
+ doing exactly the same operations on all but the final column of the augmented
+ matrices.
+ It would probably occur to you to record both the sequence of operations
+ and the final upper triangular form.
+ Then, when solving a new system you could do the recorded operations to
+ the right-hand side vector and then do backsubstitution against the recorded
+ upper triangular form to find the solution.
+ 
+\end_layout
+
+\begin_layout Standard
+Sure enough, somebody
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Like most good ideas, more than one person thought of it; Doolittle, Banacheiewi
+cz, Crout, Dwyer, and Turing all contributed.
+ The great British mathematician Alan Turing was perhaps the first to appreciate
+ fully its implications for automated computing.
+ He also formulated the problem in modern notation, and made the idea widely
+ known.
+ Turing also pioneered computer programming and theoretical computer science,
+ proposed the 
+\begin_inset Quotes eld
+\end_inset
+
+Turing test
+\begin_inset Quotes erd
+\end_inset
+
+ for artficial intelligence, and explained biological pattern formation
+ in terms of reaction-diffusion equations.
+ Perhaps his most important contribution to civilization was his work on
+ breaking Nazi codes during the Second World War; this work was essential
+ to winning the Battle of the Atlantic.
+\end_layout
+
+\end_inset
+
+has already thought to do just that.
+ Remarkably, all the row operations can be recorded in a convenient form
+ as a product of a permutation matrix 
+\begin_inset Formula $P$
+\end_inset
+
+ times a lower triangular matrix 
+\begin_inset Formula $L^{-1}$
+\end_inset
+
+ having ones on the diagonal.
+ 
+\begin_inset Formula 
+\[
+L^{-1}PA=U
+\]
+
+\end_inset
+
+or
+\begin_inset Formula 
+\[
+PA=LU.
+\]
+
+\end_inset
+
+A permutation matrix is an identity matrix with certain rows exchanged;
+ multiplication from the left by a permutation matrix, 
+\begin_inset Formula $PA$
+\end_inset
+
+, produces a copy of 
+\begin_inset Formula $A$
+\end_inset
+
+ with rows exchanged as specified by 
+\begin_inset Formula $P$
+\end_inset
+
+.
+ Permutation matrices have the property that 
+\begin_inset Formula $P^{-1}=P^{T}$
+\end_inset
+
+, so that it is easy to solve systems involving 
+\begin_inset Formula $P$
+\end_inset
+
+ (this shouldn't be surprising; to apply 
+\begin_inset Formula $P^{-1}$
+\end_inset
+
+ simply undo the row exchange done by 
+\begin_inset Formula $P$
+\end_inset
+
+).
+ What is surprising is that the matrix 
+\begin_inset Formula $L^{-1}$
+\end_inset
+
+ which records the row operations can be inverted very simply with no calculatio
+ns.
+\end_layout
+
+\begin_layout Standard
+Once you've factored 
+\begin_inset Formula $A=P^{T}LU$
+\end_inset
+
+, you can solve a system 
+\begin_inset Formula $Ax=b$
+\end_inset
+
+ with two triangular solves: first solve 
+\begin_inset Formula $Ly=Pb$
+\end_inset
+
+ for 
+\begin_inset Formula $y$
+\end_inset
+
+, then 
+\begin_inset Formula $Ux=y$
+\end_inset
+
+ for 
+\begin_inset Formula $x$
+\end_inset
+
+.
+ Triangular solves require backsubstitution, which is easy.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Mtx-Inverses-Bad"
+
+\end_inset
+
+Why you shouldn't compute a matrix inverse
+\end_layout
+
+\begin_layout Standard
+The cost (in floating point operations) of doing row reduction on an 
+\begin_inset Formula $m\times m$
+\end_inset
+
+ matrix to upper triangular form by Gaussian elimination with row pivoting
+ works out to be 
+\begin_inset Formula $\frac{2}{3}m^{3}$
+\end_inset
+
+.
+ The LU factorization is simply a convenient encoding of that algorithm,
+ with no extra cost.
+ The cost formula can be derived by induction, but it's more useful to understan
+d it as follows: to do row reduction, you need to eliminate the 
+\begin_inset Formula $\approx\frac{1}{2}m^{2}$
+\end_inset
+
+ entries below the diagonal.
+ To kill each subdiagonal entry you need to do one row operation.
+ Each 
+\emph on
+full length 
+\emph default
+row operation takes 
+\begin_inset Formula $\approx2m$
+\end_inset
+
+ elementary floating point arithmetic operations (flops), so a first estimate
+ for the cost would be 
+\begin_inset Formula $\approx m^{3}$
+\end_inset
+
+.
+ But notice that as you proceed through the algorithm, the columns already
+ zeroed out can be ignored so the row operations become cheaper as you go,
+ making the 
+\begin_inset Formula $m^{3}$
+\end_inset
+
+ estimate an overestimate.
+ The exact factor can be worked out (pretty easily), and it turns out to
+ be 
+\begin_inset Formula $2/3$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+I'll ignore pivots (row exchanges) because they don't change the operation
+ counts; there's a slight cost to pivoting because indirect addressing is
+ necessary, but for moderate size dense matrices (up to a few thousand)
+ the whole thing fits in cache memory so addressing is essentially free.
+ To include pivots, just write 
+\begin_inset Formula $A$
+\end_inset
+
+ as 
+\begin_inset Formula $P^{T}LU$
+\end_inset
+
+ where 
+\begin_inset Formula $P$
+\end_inset
+
+ is a permutation matrix.
+ 
+\end_layout
+
+\begin_layout Standard
+Once you've factored 
+\begin_inset Formula $A=LU$
+\end_inset
+
+, you can solve a system 
+\begin_inset Formula $Ax=b$
+\end_inset
+
+ with two triangular solves: first solve 
+\begin_inset Formula $Ly=b$
+\end_inset
+
+ for 
+\begin_inset Formula $y$
+\end_inset
+
+, then 
+\begin_inset Formula $Ux=y$
+\end_inset
+
+ for 
+\begin_inset Formula $x$
+\end_inset
+
+.
+ The cost of one triangular solve is 
+\begin_inset Formula $m^{2}$
+\end_inset
+
+ flops (you do two operations with half the elements, so twice 
+\begin_inset Formula $m^{2}/2$
+\end_inset
+
+).
+ So solving 
+\begin_inset Formula $Ax=b$
+\end_inset
+
+ with one RHS costs 
+\begin_inset Formula $\frac{2}{3}m^{3}+2m^{2}.$
+\end_inset
+
+ Solving 
+\begin_inset Formula $r$
+\end_inset
+
+ systems with different right-hand sides costs
+\begin_inset Formula 
+\[
+\underbrace{\frac{2}{3}m^{3}}_{LU\mbox{ factorization}}+\underbrace{2rm^{2}}_{2r\mbox{ triangular solves}}.
+\]
+
+\end_inset
+
+Now compare to the cost of solving these systems by computing 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+ once, then multiplying 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+ by each of 
+\begin_inset Formula $r$
+\end_inset
+
+ right-hand sides.
+ To find 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+, solve the system 
+\begin_inset Formula $AX=I$
+\end_inset
+
+ for 
+\begin_inset Formula $X$
+\end_inset
+
+.
+ The best way to do this is to factor 
+\begin_inset Formula $A$
+\end_inset
+
+ into 
+\begin_inset Formula $LU$
+\end_inset
+
+, then use it to solve 
+\begin_inset Formula $AX_{j}=e_{j}$
+\end_inset
+
+ (where 
+\begin_inset Formula $e_{j}$
+\end_inset
+
+ is the 
+\begin_inset Formula $j$
+\end_inset
+
+-th column of the identity) using the method above.
+ Since there are 
+\begin_inset Formula $m$
+\end_inset
+
+ such systems to solve, the cost of forming the inverse is given by the
+ formula above with 
+\begin_inset Formula $r=m$
+\end_inset
+
+, or 
+\begin_inset Formula 
+\[
+\frac{8}{3}m^{3}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now that you have the inverse, solving 
+\begin_inset Formula $Ax=b$
+\end_inset
+
+ requires a matrix-vector multiplication 
+\begin_inset Formula $x=A^{-1}b$
+\end_inset
+
+.
+ It's easy to see that each matrix-vector multiplication costs 
+\begin_inset Formula $2m^{2}$
+\end_inset
+
+ operations.
+ Doing 
+\begin_inset Formula $r$
+\end_inset
+
+ matrix-vector multiplications requires 
+\begin_inset Formula $2rm^{2}$
+\end_inset
+
+ operations, exactly the same as the cost of doing the triangular solves
+ in the 
+\begin_inset Formula $LU$
+\end_inset
+
+ method; that is, once you've formed 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+ the marginal cost of solving one more system is exactly the same as if
+ you'd simply stored 
+\begin_inset Formula $LU$
+\end_inset
+
+.
+ Unfortunately, since you already had to find 
+\begin_inset Formula $LU$
+\end_inset
+
+ to compute 
+\begin_inset Formula $A^{=1}$
+\end_inset
+
+, finding and using the inverse is never cost effective.
+\end_layout
+
+\begin_layout Standard
+To summarize:
+\end_layout
+
+\begin_layout Itemize
+Cost of factoring 
+\begin_inset Formula $A=LU$
+\end_inset
+
+, then doing 2 triangular solves for each of 
+\begin_inset Formula $r$
+\end_inset
+
+ right-hand sides: 
+\begin_inset Formula 
+\[
+\underbrace{\frac{2}{3}m^{3}}_{LU\mbox{ factorization}}+\underbrace{2rm^{2}}_{2r\mbox{ triangular solves}}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Cost of computing 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+, then doing matrix-vector multiplication for each of 
+\begin_inset Formula $r$
+\end_inset
+
+ right-hand sides:
+\begin_inset Formula 
+\[
+\underbrace{\frac{2}{3}m^{3}}_{LU\mbox{ factorization}}+\underbrace{2m^{3}r}_{2m\mbox{ triangular solves to find }A^{-1}}+\underbrace{2rm^{2}}_{r\mbox{ matrix-vector multiplications \ensuremath{A^{-1}b}}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=2m^{3}\;\;\mbox{overhead beyond solving the same problem without the inverse.}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Elementary textbooks often say that you only compute an inverse when you're
+ going to solve multiple systems, but you can now see that even then it's
+ simply not efficient.
+ 
+\end_layout
+
+\begin_layout Standard
+You might use an inverse in cases where forming the inverse is trivial:
+ for example, to invert a diagonal matrix just replace the diagonal elements
+ by their reciprocals.
+ Another important example is an orthogonal matrix, where the inverse turns
+ out to be the transpose, no need for any calculations.
+ Finally, there's a simple formula for the inverse of a two-by-two matrix
+\begin_inset Formula 
+\[
+\left[\begin{array}{cc}
+a & b\\
+c & d
+\end{array}\right]^{-1}=\frac{1}{ad-bc}\left[\begin{array}{cc}
+d & -b\\
+-c & a
+\end{array}\right]
+\]
+
+\end_inset
+
+that's handy for quick calculations.
+\end_layout
+
+\begin_layout Standard
+In any real production calculation, 
+\series bold
+\emph on
+you should never compute a non-trivial inverse
+\series default
+\emph default
+.
+ And 
+\series bold
+\emph on
+never, never use Cramer's Rule with Laplace expansion of the determinant
+ for numerical calculation
+\series default
+\emph default
+.
+\end_layout
+
+\begin_layout Section
+Computing determinants numerically
+\end_layout
+
+\begin_layout Standard
+The first thing to say is this: If you think you need to compute a determinant
+ numerically, you probably don't.
+ There's really only one reason to compute one, and that's if you need to
+ compute a volume or hypervolume.
+ If you're doing a numerical integral, yep, you'll need a determinant.
+ Otherwise, probably not.
+ If you're thinking of computing a determinant numerically to solve a system
+ or to compute eigenvalues, stop now and read about the right ways to do
+ those calculations.
+ The right ways don't involve determinants.
+\end_layout
+
+\begin_layout Standard
+Okay, suppose you really do need to compute 
+\begin_inset Formula $\det\left(A\right)$
+\end_inset
+
+ for some numerical matrix 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ Here's how.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Use your favorite LU factorization code to factor 
+\begin_inset Formula $A$
+\end_inset
+
+ into 
+\begin_inset Formula $PLU$
+\end_inset
+
+, where 
+\begin_inset Formula $P$
+\end_inset
+
+ is a permutation matrix, 
+\begin_inset Formula $L$
+\end_inset
+
+ is lower triangular with ones on the diagonal, and 
+\begin_inset Formula $U$
+\end_inset
+
+ is upper triangular.
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\det\left(P\right)$
+\end_inset
+
+ will be 
+\begin_inset Formula $-1$
+\end_inset
+
+ for an odd permutation and 
+\begin_inset Formula $1$
+\end_inset
+
+ for an even permutation.
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\det\left(L\right)$
+\end_inset
+
+ will be one.
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\det\left(U\right)$
+\end_inset
+
+ will be the product of the diagonals entries in 
+\begin_inset Formula $U$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\det\left(A\right)=\det\left(P\right)\det\left(L\right)\det\left(U\right)$
+\end_inset
+
+, or
+\begin_inset Formula 
+\[
+\det\left(A\right)=\det\left(P\right)\prod_{i=1}^{m}U_{ii},
+\]
+
+\end_inset
+
+where, again, 
+\begin_inset Formula $\det\left(P\right)$
+\end_inset
+
+ is 
+\begin_inset Formula $\pm1$
+\end_inset
+
+ depending on the parity of the permutations.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:How-to-wait"
+
+\end_inset
+
+How to wait a lifetime and get the wrong answer: expansion in minors
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $A$
+\end_inset
+
+ is 
+\begin_inset Formula $m\times m$
+\end_inset
+
+, then computing 
+\begin_inset Formula $\det\left(A\right)$
+\end_inset
+
+ by expansion in minors takes 
+\begin_inset Formula $m!$
+\end_inset
+
+ operations.
+ (Can you see why? Hint: induction.) The factorial grows 
+\emph on
+very
+\emph default
+ fast.
+ 
+\end_layout
+
+\begin_layout Standard
+A typical GPU can do a teraflop: 
+\begin_inset Formula $10^{12}$
+\end_inset
+
+ floating point operations per second.
+ There are 
+\begin_inset Formula $3.15\times10^{7}$
+\end_inset
+
+ seconds in a year.
+ So your GPU will take 
+\begin_inset Formula $\approx3\times10^{-20}$
+\end_inset
+
+ years (a thousandth of a nanosecond) to do one flop.
+ The fact that I'm using 
+\emph on
+years
+\emph default
+, not seconds, as my time units should alarm you.
+ The problem is that 
+\begin_inset Formula $m!$
+\end_inset
+
+ grows so darn fast with 
+\begin_inset Formula $m$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $m$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $m!$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+10
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $3.63\times10^{8}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $2.43\times10^{18}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+22
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1.12\times10^{21}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+25
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1.55\times10^{25}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $30$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $2.65\times10^{32}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+For 
+\begin_inset Formula $m=10$
+\end_inset
+
+, your determinant will be done in about a microsecond.
+ So far, so good.
+ 
+\end_layout
+
+\begin_layout Itemize
+For 
+\begin_inset Formula $m=20$
+\end_inset
+
+, your determinant will be done in 
+\begin_inset Formula $0.07$
+\end_inset
+
+ years, a bit under a month.
+ Be sure you have a good battery backup, and you'll get there.
+ 
+\end_layout
+
+\begin_layout Itemize
+For 
+\begin_inset Formula $m=22$
+\end_inset
+
+, you'll wait 
+\begin_inset Formula $33.7$
+\end_inset
+
+ years.
+ Start now, and you'll be done when your grandkids are in elementary school.
+ 
+\end_layout
+
+\begin_layout Itemize
+For 
+\begin_inset Formula $m=30$
+\end_inset
+
+...
+ you'll wait 
+\begin_inset Formula $8\times10^{12}$
+\end_inset
+
+ years.
+ For comparison, the Big Bang was 
+\begin_inset Formula $1.3\times10^{10}$
+\end_inset
+
+ years ago.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To add insult to injury, after patiently waiting a few weeks, or 
+\begin_inset Formula $8\times10^{12}$
+\end_inset
+
+ years, for the determinant, it will be wildly inaccurate.
+ Remember all those alternating signs in the expansion by minors? That means
+ you're doing lots of subtractions of quantities of similar magnitude, which
+ is ripe for roundoff error.
+ 
+\end_layout
+
+\begin_layout Standard
+Don't do it.
+ Use the LU factorization method instead.
+ An LU factorization takes 
+\begin_inset Formula $\frac{2}{3}m^{3}$
+\end_inset
+
+ flops; you'll be able to do large systems in the blink of an eye rather
+ than a lifetime, and you'll have an accurate determinant when done.
+ 
+\end_layout
+
+\begin_layout Standard
+Even for a 3 by 3 matrix, use the LU method.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+I say this from experience.
+ Once when writing a finite element code – which requires a 
+\emph on
+lot 
+\emph default
+of 3D numerical integrals – I got lazy and hand-coded the easy formula for
+ the determinant of a 
+\begin_inset Formula $3\times3$
+\end_inset
+
+ instead of doing the right thing and hooking in an LU function.
+ I knew the right way to do it, but was in a rush and figured a 
+\begin_inset Formula $3\times3$
+\end_inset
+
+ would be small enough to avoid catastrophic roundoff.
+ Sure enough, upon testing, the code was coming in below accuracy requirements
+ and I tracked it down to roundoff error in the stupid 
+\begin_inset Formula $3\times3$
+\end_inset
+
+ determinants.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Further reading
+\end_layout
+
+\begin_layout Itemize
+There are many introductory linear algebra textbooks.
+ One of the better choices is 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Strang2006"
+literal "true"
+
+\end_inset
+
+.
+ For a concise and inexpensive introduction to linear algebra, it's hard
+ to go wrong with the Schaum's Outline, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lipschutz2017schaum"
+literal "true"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+A linear algebra textbook aimed specifically at applications to differential
+ equations is 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Strang2014"
+literal "true"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+For more information on numerical computation with matrices, see 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Watkins2010"
+literal "true"
+
+\end_inset
+
+, or the more advanced 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Trefethen1997"
+literal "true"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+Introductory books for the more mathematically mature
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Quotes eld
+\end_inset
+
+Mathematically mature
+\begin_inset Quotes erd
+\end_inset
+
+ means 
+\begin_inset Quotes eld
+\end_inset
+
+totally comfortable working with proofs
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ student are 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "lax2007"
+literal "true"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "axler1997linear"
+literal "true"
+
+\end_inset
+
+.
+ Lax starts with determinants (from the geometric viewpoint), while Axler
+ holds them off to the very end; there are many ways to approach the same
+ subject.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintCited"
+bibfiles "Refs"
+options "bibtotoc,plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
